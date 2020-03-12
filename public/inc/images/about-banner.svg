@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="1261px" height="470.44px" viewBox="0 0 1261 470.44" style="enable-background:new 0 0 1261 470.44;" xml:space="preserve"
+	>
+<rect style="fill:#FFFFFF;" width="1261" height="470"/>
+<polygon style="fill:#00A3C8;" points="1261,470 917,470.44 787,0 1261,0 "/>
+<polygon style="fill:#808080;" points="774,0 904,470.44 920.527,470.419 788.281,0 "/>
+<circle style="fill:#808080;" cx="891.22" cy="238.22" r="225.22"/>
+<g>
+	<defs>
+		<circle id="SVGID_1_" cx="891.091" cy="238.091" r="211.091"/>
+	</defs>
+	<clipPath id="SVGID_2_">
+		<use xlink:href="#SVGID_1_"  style="overflow:visible;"/>
+	</clipPath>
+	<g style="clip-path:url(#SVGID_2_);">
+		
+			<image style="overflow:visible;" width="480" height="319" xlink:href="../../Downloads/Stethoscope stock.jpg"  transform="matrix(1.3267 0 0 1.3267 548.6816 25.3906)">
+		</image>
+	</g>
+</g>
+<rect y="510" style="fill:#FFFFFF;" width="1261" height="470"/>
+<g>
+	<defs>
+		<polygon id="SVGID_3_" points="1261,980 917,980.44 787,510 1261,510 		"/>
+	</defs>
+	<clipPath id="SVGID_4_">
+		<use xlink:href="#SVGID_3_"  style="overflow:visible;"/>
+	</clipPath>
+	<g transform="matrix(1 0 0 1 0 -3.051758e-005)" style="clip-path:url(#SVGID_4_);">
+		
+			<image style="overflow:visible;" width="480" height="319" xlink:href="../../Downloads/Stethoscope stock.jpg"  transform="matrix(1.4757 0 0 1.4757 638 510.7227)">
+		</image>
+	</g>
+</g>
+<polygon style="fill:#00A3C8;" points="774,510 904,980.44 920.527,980.419 788.281,510 "/>
+<circle style="fill:none;" cx="891.091" cy="748.091" r="211.091"/>
+<polygon style="opacity:0.2;fill:#00A3C8;" points="1261,980 917,980.44 787,510 1261,510 "/>
+<text transform="matrix(1 0 0 1 218 728)" style="fill:#00A3C8; font-family:'Raleway-Bold'; font-size:48;">Who We Are</text>
+<text transform="matrix(1 0 0 1 192 787.0908)" style="fill:#00A3C8; font-family:'Raleway-Light'; font-size:36;">Care Cure Support</text>
+<line style="fill:none;stroke:#939598;stroke-width:4;stroke-miterlimit:10;" x1="214" y1="741" x2="534" y2="741"/>
+</svg>

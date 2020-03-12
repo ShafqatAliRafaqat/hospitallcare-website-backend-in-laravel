@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+	<url>
+	<loc>http://localhost:8000/blogs/14/improving-outcomes-the-promising-future-of-obesity-surgeries-in-pakistan</loc>
+		<priority>0.5</priority>
+		<lastmod>2018-12-31T10:41:41+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
+	<loc>http://localhost:8000/blogs/13/everyones-a-runner-your-local-knee-replacement-guide</loc>
+		<priority>0.5</priority>
+		<lastmod>2018-12-31T10:40:30+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
+	<loc>http://localhost:8000/blogs/12/are-we-ready-to-talk-about-it-the-modern-pakistan-and-ivf</loc>
+		<priority>0.5</priority>
+		<lastmod>2018-12-31T10:39:06+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
+	<loc>http://localhost:8000/blogs/11/the-bald-days-are-over</loc>
+		<priority>0.5</priority>
+		<lastmod>2018-12-31T10:37:07+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
+	<loc>http://localhost:8000/blogs/10/the-thin-veil-lifting-the-taboo-of-cosmetic-procedures</loc>
+		<priority>0.5</priority>
+		<lastmod>2018-12-31T10:34:40+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+</urlset>
+
