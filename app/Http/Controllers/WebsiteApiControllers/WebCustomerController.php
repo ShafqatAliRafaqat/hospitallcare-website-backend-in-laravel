@@ -65,7 +65,7 @@ class WebCustomerController extends Controller
             foreach ($treatment_appointments as $ta) {
                 $ta->map            = "https://www.google.com/maps?saddr&daddr=$ta->lat,$ta->lng";
                 $doctor_image       =   doctorImage($ta->doctor_id);
-                $ta->doctor_image   =   (isset($doctor_image))? 'https://support.hospitallcare.com/backend/uploads/doctors/'.$doctor_image->picture:null;
+                $ta->doctor_image   =   (isset($doctor_image))? 'http://test.hospitallcare.com/backend/uploads/doctors/'.$doctor_image->picture:null;
             }
         }
         return response()->json(['data' => $treatment_appointments]);
@@ -85,7 +85,7 @@ class WebCustomerController extends Controller
             foreach ($treatment_appointments as $ta) {
                 $ta->map            = "https://www.google.com/maps?saddr&daddr=$ta->lat,$ta->lng";
                 $doctor_image       =   doctorImage($ta->doctor_id);
-                $ta->doctor_image   =   (isset($doctor_image))? 'https://support.hospitallcare.com/backend/uploads/doctors/'.$doctor_image->picture:null;
+                $ta->doctor_image   =   (isset($doctor_image))? 'http://test.hospitallcare.com/backend/uploads/doctors/'.$doctor_image->picture:null;
             }
         }
         return response()->json(['data' => $treatment_appointments]);
@@ -105,7 +105,7 @@ class WebCustomerController extends Controller
             foreach ($treatment_appointments as $ta) {
                 $ta->map            = "https://www.google.com/maps?saddr&daddr=$ta->lat,$ta->lng";
                 $doctor_image       =   doctorImage($ta->doctor_id);
-                $ta->doctor_image   =   (isset($doctor_image))? 'https://support.hospitallcare.com/backend/uploads/doctors/'.$doctor_image->picture:null;
+                $ta->doctor_image   =   (isset($doctor_image))? 'http://test.hospitallcare.com/backend/uploads/doctors/'.$doctor_image->picture:null;
             }
         }
         return response()->json(['data' => $treatment_appointments]);

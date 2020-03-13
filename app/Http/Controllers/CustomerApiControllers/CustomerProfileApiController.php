@@ -189,7 +189,7 @@ class CustomerProfileApiController extends Controller{
         $customer_id = Auth::user()->customer_id;
         $customer  = Customer::where('id',$customer_id)->first();
         $customer_image = DB::table('customer_images')->where('customer_id',$customer_id)->first();
-        $customer->picture = isset($customer_image)?'https://support.hospitallcare.com/backend/uploads/customers/'.$customer_image->picture:'';
+        $customer->picture = isset($customer_image)?'http://test.hospitallcare.com/backend/uploads/customers/'.$customer_image->picture:'';
         return CustomerProfileResource::make($customer);
     }
     public function updateCustomerProfile(Request $request){
@@ -259,7 +259,7 @@ class CustomerProfileApiController extends Controller{
             foreach ($treatment_appointment as $ta) {
                 $ta->map            = "https://www.google.com/maps?saddr&daddr=$ta->lat,$ta->lng";
                 $doctor_image       =   doctorImage($ta->doctor_id);
-                $ta->doctor_image   =   (isset($doctor_image))? 'https://support.hospitallcare.com/backend/uploads/doctors/'.$doctor_image->picture:null;
+                $ta->doctor_image   =   (isset($doctor_image))? 'http://test.hospitallcare.com/backend/uploads/doctors/'.$doctor_image->picture:null;
             }
         }
         return response()->json(['data' => isset($treatment_appointment)?$treatment_appointment:[]]);
@@ -290,7 +290,7 @@ class CustomerProfileApiController extends Controller{
             foreach ($treatment_appointment as $ta) {
                 $ta->map            = "https://www.google.com/maps?saddr&daddr=$ta->lat,$ta->lng";
                 $doctor_image       =   doctorImage($ta->doctor_id);
-                $ta->doctor_image   =   (isset($doctor_image))? 'https://support.hospitallcare.com/backend/uploads/doctors/'.$doctor_image->picture:null;
+                $ta->doctor_image   =   (isset($doctor_image))? 'http://test.hospitallcare.com/backend/uploads/doctors/'.$doctor_image->picture:null;
             }
         }
         return response()->json(['data' => isset($treatment_appointment)?$treatment_appointment:[]]);
@@ -321,7 +321,7 @@ class CustomerProfileApiController extends Controller{
             foreach ($treatment_appointment as $ta) {
                 $ta->map            = "https://www.google.com/maps?saddr&daddr=$ta->lat,$ta->lng";
                 $doctor_image       =   doctorImage($ta->doctor_id);
-                $ta->doctor_image   =   (isset($doctor_image))? 'https://support.hospitallcare.com/backend/uploads/doctors/'.$doctor_image->picture:null;
+                $ta->doctor_image   =   (isset($doctor_image))? 'http://test.hospitallcare.com/backend/uploads/doctors/'.$doctor_image->picture:null;
             }
         }
         return response()->json(['data' => isset($treatment_appointment)?$treatment_appointment:[]]);

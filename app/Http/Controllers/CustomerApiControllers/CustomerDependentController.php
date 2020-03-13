@@ -23,7 +23,7 @@ class CustomerDependentController extends Controller
         if(count($dependent)>0){
             foreach($dependent as $d){
                 $customer_image = DB::table('customer_images')->where('customer_id',$d->id)->select('picture')->first();
-                $d['picture']   = isset($customer_image)? 'https://support.hospitallcare.com/backend/uploads/customers/'.$customer_image->picture:'';
+                $d['picture']   = isset($customer_image)? 'http://test.hospitallcare.com/backend/uploads/customers/'.$customer_image->picture:'';
             }
         }
         return response()->json(['data'=>$dependent], 200);
@@ -44,7 +44,7 @@ class CustomerDependentController extends Controller
                 $picture    =   DB::table('customer_images')->where('customer_id',$customer->id)->first();
                 $customer->picture      =   null;
                 if ($picture) {
-                    $customer->picture      =   'https://support.hospitallcare.com/backend/uploads/customers/'.$picture->picture;
+                    $customer->picture      =   'http://test.hospitallcare.com/backend/uploads/customers/'.$picture->picture;
                 }
                 return response()->json(['data'=>$customer,'message' => 'Member Found','status' => 'found'], 200);
             } else {

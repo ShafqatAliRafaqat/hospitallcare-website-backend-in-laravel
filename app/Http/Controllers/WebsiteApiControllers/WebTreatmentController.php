@@ -123,7 +123,7 @@ class WebTreatmentController extends Controller
             $top_Specializations_name[$q]['name']           = $top_Specializations_names[$q];
             $top_Specializations_name[$q]['centers']        = $centers;
             $top_Specializations_name[$q]['doctors']        = $doctors->count();
-            $top_Specializations_name[$q]['picture_path']   = 'https://support.hospitallcare.com/backend/web_imgs/new_specialization/'.$ts.'.svg';
+            $top_Specializations_name[$q]['picture_path']   = 'http://test.hospitallcare.com/backend/web_imgs/new_specialization/'.$ts.'.svg';
         $q++;
         }
         return response()->json([

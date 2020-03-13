@@ -40,7 +40,7 @@ class CustomerTreatmentApiController extends Controller{
             $top_Specializations_name[$q]['name']           = $top_Specializations_names[$q];
             $top_Specializations_name[$q]['centers']        = $centers;
             $top_Specializations_name[$q]['doctors']        = $doctors->count();
-            $top_Specializations_name[$q]['picture_path']   = 'https://support.hospitallcare.com/backend/web_imgs/new_specialization/'.$ts.'.png';
+            $top_Specializations_name[$q]['picture_path']   = 'http://test.hospitallcare.com/backend/web_imgs/new_specialization/'.$ts.'.png';
         $q++;
         }
         return response()->json([
@@ -52,7 +52,7 @@ class CustomerTreatmentApiController extends Controller{
         $q = 0;
         foreach($treatments as $treatment){
             $treatment_image = DB::table('treatment_images')->where('treatment_id',$treatment->id)->first();
-            $treatment['picture'] = (isset($treatment_image))?'https://support.hospitallcare.com/backend/uploads/treatments/'.$treatment_image->picture:'https://support.hospitallcare.com/backend/web_imgs/treatment.png';
+            $treatment['picture'] = (isset($treatment_image))?'http://test.hospitallcare.com/backend/uploads/treatments/'.$treatment_image->picture:'http://test.hospitallcare.com/backend/web_imgs/treatment.png';
             $ts             =   $treatment->id;
             $centers        =   DB::table('treatments as t')
                                     ->join('center_treatments as ct','ct.treatments_id','t.id')

@@ -21,7 +21,7 @@ class CenterResource extends JsonResource
         $data = [
             'id'            =>  $c->id,
             'center_name'   =>  $c->center_name,
-            'picture'       =>  (isset($c->center_image))?'https://support.hospitallcare.com/backend/uploads/centers/'.$c->center_image->picture:null,
+            'picture'       =>  (isset($c->center_image))?'http://test.hospitallcare.com/backend/uploads/centers/'.$c->center_image->picture:null,
             'focus_area'    =>  (isset($c->focus_area))?$c->focus_area:null,
             'address'       =>  (isset($c->address))?$c->address:null,
             'notes'         =>  (isset($c->notes))?$c->notes:null,

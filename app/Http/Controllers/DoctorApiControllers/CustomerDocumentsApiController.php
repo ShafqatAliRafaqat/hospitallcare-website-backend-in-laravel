@@ -101,14 +101,14 @@ class CustomerDocumentsApiController extends Controller{
                 $date                                       =   Carbon::parse($file->created_at);
                 $created_at                                 =   $date->format('jS F Y');
                 if ($file_type == "image") {
-                    $data['images']['image'][]              =   'https://support.hospitallcare.com/backend/uploads/customer_documents/'.$file->slug;
+                    $data['images']['image'][]              =   'http://test.hospitallcare.com/backend/uploads/customer_documents/'.$file->slug;
                     $data['images']['image_id'][]           =   $file->id;
                     $data['images']['image_title'][]        =   $file->title;
                     $data['images']['image_created_at'][]   =   $created_at;
 
                     // $data['images'][]['id']      =   $file->id;
                 } elseif ($file_type == "pdf" || $file_type == "docx" || $file_type == "xlsx") {
-                    $data['files']['file'][]                =   'https://support.hospitallcare.com/backend/uploads/customer_documents/'.$file->slug;
+                    $data['files']['file'][]                =   'http://test.hospitallcare.com/backend/uploads/customer_documents/'.$file->slug;
                     $data['files']['file_id'][]             =   $file->id;
                     $data['files']['file_title'][]          =   $file->title;
                     $data['files']['file_created_at'][]     =   $created_at;

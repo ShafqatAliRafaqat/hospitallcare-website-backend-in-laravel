@@ -32,8 +32,8 @@ class DoctorPatientApiController extends Controller
         foreach ($patients as $p) {
             $image          =   DB::table('customer_images')->where('customer_id',$p->id)->first();
             $p->gender      =   ($p->gender == 0)?'Male':'Female';
-            $p->image       =  (isset($image->picture))? 'https://support.hospitallcare.com/backend/uploads/customers/'.$image->picture:'';
-            // $p->image       =   ((isset($image->picture))? 'https://support.hospitallcare.com/backend/uploads/customers/'.$image->picture:(($p->gender == 0)?'https://support.hospitallcare.com/backend/web_imgs/app-male.png':'https://support.hospitallcare.com/backend/web_imgs/app-female.png'));
+            $p->image       =  (isset($image->picture))? 'http://test.hospitallcare.com/backend/uploads/customers/'.$image->picture:'';
+            // $p->image       =   ((isset($image->picture))? 'http://test.hospitallcare.com/backend/uploads/customers/'.$image->picture:(($p->gender == 0)?'http://test.hospitallcare.com/backend/web_imgs/app-male.png':'http://test.hospitallcare.com/backend/web_imgs/app-female.png'));
         }
         return response()->json(['data' => $patients], 200);
     }

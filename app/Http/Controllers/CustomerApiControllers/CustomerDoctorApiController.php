@@ -44,7 +44,7 @@ class CustomerDoctorApiController extends Controller{
         foreach($doctors as $doctor){
             $gender = ($doctor->gender == 1 ) ? "Male.png":"Female.png";
             $doctor_image = DB::table('doctor_images')->where('doctor_id',$doctor->id)->first();
-            $doctor['picture'] = (isset($doctor_image))?'https://support.hospitallcare.com/backend/uploads/doctors/'.$doctor_image->picture:('https://support.hospitallcare.com/backend/web_imgs/'.$gender);
+            $doctor['picture'] = (isset($doctor_image))?'http://test.hospitallcare.com/backend/uploads/doctors/'.$doctor_image->picture:('http://test.hospitallcare.com/backend/web_imgs/'.$gender);
         }
         return response()->json(['data'=> $doctors],200);
      }
@@ -135,7 +135,7 @@ class CustomerDoctorApiController extends Controller{
                                     ->get();
             foreach ($specializations as $s) {
                 $picture        =   DB::table('treatment_images')->where('treatment_id',$s->id)->select('picture')->first();
-                $s->picture     =   isset($picture)? 'https://support.hospitallcare.com/backend/uploads/treatments/'.$picture->picture : 'https://support.hospitallcare.com/backend/web_imgs/treatment.png';
+                $s->picture     =   isset($picture)? 'http://test.hospitallcare.com/backend/uploads/treatments/'.$picture->picture : 'http://test.hospitallcare.com/backend/web_imgs/treatment.png';
             }
             $doctors            =   DB::table('doctors as d')
                                     ->where('d.is_approved','!=',0)
@@ -148,7 +148,7 @@ class CustomerDoctorApiController extends Controller{
             foreach ($doctors as $d) {
                 $picture        =   doctorImage($d->id);
                 $gender         =   ($d->gender == 1 ) ? 'Male.png':'Female.png';
-                $d->picture     =   isset($picture)? 'https://support.hospitallcare.com/backend/uploads/doctors/'.$picture->picture : 'https://support.hospitallcare.com/backend/web_imgs/'.$gender;
+                $d->picture     =   isset($picture)? 'http://test.hospitallcare.com/backend/uploads/doctors/'.$picture->picture : 'http://test.hospitallcare.com/backend/web_imgs/'.$gender;
             }
             $centers            =   DB::table('medical_centers')
                                     ->where('is_approved','!=',0)
@@ -158,7 +158,7 @@ class CustomerDoctorApiController extends Controller{
                                     ->get();
             foreach ($centers as $c) {
                 $picture        =   DB::table('center_images')->where('center_id',$c->id)->select('picture')->first();
-                $c->picture     =   isset($picture)? 'https://support.hospitallcare.com/backend/uploads/centers/'.$picture->picture : 'https://support.hospitallcare.com/backend/web_imgs/hospital.jpg';
+                $c->picture     =   isset($picture)? 'http://test.hospitallcare.com/backend/uploads/centers/'.$picture->picture : 'http://test.hospitallcare.com/backend/web_imgs/hospital.jpg';
             }
         return response()->json(
             ['data' =>  [

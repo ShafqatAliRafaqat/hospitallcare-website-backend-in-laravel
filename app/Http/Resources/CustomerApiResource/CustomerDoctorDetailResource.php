@@ -25,7 +25,7 @@ class CustomerDoctorDetailResource extends JsonResource
             'partnership'        =>  $d->is_partner,
             'gender'            =>  ($d->gender == 1 ) ? "Male":"Female",
             // 'centers'           =>  (isset($d->doctor_schedules)) ? $d->doctor_schedules:"",
-            'picture'           => (isset($doctor_image))? 'https://support.hospitallcare.com/backend/uploads/doctors/'.$doctor_image->picture:('https://support.hospitallcare.com/backend/web_imgs/'.$gender),
+            'picture'           => (isset($doctor_image))? 'http://test.hospitallcare.com/backend/uploads/doctors/'.$doctor_image->picture:('http://test.hospitallcare.com/backend/web_imgs/'.$gender),
         ];
 
         return $data;

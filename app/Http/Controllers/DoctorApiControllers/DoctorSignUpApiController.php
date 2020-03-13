@@ -276,7 +276,7 @@ class DoctorSignUpApiController extends Controller
             $doctor = Doctor::where('phone', $phone)->update([
                 'reset_password' => $url_code,
             ]);
-            $url = "https://support.hospitallcare.com/forget_password/$url_code";
+            $url = "http://test.hospitallcare.com/forget_password/$url_code";
             $sms = "To+change+your+password,+please+follow+this+link+\n$url";
             $code_sended = CustomerAppointmentSms($sms , $phone);
             $doctor_phone_validation =  DB::table('doctor_phone_verification')->where('code',$request->code)->delete();

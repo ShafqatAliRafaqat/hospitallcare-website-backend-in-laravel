@@ -34,7 +34,7 @@ class CustomerCenterApiController extends Controller{
                             ->count();
             $center->map            = "https://www.google.com/maps?saddr&daddr=$center->lat,$center->lng";
             $center_image = DB::table('center_images')->where('center_id',$center->id)->first();
-            $center['picture'] = (isset($center_image))?'https://support.hospitallcare.com/backend/uploads/centers/'.$center_image->picture:'https://support.hospitallcare.com/backend/web_imgs/hospital.jpg';
+            $center['picture'] = (isset($center_image))?'http://test.hospitallcare.com/backend/uploads/centers/'.$center_image->picture:'http://test.hospitallcare.com/backend/web_imgs/hospital.jpg';
         }
         return CustomerCenterResource::collection($centers); 
         
@@ -45,7 +45,7 @@ class CustomerCenterApiController extends Controller{
         foreach($centers as $center){
 
             $center_image = DB::table('center_images')->where('center_id',$center->id)->first();
-            $center['picture'] = (isset($center_image))?'https://support.hospitallcare.com/backend/uploads/centers/'.$center_image->picture:'https://support.hospitallcare.com/backend/web_imgs/hospital.jpg';
+            $center['picture'] = (isset($center_image))?'http://test.hospitallcare.com/backend/uploads/centers/'.$center_image->picture:'http://test.hospitallcare.com/backend/web_imgs/hospital.jpg';
         }
         return response()->json(['data'=> $centers],200);
     }
