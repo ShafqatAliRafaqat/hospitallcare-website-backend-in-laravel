@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 
 class CustomerDocumentsApiController extends Controller{
-    public function upload(Request $request)
+    public function upload(Request $request, $customer_id)
     {
         // $files          =   $request->file('picture');
         // $file         =   Input::file('picture');
@@ -39,7 +39,7 @@ class CustomerDocumentsApiController extends Controller{
         //     return response()->json(['message'  =>  $validator->errors()],404);
         // }
         $store          =   null;
-        $customer_id    =   Auth::user()->customer_id;
+        // $customer_id    =   Auth::user()->customer_id;
         $customer_name  =   str_slug(customerName($customer_id));
         $title          =   $request->title;
         $description    =   $request->description;
@@ -99,10 +99,10 @@ class CustomerDocumentsApiController extends Controller{
             return response()->json(['message' => "Please Upload a file"],404);
         }
     }
-    public function show_all(Request $request)
+    public function show_all(Request $request, $customer_id)
     {
         $type           =   $request->type;
-        $customer_id    =   Auth::user()->customer_id;
+        // $customer_id    =   Auth::user()->customer_id;
         $files          =   DB::table("customer_documents")->where('customer_id',$customer_id)->where('type',$type)->get();
         $data['images']['image']    = [];
         $data['files']['file']      = [];
@@ -112,14 +112,14 @@ class CustomerDocumentsApiController extends Controller{
                 $date                                       =   Carbon::parse($file->created_at);
                 $created_at                                 =   $date->format('jS F Y');
                 if ($file_type == "image") {
-                    $data['images']['image'][]              =   'http://test.hospitallcare.com/backend/uploads/customer_documents/'.$file->slug;
+                    $data['images']['image'][]              =   'https://support.hospitallcare.com/backend/uploads/customer_documents/'.$file->slug;
                     $data['images']['image_id'][]           =   $file->id;
                     $data['images']['image_title'][]        =   $file->title;
                     $data['images']['image_created_at'][]   =   $created_at;
 
                     // $data['images'][]['id']      =   $file->id;
                 } elseif ($file_type == "pdf" || $file_type == "docx" || $file_type == "xlsx") {
-                    $data['files']['file'][]                =   'http://test.hospitallcare.com/backend/uploads/customer_documents/'.$file->slug;
+                    $data['files']['file'][]                =   'https://support.hospitallcare.com/backend/uploads/customer_documents/'.$file->slug;
                     $data['files']['file_id'][]             =   $file->id;
                     $data['files']['file_title'][]          =   $file->title;
                     $data['files']['file_created_at'][]     =   $created_at;
@@ -130,10 +130,10 @@ class CustomerDocumentsApiController extends Controller{
             return response()->json(['data' => $data],200);
         }
     }
-    public function delete_files(Request $request)
+    public function delete_files(Request $request, $customer_id)
     {
         $ids    =   $request->id;
-        $customer_id    =   Auth::user()->customer_id;
+        // $customer_id    =   Auth::user()->customer_id;
         $path           =   'backend/uploads/customer_documents/';
         if ($ids) {
             $datas      =   DB::table('customer_documents')->where('customer_id',$customer_id)->whereIn('id',$ids)->get();

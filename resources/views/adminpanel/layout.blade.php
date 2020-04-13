@@ -345,10 +345,17 @@ use Illuminate\Support\Facades\DB;
               @endcan
             @can('media_hub')
             <li class="sidebar-list-item">
-              <a href="{{ route('seo-doctor') }}" class="sidebar-link sidebar-text-bright {{ Request::segment(2) == 'seo-doctor' ? 'active' : ''}}"><i class="fab fa-searchengin mr-3 text-gray"></i>
-                <span>SEO Import</span>
-              </a>
-            </li>
+                <a href="#" data-toggle="collapse" data-target="#seo_import" aria-expanded="false"
+                aria-controls="seo_import" class="sidebar-link sidebar-text-bright">
+                <i class="fab fa-searchengin mr-3 text-gray"></i><span>SEO Imports</span></a>
+                <div id="seo_import" class="collapse {{ ( Request::segment(2) == 'seo-doctor' OR Request::segment(2) == 'seo-treatment' OR Request::segment(2) == 'seo-center')  ? 'show' : ''}}">
+                  <ul class="sidebar-menu list-unstyled border-left border-sidebar border-thick">
+                    <li class="sidebar-list-item"><a href="{{ route('seo-doctor') }}" class="sidebar-link sidebar-text-bright {{ Request::segment(2) == 'seo-doctor' ? 'active' : ''}}">Doctor</a></li>
+                    <li class="sidebar-list-item"><a href="{{ route('seo-treatment') }}" class="sidebar-link sidebar-text-bright {{ Request::segment(2) == 'seo-treatment' ? 'active' : ''}}">Treatment</a></li>
+                    <li class="sidebar-list-item"><a href="{{ route('seo-center') }}" class="sidebar-link sidebar-text-bright {{ Request::segment(2) == 'seo-center' ? 'active' : ''}}">Center</a></li>
+                  </ul>
+                </div>
+              </li>
             @endcan
             @can('view_status')
             <li class="sidebar-list-item">

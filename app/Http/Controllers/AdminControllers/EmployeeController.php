@@ -150,7 +150,11 @@ class EmployeeController extends Controller
                       ->select('c.*','s.name as status','a.attachment')
                       ->where(['c.id' => $id])
                       ->first();
-       $employee  = Customer::where('parent_id',$id)->get();
+      $employee           =   DB::table('customer_dependents as cd')
+                          ->join('customers as c','c.id','cd.parent_customer_id')
+                          ->where('cd.assc_customer_id',$id)
+                          ->select('c.id','c.name','c.phone','c.dob','cd.relation','c.gender','c.weight','c.height','c.marital_status','c.address','cd.bundle_id','cd.status','c.email')
+                          ->get();
        $customers = Customer::where('id',$id)->first();
        if ($customers->labs) {
           foreach ($customers->labs as $lab) {

@@ -60,7 +60,7 @@ class DoctorProfileResource extends JsonResource
             'experience'        => $experience,
             'address'           => (isset($d->address))?$d->address:'',
             'about'    		    => (isset($d->about))?$d->about:'',
-            'picture'           => ( (isset($d->doctor_image))? 'http://test.hospitallcare.com/backend/uploads/doctors/'.$d->doctor_image->picture:(($d->gender == 1)?'http://test.hospitallcare.com/backend/web_imgs/doctor-male.png':'http://test.hospitallcare.com/backend/web_imgs/doctor-female.png')),
+            'picture'           => ( (isset($d->doctor_image))? 'https://support.hospitallcare.com/backend/uploads/doctors/'.$d->doctor_image->picture:(($d->gender == 1)?'https://support.hospitallcare.com/backend/web_imgs/doctor-male.png':'https://support.hospitallcare.com/backend/web_imgs/doctor-female.png')),
             'education'    		=> (isset($education))?$education:'',
 
         ];

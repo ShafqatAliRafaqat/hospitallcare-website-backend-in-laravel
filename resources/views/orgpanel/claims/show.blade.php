@@ -38,7 +38,7 @@ use Carbon\Carbon;
                       </div>
                     </nav>
                     <!-- Start of Overview Tab -->
-                    <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                    <div class="tab-content py-3 px-3 px-sm-0 tab-design" id="nav-tabContent">
                       <div class="tab-pane fade show active" id="nav-overview" role="tabpanel" aria-labelledby="nav-overview-tab">
                         <h6>General</h6>
                         <div class="claim-details">
@@ -190,7 +190,7 @@ use Carbon\Carbon;
                             <h6>Invoices</h6>
                             <div class="row">
                               @foreach($invoices as $invoice)
-                              <div class="mdb-lightbox col-md-4">
+                              <div class="mdb-lightbox col-md-1">
                                 <figure>
                                   <a href="http://localhost:8000/backend/uploads/customer_invoices/{{$invoice->image}}" data-size="1600x1067">
                                     <img alt="picture" src="{{ asset('backend/uploads/customer_invoices/'.$invoice->image) }}" class="img-fluid">
@@ -204,7 +204,7 @@ use Carbon\Carbon;
                             <h6>Other Documents</h6>
                             <div class="row">
                               @foreach($customer_claim_documents as $document)
-                              <div class="mdb-lightbox col-md-4">
+                              <div class="mdb-lightbox col-md-1">
                                 <figure>
                                   <a href="http://localhost:8000/backend/uploads/customer_claim_documents/{{$document->image}}" data-size="1600x1067">
                                     <img alt="picture" src="{{ asset('backend/uploads/customer_claim_documents/'.$document->image) }}" class="img-fluid">

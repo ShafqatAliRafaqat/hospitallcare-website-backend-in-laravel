@@ -20,7 +20,7 @@ class WebTreatmentResource extends JsonResource
     public static function Treatment($t){
         if(isset($t->treatment_image)){
             if(count($t->treatment_image)>0){
-                $picture = 'http://test.hospitallcare.com/backend/uploads/treatments/'.$t->treatment_image[0]->picture;
+                $picture = 'https://support.hospitallcare.com/backend/uploads/treatments/'.$t->treatment_image[0]->picture;
             }else{
                 $picture = null;
             }

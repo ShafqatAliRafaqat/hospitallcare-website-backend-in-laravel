@@ -19,6 +19,9 @@ class LabServices extends Service {
             'address'               => 'required|min:5',
             'notes'                 => 'string|nullable',
             'is_active'             => 'nullable',
+            'meta_title'            => 'nullable',
+            'meta_description'      => 'nullable',
+            'url'                   => 'nullable',
         ];
         $this->validateOrAbort($input,$rules);
     }
@@ -30,7 +33,7 @@ class LabServices extends Service {
             if ($data['diagnostic_id'][0] != NULL) {
                 $lab_diagnostic = $this->insertLabDiagnostic($data,$lab_id);
             }
-            return $labs;
+            return $lab_id;
     }
     public function update($data,$id){
         $this->validate($data);
@@ -51,6 +54,9 @@ class LabServices extends Service {
             'lat'               =>  $input['lat'],
             'address'           =>  $input['address'],
             'notes'             =>  $input['notes'],
+            'meta_title'        =>  $input['meta_title'],
+            'meta_description'  =>  $input['meta_description'],
+            'url'               =>  $input['url'],
             'is_active'         =>  isset($input['is_active']) ? $input['is_active'] : NULL,
             $by                 =>  Auth::user()->id, //Created or Updated By
         ];

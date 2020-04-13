@@ -40,7 +40,7 @@ class DoctorProfileResource extends JsonResource
             'lng'               =>  $d->lng,
             // 'treatments'        =>  (isset($d->treatments)) ? WebTreatmentResource::collection($d->treatments->take(9)) : "",
             // // 'treatments'        =>  isset($d->treatments)? $d->treatments :"",
-            'picture'           => (isset($d->doctor_image))? 'http://test.hospitallcare.com/backend/uploads/doctors/'.$d->doctor_image->picture:null,
+            'picture'           => (isset($d->doctor_image))? 'https://support.hospitallcare.com/backend/uploads/doctors/'.$d->doctor_image->picture:null,
         ];
 
         return $data;

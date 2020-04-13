@@ -269,7 +269,7 @@
                         <div class="col-md-4">
                           <select name="center_id" id="centers" class="form-control selectpicker" required>
                             <option value="">Select Center</option>
-                            @foreach($centers as $c)
+                            @foreach($doctor->centers as $c)
                               <option value="{{ $c->id }}" {{ old('center_id') == $c->id ? 'selected': '' }}>{{ $c->center_name }}</option>
                             @endforeach
                           </select>
@@ -305,7 +305,7 @@
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary">Update changes</button>
+                      <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                   </form>
                 </div>
@@ -317,7 +317,7 @@
                 <div class="modal-dialog modal-md" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="AddDoctorNotesModal">Add Notes</h5>
+                    <h5 class="modal-title" id="AddDoctorNotesModal">Save</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
@@ -336,7 +336,7 @@
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary">Add Notes</button>
+                      <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                   </form>
                 </div>
@@ -348,7 +348,7 @@
                 <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="AddAllergyNotesModal">Add Notes</h5>
+                    <h5 class="modal-title" id="AddAllergyNotesModal">Save</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
@@ -373,7 +373,7 @@
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary">Add Notes</button>
+                      <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                   </form>
                 </div>
@@ -410,7 +410,7 @@
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary">Add Notes</button>
+                      <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                   </form>
                 </div>

@@ -291,7 +291,9 @@
               <button data-id="{{$k+100}}" type="submit" class="btn btn-sm btn-success close_treatment diagnostichistory float-left">
                 Close Diagnostic
               </button>
-
+              <a type="button" class="edit a-hover float-right" href="{{ route('EditDiagnosticAppointment', $diagnostics[$i]->bundle_id) }}">
+                <img src="{{ asset('backend/web_imgs/edit2.png') }}" width="24px">
+              </a>
 
                 <!-- <span>Discount: <strong>{{ $diagnostics[0]->discount_per}}</strong></span> -->
                 <form action="{{ route('diagnostic_to_history', $customer->id) }}" method="POST" id="deleteDiagnosticForm{{$k+100}}">
@@ -432,7 +434,7 @@
               <div class="col-lg-12 mt-5">
                 <div class="card">
                   <div class="card-header">
-                    <h6 class="text-uppercase mb-0">Dependents
+                    <h6 class="text-uppercase mb-0">Friends and Family
                       <a href="{{ route('depend', $customer->id) }}" class="btn btn-sm btn-dark float-right">Create New</a>
                     </h6>
                   </div>
@@ -455,17 +457,20 @@
                         @if(isset($employee))
                             @php $no=1 @endphp
                             @foreach($employee as $c)
-
                             <tr>
                               <th scope="row">{{$no++}}</th>
-
                               <td>{{ $c->name }}</td>
                               <td>{{ $c->email }}</td>
                               <td>{{ $c->phone }}</td>
                               <td>{{ $c->address }}</td>
+
                               <td>{{ $c->relation }}</td>
                               <td><center><a href="{{ route('dependents.show', $c->id) }}"><i class="fa fa-eye"></i></a></center></td>
-                              <td><center><a href="{{ route('dependents.edit', $c->id) }}"><i class="fa fa-edit"></i></a></center></td>
+                              <td><center><a data-id="{{ $c->id }}" href="#" class="edit_dependent"><i class="fa fa-edit"></i></a></center></td>
+                              <form id="editDependentForm{{ $c->id }}" action="{{ route('dependents.edit', $c->id) }}" method="POST">
+                                  @csrf @method('POST')
+                                  <input type="hidden" name="customer_id" value="{{$customer->id}}">
+                              </form>
                               <td><center>
                                 <a class="delete" data-id="{{ $c->id }}" href="#"><i class="fa fa-trash"></i></a></center>
                                 <form id="deleteForm{{$c->id}}" method="post" action="{{ route('dependents.destroy', $c->id) }}">
@@ -897,6 +902,14 @@
 <!-- (Optional) Latest compiled and minified JavaScript translation files -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/i18n/defaults-*.min.js"></script>
 <script>
+  $(document).on('click', '.edit_dependent', function(){
+    var id = $(this).data('id');
+    setTimeout(function () {
+      $('#editDependentForm'+id).submit();
+    });
+});
+</script>
+<script>
 
 // dynamic input fields for Allergies Notes
 $(document).ready(function(){
@@ -946,6 +959,7 @@ $(document).ready(function(){
 });
 // end of dynamic fields for Risk factor Notes
 </script>
+
 <script>
 $(document).on('click', '.delete', function(){
     var id = $(this).data('id');
@@ -969,7 +983,6 @@ $(document).on('click', '.delete', function(){
 });
 $(document).on('click', '.diagnostichistory', function(){
     var id = $(this).data('id');
-    console.log("id ---->",id);
     swal({
         title: "Are you sure?",
         text: "You want to move it to History",

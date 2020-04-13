@@ -51,25 +51,25 @@ Route::GROUP(['namespace'=>'CustomerApiControllers','middleware' => ['auth:api']
     Route::POST('book_appointment', 'CustomerProfileApiController@book_appointment');
 
     //My Medical Recode
-    Route::GET('my_treatments', 'CustomerProfileApiController@treatments');
-    Route::GET('my_diagnostics', 'CustomerProfileApiController@diagnostics');
-    Route::GET('doctor_notes', 'CustomerProfileApiController@doctorNotes');
+    Route::GET('my_treatments/{id}', 'CustomerProfileApiController@treatments');
+    Route::GET('my_diagnostics/{id}', 'CustomerProfileApiController@diagnostics');
+    Route::GET('doctor_notes/{id}', 'CustomerProfileApiController@doctorNotes');
 
     // Allergies
-    Route::GET('all_allergies', 'CustomerProfileApiController@all_allergies');
-    Route::POST('create_allergy', 'CustomerProfileApiController@create_allergy');
+    Route::GET('all_allergies/{id}', 'CustomerProfileApiController@all_allergies');
+    Route::POST('create_allergy/{id}', 'CustomerProfileApiController@create_allergy');
     Route::POST('update_allergy/{id}', 'CustomerProfileApiController@update_allergy');
     Route::GET('delete_allergy/{id}', 'CustomerProfileApiController@delete_allergy');
 
     // Risk Factor
-    Route::GET('all_riskfactor', 'CustomerProfileApiController@all_riskfactor');
-    Route::POST('create_riskfactor', 'CustomerProfileApiController@create_riskfactor');
+    Route::GET('all_riskfactor/{id}', 'CustomerProfileApiController@all_riskfactor');
+    Route::POST('create_riskfactor/{id}', 'CustomerProfileApiController@create_riskfactor');
     Route::POST('update_riskfactor/{id}', 'CustomerProfileApiController@update_riskfactor');
     Route::GET('delete_riskfactor/{id}', 'CustomerProfileApiController@delete_riskfactor');
 
     //Profile
     Route::GET('get_customer_profile', 'CustomerProfileApiController@getCustomerProfile');
-Route::POST('update_customer_profile', 'CustomerProfileApiController@updateCustomerProfile');
+    Route::POST('update_customer_profile', 'CustomerProfileApiController@updateCustomerProfile');
 
     // Treatment History
     Route::GET('treatment_history', 'CustomerProfileApiController@getTreatmentHistory');
@@ -87,9 +87,9 @@ Route::POST('update_customer_profile', 'CustomerProfileApiController@updateCusto
     Route::POST('phone_verification', 'CustomerSignUpApiController@customerPhoneVerification');
 
     //Customer Documents
-    Route::POST('documents/upload','CustomerDocumentsApiController@upload');
-    Route::POST('documents/show_all','CustomerDocumentsApiController@show_all');
-    Route::POST('documents/delete_files','CustomerDocumentsApiController@delete_files');
+    Route::POST('documents/upload/{id}','CustomerDocumentsApiController@upload');
+    Route::POST('documents/show_all/{id}','CustomerDocumentsApiController@show_all');
+    Route::POST('documents/delete_files/{id}','CustomerDocumentsApiController@delete_files');
 
     // notifications
     Route::GET('notifications','CustomerNotificationController@index');
@@ -107,12 +107,17 @@ Route::POST('update_customer_profile', 'CustomerProfileApiController@updateCusto
     Route::POST('save_organization','CustomerOrganizationController@update_customer_organization');
 
     // Dependent
-    Route::GET('all_dependents','CustomerDependentController@all_dependents');
-    Route::POST('search_dependent','CustomerDependentController@search_dependent');
-    Route::POST('set_relation','CustomerDependentController@set_relation');
-    Route::POST('save_depentent','CustomerDependentController@create_dependent');
-    Route::POST('update_dependent/{id}','CustomerDependentController@update_dependent');
-    Route::POST('delete_dependent/{id}','CustomerDependentController@delete_dependent');
+    Route::GET('all_dependents','CustomerDependentApiController@all_dependents');
+    Route::POST('search_dependent','CustomerDependentApiController@search_dependent');
+    Route::POST('set_relation','CustomerDependentApiController@set_relation');
+    Route::POST('save_depentent','CustomerDependentApiController@create_dependent');
+    Route::POST('update_dependent/{id}','CustomerDependentApiController@update_dependent');
+    Route::POST('approve_dependent/{id}','CustomerDependentApiController@approve_dependent');
+    Route::POST('delete_dependent/{id}','CustomerDependentApiController@delete_dependent');
+
+    //Dependent History
+    Route::GET('dependent_history/{id}','CustomerDependentAccessApiController@dependent_history');
+
 
     //Medical Claims
     Route::GET('all_claims','CustomerMedicalClaimController@allClaims');

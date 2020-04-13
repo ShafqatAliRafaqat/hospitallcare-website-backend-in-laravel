@@ -795,15 +795,17 @@ class AjaxController extends Controller
             if($row == 1){ $row++; continue; }
             $doctor_find        = null;
             $doctor_id          = $filesop[0];
-            $meta_title         = $filesop[1];
-            $meta_description   = $filesop[2];
-            $url          = $filesop[3];
+            $name               = $filesop[1];
+            $meta_title         = $filesop[2];
+            $meta_description   = $filesop[3];
+            $url                = $filesop[4];
             $doctor_find        = Doctor::where('id',$doctor_id)->first();
             if ($doctor_find) {
               $update = DB::table('doctors')->where('id',$doctor_id)->update([
+                    'name'                =>  $name,
                     'meta_title'          =>  $meta_title,
                     'meta_description'    =>  $meta_description,
-                    'url'           =>  $url,
+                    'url'                 =>  $url,
               ]);
               $entry++;
             } else {
@@ -816,6 +818,122 @@ class AjaxController extends Controller
             $now        =   Carbon::now()->toDateString();
             $exporter   =   app()->makeWith(DoctorSeoExport::class, compact('request'));
             return $exporter->download('DoctorSeoExport'.$now.'.xlsx');
+        }
+    }
+    session()->flash('success', 'Excel Sheet Uploaded Successfully');
+    return redirect()->back();
+  }
+  public function seoTreatment()
+  {
+    return view('adminpanel.import.seo_treatment');
+  }
+  public function importTreatmentSeo()
+  {
+    $array_phones       =   [];
+    $request            =   [];
+    $validate = request()->validate([
+        'file' => 'required'
+    ]);
+    $ok = true;
+    $file = request()->file('file');
+    if($file->getClientOriginalExtension() != "csv"){
+      session()->flash('error','Please Upload a CSV file only!');
+      return redirect()->back();
+    }
+    $handle = fopen($file, "r");
+    if ($file == NULL) {
+        session()->flash('error', 'File is empty');
+        return redirect()->back();
+    }
+    else {
+        $entry = 1;
+        $data = [];
+        $row = 1;
+        while(($filesop = fgetcsv($handle, 1000, ",")) !== false) {
+            if($row == 1){ $row++; continue; }
+            $treatment_find     = null;
+            $treatment_id       = $filesop[0];
+            $name               = $filesop[1];
+            $meta_title         = $filesop[2];
+            $meta_description   = $filesop[3];
+            $url                = $filesop[4];
+            $treatment_find     = Treatment::where('id',$treatment_id)->first();
+            if ($treatment_find) {
+              $update = DB::table('treatments')->where('id',$treatment_id)->update([
+                    'name'                =>  $name,
+                    'meta_title'          =>  $meta_title,
+                    'meta_description'    =>  $meta_description,
+                    'url'                 =>  $url,
+              ]);
+              $entry++;
+            } else {
+              //Array of IDs that are not in our Database
+              $request[]      = $treatment_id;
+            }
+        }
+        if(count($request) > 0 ){
+          //Getting the unknown IDs Exported
+            $now        =   Carbon::now()->toDateString();
+            $exporter   =   app()->makeWith(DoctorSeoExport::class, compact('request'));
+            return $exporter->download('SeoExport'.$now.'.csv');
+        }
+    }
+    session()->flash('success', 'Excel Sheet Uploaded Successfully');
+    return redirect()->back();
+  }
+  public function seoCenter()
+  {
+    return view('adminpanel.import.seo_center');
+  }
+  public function importCenterSeo()
+  {
+    $array_phones       =   [];
+    $request            =   [];
+    $validate = request()->validate([
+        'file' => 'required'
+    ]);
+    $ok = true;
+    $file = request()->file('file');
+    if($file->getClientOriginalExtension() != "csv"){
+      session()->flash('error','Please Upload a CSV file only!');
+      return redirect()->back();
+    }
+    $handle = fopen($file, "r");
+    if ($file == NULL) {
+        session()->flash('error', 'File is empty');
+        return redirect()->back();
+    }
+    else {
+        $entry = 1;
+        $data = [];
+        $row = 1;
+        while(($filesop = fgetcsv($handle, 1000, ",")) !== false) {
+            if($row == 1){ $row++; continue; }
+            $center_find        = null;
+            $center_id       = $filesop[0];
+            $name               = $filesop[1];
+            $meta_title         = $filesop[2];
+            $meta_description   = $filesop[3];
+            $url                = $filesop[4];
+            $center_find        = Center::where('id',$center_id)->first();
+            if ($center_find) {
+              $update = DB::table('medical_centers')->where('id',$center_id)->update([
+                    'center_name'                =>  $name,
+                    'meta_title'          =>  $meta_title,
+                    'meta_description'    =>  $meta_description,
+                    'url'                 =>  $url,
+              ]);
+              $entry++;
+            } else {
+              //Array of IDs that are not in our Database
+              $request[]      = $center_id;
+            }
+        }
+        if(count($request) > 0 ){
+          //Getting the unknown IDs Exported
+            $now        =   Carbon::now()->toDateString();
+            $exporter   =   app()->makeWith(DoctorSeoExport::class, compact('request'));
+            return $exporter->download('SeoExport'.$now.'.csv');
         }
     }
     session()->flash('success', 'Excel Sheet Uploaded Successfully');

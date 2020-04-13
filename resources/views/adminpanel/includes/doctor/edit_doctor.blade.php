@@ -778,6 +778,14 @@
                     <label for="is_partner" class="custom-control-label">Check to Onboard Doctor</label>
                   </div>
                 </div>
+                <label class="col-md-2 form-control-label">Online Consultation</label>
+                <div class="col-md-4">
+                  <div class="custom-control custom-checkbox">
+                    <input id="online_consultation" value="1" type="checkbox" name="online_consultation" class="custom-control-input"
+                    {{ $doctor->online_consultation == 1 ? 'checked':'' }}>
+                    <label for="online_consultation" class="custom-control-label">Check for Online Consultation</label>
+                  </div>
+                </div>
               </div>
               <hr>
 

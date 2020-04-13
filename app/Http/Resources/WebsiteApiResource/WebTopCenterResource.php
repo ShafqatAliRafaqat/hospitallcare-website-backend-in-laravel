@@ -32,7 +32,7 @@ class WebTopCenterResource extends JsonResource
             'assistant_name'    =>  $c->assistant_name,
             'assistant_phone'   =>  $c->assistant_phone,
             'map'               =>  $map,
-            'picture'           => (isset($c->center_image))? 'http://test.hospitallcare.com/backend/uploads/centers/'.$c->center_image->picture:null,
+            'picture'           => (isset($c->center_image))? 'https://support.hospitallcare.com/backend/uploads/centers/'.$c->center_image->picture:null,
         ];
 
         return $data;

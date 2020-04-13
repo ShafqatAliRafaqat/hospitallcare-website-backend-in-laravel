@@ -97,7 +97,7 @@
                   </div>
                 </div>
                   <div class="form-group row">
-                  <label class="col-md-2 form-control-label">Lindline Number</label>
+                  <label class="col-md-2 form-control-label">Landline Number</label>
                   <div class="col-md-4">
                         <input type="text" name="phone" data-mask="(999)-999-999-9?99" placeholder="Phone"
                         class="form-control {{ $errors->has('phone') ? 'is-invalid' : '' }}" value="{{ $center->phone }}">
@@ -105,6 +105,15 @@
                       @if($errors->has('phone'))
                         <div class="invalid-feedback ml-3">{{ $errors->first('phone') }}</div>
                       @endif
+                  </div>
+                  <label class="col-md-2 form-control-label">Area</label>
+                  <div class="col-md-4">
+                    <input type="text" name="area" placeholder="Area"
+                    class="form-control {{ $errors->has('area') ? 'is-invalid' : '' }}" value="{{ $center->area }}">
+
+                    @if($errors->has('area'))
+                    <div class="invalid-feedback ml-3">{{ $errors->first('area') }}</div>
+                    @endif
                   </div>
                 </div>
                   <div class="form-group row">

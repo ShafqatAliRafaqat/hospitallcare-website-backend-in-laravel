@@ -31,7 +31,7 @@ $(document).ready(function(){
     var button_id = $(this).attr("id");
     $('#'+button_id+'').remove();
   });
-  
+
 });
 // end of dynamic fields for Allergies Notes
 </script>
@@ -157,7 +157,7 @@ $(document).on('change','#treatment', function(){
     var procedure_id  = $("#procedure option:selected").val();
     var doctor_id     = $("#doctors option:selected").val();
     var center_id     = $("#centers option:selected").val();
-    
+
 
     $.ajax({
       type:'post',
@@ -340,7 +340,7 @@ $(document).ready(function(){
     var procedure_id  = $("#procedure"+i+" option:selected").val();
     var center_id     = $("#centers"+i+" option:selected").val();
     var doctor_id     = $("#doctors"+i+" option:selected").val();
-    
+
     $.ajax({
       type:'post',
       url:"{{ route('getDocCost') }}",
@@ -488,7 +488,7 @@ $(document).on('change','#centers'+100+'', function(){
     var procedure_id  = $("#procedure"+100+" option:selected").val();
     var center_id     = $("#centers"+100+" option:selected").val();
     var doctor_id     = $("#doctors"+100+" option:selected").val();
-    
+
 
     $.ajax({
       type:'post',
@@ -627,7 +627,7 @@ $(document).on('change','#centers'+101+'', function(){
     var procedure_id  = $("#procedure"+101+" option:selected").val();
     var center_id     = $("#centers"+101+" option:selected").val();
     var doctor_id     = $("#doctors"+101+" option:selected").val();
-    
+
 
     $.ajax({
       type:'post',
@@ -1163,7 +1163,7 @@ $( document ).ready(function() {
         $(document).on("change keyup blur", "#chDiscount1", function() {
             var main = $('#total-cost1').val();
             var disc = $('#chDiscount1').val();
-            var dec = (disc / 100).toFixed(2); //its convert 10 into 0.10
+            var dec = (disc / 100).toFixed(2); //it converts 10 into 0.10
             var mult = main * dec; // gives the value for subtract from main value
             var discont = main - mult;
             $('#result1').val(discont);
@@ -1192,7 +1192,7 @@ $( document ).ready(function() {
   </script>
   <!-- END of Treatment Discounts -->
 <script>
-    
+
 var placeSearch, autocomplete;
 
 var componentForm = {

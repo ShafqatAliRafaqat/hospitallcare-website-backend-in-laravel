@@ -23,7 +23,7 @@ class TreatmentResource extends JsonResource
 
             $i = 1;
             foreach ($images as $image) {
-                $picture['picture'.$i] ='http://test.hospitallcare.com/backend/uploads/treatments/'.$image->picture;
+                $picture['picture'.$i] ='https://support.hospitallcare.com/backend/uploads/treatments/'.$image->picture;
             $i++;
             }
          }

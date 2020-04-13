@@ -20,7 +20,16 @@ use Illuminate\Support\Facades\DB;
 
 class CustomerLabApiController extends Controller{
     public function all_labs(){
-        $labs = Lab::orderby('updated_at','DESC')->select('id','name','address')->get();
+        $labs   =  DB::table('labs as l')
+                ->leftjoin('lab_images as li','l.id','li.lab_id')
+                ->orderby('l.updated_at','DESC')->select('l.id','l.name','l.address','li.picture')->get();
+        foreach($labs as $lab){
+            if($lab->picture != NULL){
+                $lab->picture       =   'https://support.hospitallcare.com/backend/uploads/labs/'.$lab->picture;
+            }
+        }
+        // $labs   = Lab::orderby('updated_at','DESC')->select('id','name','address')->get();
+
         return response()->json(['data'=>$labs],200);
     }
     public function diagnostics($id){

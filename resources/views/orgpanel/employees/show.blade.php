@@ -101,30 +101,41 @@
                 </div>
             </div>
 
-        @php
+        <?php
         if($lab != NULL){
           $customer_details   = TreatmentsCentersRelation($customer->id);
           $count_labs         = count($lab);
           $j = 1;
           if($count_labs != NULL){
+          $k  = 0;
           for($i=0; $i < $count_labs; $i++){
-            $diagnostics  = CustomerLabDiagnostics($customer->id,$lab[$i]);
-        @endphp
+            $diagnostics_all          = CustomerLabDiagnostics($customer->id,$lab[$i]);
+            foreach($diagnostics_all as $db){
+              $diagnostics            = CustomerLabDiagnosticsDetails($db->bundle_id);
+        ?>
         <div class="col-lg-6 mb-5 pt-4">
         <div class="card">
           <div class="card-header">
-            <h3 class="h6 text-uppercase mb-0">Diagnostics from {{ $diagnostics[0]->lab_name}}</h3>
+            <h3 class="h6 text-uppercase mb-2">Diagnostics from {{ $diagnostics[$i]->lab_name}}</h3>
+                <!-- <span>Discount: <strong>{{ $diagnostics[0]->discount_per}}</strong></span> -->
+                <form action="{{ route('diagnostic_to_history', $customer->id) }}" method="POST" id="deleteDiagnosticForm{{$k+100}}">
+                @csrf
+                @foreach($diagnostics as $d)
+                <input type="hidden" name="delete_id[]" value="{{$d->id}}">
+                <input type="hidden" name="bundle_id" value="{{$d->bundle_id}}">
+                @endforeach
+              </form>
           </div>
           <div class="card-body">
             <div class="media row">
               <div class="media-body col-md-12">
-                <table class="table table-striped table-dark" id="diagnostics{{$i+1}}">
+                <table class="table table-striped table-dark" id="diagnostics{{$k+1}}">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
                       <th scope="col">Diagnostics</th>
                       <th scope="col">Costs</th>
-                      <th scope="col">Discount%</th>
+                      <th scope="col">Discount %</th>
                       <th scope="col">Discounted Cost</th>
                     </tr>
                   </thead>
@@ -151,7 +162,7 @@
           <div class= "card-footer">
             <div class="row">
             <div class="col-md-4 h6 mb-0 text-left">Appointment Date: {{ $diagnostics[0]->appointment_date}}</div>
-              <div class="col-md-4 h6 mb-0 ">Original Cost :
+              <div class="col-md-4 h6 mb-0">Original Cost:
               @php
               $sum =0;
               foreach($diagnostics as $d){
@@ -159,12 +170,17 @@
               }
               @endphp
               {{$sum}}
+              @if($diagnostics[0]->home_sampling == 1)
+              Home Sampling
+              @endif
               </div>
-              <div class="col-md-4 h6 mb-0">Discounted Cost :
+              <div class="col-md-4 h6 mb-0">Discounted Cost:
               @php
               $sum =0;
               foreach($diagnostics as $d){
-                $sum +=$d->discounted_cost;
+                if($d->discounted_cost != null){
+                    $sum +=$d->discounted_cost;
+                }
               }
               @endphp
               {{$sum}}
@@ -173,18 +189,16 @@
           </div>
         </div>
       </div>
-          @php }} } else { @endphp
-            <div class="row pt-5">
-              <div class="col-md-12">
+          @php $k++; } } } }
+           else { @endphp
+            <div class="col-md-12 pt-5">
                 <h5 class="text-center" style="margin-left: 22px;">No Diagnostic Selected</h5>
-              </div>
             </div>
             @php } @endphp
-
             <div class="col-lg-12 mt-5">
                 <div class="card">
                   <div class="card-header">
-                  <h6 class="text-uppercase mb-0">Dependents
+                  <h6 class="text-uppercase mb-0">Friends and Family
                     <form action="{{ route('dependent.create') }}">
                     @csrf
                     <input type="hidden" name="employee_id" value="{{$customer->id}}">
@@ -220,7 +234,12 @@
                               <td>{{ $c->address }}</td>
                               <td>{{ $c->relation }}</td>
                               <td><center><a href="{{ route('dependent.show', $c->id) }}"><i class="fa fa-eye"></i></a></center></td>
-                              <td><center><a href="{{ route('dependent.edit', $c->id) }}"><i class="fa fa-edit"></i></a></center></td>
+                              <td><center><a data-id="{{ $c->id }}" href="#" class="edit_dependent"><i class="fa fa-edit"></i></a></center></td>
+                              <form id="editDependentForm{{ $c->id }}" action="{{ route('dependent.edit', $c->id) }}" method="POST">
+                                  @csrf @method('POST')
+                                  <input type="hidden" name="customer_id" value="{{$customer->id}}">
+                                  <input type="hidden" name="dependent_id" value="{{$c->id}}">
+                              </form>
                               <td><center>
                                 <a class="delete" data-id="{{ $c->id }}" href="#"><i class="fa fa-trash"></i></a></center>
                                 <form id="deleteForm{{$c->id}}" method="post" action="{{ route('dependent.destroy', $c->id) }}">
@@ -242,6 +261,15 @@
 @endsection
 @section('scripts')
 <script src="{{ asset('backend/js/sweetalert/sweetalert.js') }}"></script>
+<script>
+  $(document).on('click', '.edit_dependent', function(){
+    var id = $(this).data('id');
+    console.log(id);
+    setTimeout(function () {
+      $('#editDependentForm'+id).submit();
+    });
+});
+</script>
 <script>
 $(document).on('click', '.delete', function(){
     var id = $(this).data('id');

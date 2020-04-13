@@ -80,7 +80,7 @@
                               $date_facturation2 = \Carbon\Carbon::parse($c->next_contact_date);
                               $today = \Carbon\Carbon::today();
                               ?>
-                              <!-- {{ $date_facturation->isPast() ? 'row-red' : '' || $date_facturation2 == $today ? 'row-green' : ''}} -->
+                              {{-- <!-- {{ $date_facturation->isPast() ? 'row-red' : '' || $date_facturation2 == $today ? 'row-green' : ''}} --> --}}
                               <td class="
                               <?php if($date_facturation->isPast()){ ?>
                               row-red

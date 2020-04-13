@@ -77,6 +77,7 @@ class MedicalController extends Controller
                 'lat'                   => ['required', 'regex:/[0-9]([0-9]|-(?!-))+/'],
                 'address'               => 'required',
                 'city_name'             => 'sometimes',
+                'area'                  => 'nullable',
                 'picture'               => 'sometimes|image|max:2048',
                 'ad_spent'              =>  'sometimes',
                 'revenue_share'         =>  'sometimes',
@@ -84,7 +85,7 @@ class MedicalController extends Controller
                 'created_by'            => 'sometimes',
                 'meta_title'            => 'string|nullable',
                 'meta_description'      => 'string|nullable',
-                'url'             => 'string|nullable',
+                'url'                   => 'string|nullable',
                 'is_active'             => 'nullable',
                 'on_web'                => 'nullable',
                 'is_approved'           => 'nullable',
@@ -97,6 +98,7 @@ class MedicalController extends Controller
             $center->phone              = $request->input('phone');
             $center->city_name          = $request->input('city_name');
             $center->address            = $request->input('address');
+            $center->area               = $request->input('area');
             $center->lat                = $request->input('lat');
             $center->lng                = $request->input('lng');
             $center->facilitator        = 0;
@@ -218,6 +220,7 @@ class MedicalController extends Controller
                 'url'             => 'string|nullable',
                 'city_name'             => 'required',
                 'address'               => 'sometimes',
+                'area'                  => 'nullable',
                 'is_active'             => 'nullable',
                 'on_web'                => 'nullable',
                 ]);
@@ -401,6 +404,7 @@ class MedicalController extends Controller
                     $center->phone              = $request->input('phone');
                     $center->city_name          = $request->input('city_name');
                     $center->address            = $request->input('address');
+                    $center->area               = $request->input('area');
                     $center->lat                = $request->input('lat');
                     $center->lng                = $request->input('lng');
                     $center->ad_spent           = $request->input('ad_spent');

@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Services\LabServices;
+use Illuminate\Support\Facades\File;
+use Intervention\Image\Facades\Image;
 
 class LabController extends Controller
 {
@@ -23,7 +25,7 @@ class LabController extends Controller
     public function index()                                                 // Show All lab in table
     {
         if( Auth::user()->can('view_medical_centers') ){
-            $labs = Lab::all();
+            $labs = Lab::orderBy('updated_at','DESC')->get();
 
         return view('adminpanel.labs.index', compact('labs'));
         } else {
@@ -51,11 +53,27 @@ class LabController extends Controller
         }
     }
 
-    public function store(Request $request)                                 // Store new lab data
+    public function store(Request $request)                   // Store new lab data
     {
         if( Auth::user()->can('create_medical_center') ){
             $input = $request->all();
             $labs = $this->service->create($input);
+            if($labs){
+                $image       = $request->file('picture');
+                $destinationPath = '/backend/uploads/labs/';
+                if ($request->file('picture')) {
+                    if(!File::exists($destinationPath)) {
+                        File::makeDirectory($destinationPath, $mode = 0777, true, true);
+                    }
+                    /*
+                        Uploading the Image to folder
+                    */
+                    $filename    = str_slug($request->input('name')).'-'.time().'.'.$image->getClientOriginalExtension(); // then insert images
+                    $table = "lab_images";
+                    $id_name = "lab_id";
+                    $insert_images = insert_images($labs, $destinationPath,$table,$id_name, $filename,$image);
+                }
+            }
             session()->flash('success', 'Lab Created Successfully');
             return redirect()->route('labs.index');
         } else {
@@ -78,9 +96,10 @@ class LabController extends Controller
     {
         if( Auth::user()->can('edit_medical_center') ){
             $labs           = Lab::where('id',$id)->with('diagnostic')->first();
+            $image          = DB::table('lab_images')->where('lab_id',$id)->first();
             $diagnostics    = Diagnostics::all();
             // dd($labs->diagnostic,$diagnostics);
-            return view('adminpanel.labs.edit', compact('labs','diagnostics'));
+            return view('adminpanel.labs.edit', compact('labs','diagnostics','image'));
         } else {
             abort(403);
         }
@@ -91,7 +110,25 @@ class LabController extends Controller
         if( Auth::user()->can('edit_medical_center') ){
             $input = $request->all();
             $labs = $this->service->update($input,$id);
+            if ($labs) {
+                $destinationPath = '/backend/uploads/labs/';
+                $image       = $request->file('picture');
+                if($image != null){                                  // Delete all images first
+                    $table='lab_images';
+                    $id_name='lab_id';
+                    $delete_images = delete_images($id,$destinationPath,$table,$id_name);
 
+                    $filename    = str_slug($request->input('name')).'-'.time().'.'.$image->getClientOriginalExtension(); // then insert images
+                    $table = "lab_images";
+                    $id_name = "lab_id";
+                    $insert_images = insert_images($id, $destinationPath,$table,$id_name, $filename,$image);
+                }
+                if(!($request->has('picture'))){
+                    $table='lab_images';
+                    $id_name='lab_id';
+                    $delete_images = delete_images($id,$destinationPath,$table,$id_name);
+                }
+            }
                 session()->flash('success', 'Labs Updated Successfully');
                 return redirect()->route('labs.index');
         } else {

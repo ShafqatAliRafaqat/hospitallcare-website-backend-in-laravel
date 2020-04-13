@@ -112,6 +112,13 @@ class CustomerServices extends Service
         $data['patient_coordinator_id'] = Auth::user()->id;
         $customer = Customer::create($this->getSecureInput($data));
         $customer_id     = $customer->id;
+        if ((isset($data['relation']) && isset($data['employee_id']) != NULL) OR (isset($data['relation']) && isset($data['parent_customer_id']) != NULL)) {
+            if (isset($data['employee_id'])) {
+                $relation_update = $this->create_relation($data['relation'], $data['employee_id'],$customer_id);
+            } elseif (isset($data['parent_customer_id'])) {
+                $relation_update = $this->create_relation($data['relation'], $data['parent_customer_id'],$customer_id);
+            }
+        }
         if ($customer) {
             $created = Carbon::now()->toDateTimeString();
             $updated =null;
@@ -255,15 +262,18 @@ class CustomerServices extends Service
         }
         $customer =  Customer::where('id',$id)->first();
         $data['customer_lead'] = $customer->customer_lead;
-        $customer_updated = $customer->update($this->getSecureInput($data));
-        $customer_id     = $id;
+        $customer_updated   = $customer->update($this->getSecureInput($data));
+        if (isset($data['relation']) && isset($data['parent_customer_id']) != NULL) {
+            $relation_update = $this->update_relation($data['relation'], $data['parent_customer_id'],$id);
+        }
+        $customer_id        = $id;
         if ($customer_updated) {
-            $updated = Carbon::now()->toDateTimeString();
-            $created =null;
+            $updated =  Carbon::now()->toDateTimeString();
+            $created =  null;
             $coordinator_performance = CoodinatorPerformance::create($this->getSecureInputCoodinatorPerformance($data,$customer_id,$created,$updated));
         }
-        $customer = Customer::where('id',$id)->first();
-        $customer_user = User::where('customer_id',$id)->first();
+        $customer       =   Customer::where('id',$id)->first();
+        $customer_user  =   User::where('customer_id',$id)->first();
         if(isset($customer_user)){
             $update_customer_user = $customer_user->update([
                 "name"            => $customer->name,
@@ -446,6 +456,96 @@ class CustomerServices extends Service
                   }
         return $customer;
     }
+    public function create_relation($relation, $parent_customer_id,$assc_customer_id)
+    {
+        if ($relation == 'Friend/Other') {
+            $claimable = 0;
+        }else{
+            $claimable = 1;
+        }
+        $bundle_id              =   $parent_customer_id.$assc_customer_id.time().rand(10,100000);
+        $customer_dependents      =     DB::table('customer_dependents')->insertGetId([
+                'parent_customer_id'                =>  $parent_customer_id,
+                'assc_customer_id'                  =>  $assc_customer_id,
+                'relation'                          =>  $relation,
+                'claimable'                         =>  $claimable,
+                'relation'                          =>  $relation,
+                'bundle_id'                         =>  $bundle_id,
+                'assc_read_medical_access'          =>  0,
+                'assc_write_medical_access'         =>  0,
+                'status'                            =>  2,
+                'assc_manage_appointment_access'    =>  0,
+                'updated_at'                        =>  Carbon::now()->toDateTimeString(),
+                'created_at'                        =>  Carbon::now()->toDateTimeString(),
+
+            ]);
+            if ($customer_dependents) {
+                if ($relation == 'Parent') {
+                    $relation_inverse = 'Child';
+                }elseif ($relation == 'Child') {
+                    $relation_inverse = 'Parent';
+                }elseif ($relation == 'Husband') {
+                    $relation_inverse = 'Spouse';
+                }elseif ($relation == 'Spouse') {
+                    $relation_inverse = 'Husband';
+                } else {
+                    $relation_inverse = $relation;
+                }
+            $customer_dependents_assc      =     DB::table('customer_dependents')->insertGetId([
+                'parent_customer_id'                =>  $assc_customer_id,
+                'assc_customer_id'                  =>  $parent_customer_id,
+                'relation'                          =>  $relation_inverse,
+                'bundle_id'                         =>  $bundle_id,
+                'claimable'                         =>  $claimable,
+                'assc_read_medical_access'          =>  0,
+                'assc_write_medical_access'         =>  0,
+                'assc_manage_appointment_access'    =>  0,
+                'status'                            =>  0,
+            ]);
+            }
+        return $customer_dependents_assc;
+    }
+    public function update_relation($relation, $assc_customer_id,$parent_customer_id)
+    {
+        if ($relation == 'Friend/Other') {
+            $claimable = 0;
+        }else{
+            $claimable = 1;
+        }
+        $customer_dependents      =     DB::table('customer_dependents')
+                                    ->where('parent_customer_id',$parent_customer_id)
+                                    ->where('assc_customer_id',$assc_customer_id)
+                                    ->update([
+            'parent_customer_id'            =>  $parent_customer_id,
+            'assc_customer_id'              =>  $assc_customer_id,
+            'relation'                      =>  $relation,
+            'claimable'                     =>  $claimable,
+            'updated_at'                    =>  Carbon::now()->toDateTimeString(),
+        ]);
+        if ($customer_dependents) {
+            if ($relation == 'Parent') {
+                $relation_inverse = 'Child';
+            }elseif ($relation == 'Child') {
+                $relation_inverse = 'Parent';
+            }elseif ($relation == 'Husband') {
+                $relation_inverse = 'Spouse';
+            }elseif ($relation == 'Spouse') {
+                $relation_inverse = 'Husband';
+            } else {
+                $relation_inverse = $relation;
+            }
+            $customer_dependents_assc      =     DB::table('customer_dependents')
+                                ->where('parent_customer_id',$assc_customer_id)
+                                ->where('assc_customer_id',$parent_customer_id)
+                                ->update([
+                'parent_customer_id'                =>  $assc_customer_id,
+                'assc_customer_id'                  =>  $parent_customer_id,
+                'relation'                          =>  $relation_inverse,
+                'claimable'                         =>  $claimable,
+                'updated_at'                        =>  Carbon::now()->toDateTimeString(),
+            ]);
+        }
+    }
     public function Customerdiagnostic1($data,$i,$customer_id,$customer_lab1,$bundle_id){
         $diagnostic_id        = $data['diagnostic_id1'][$i];
         $lab_id               = $data['lab_id1'];
@@ -568,8 +668,6 @@ class CustomerServices extends Service
             'status_id'             => $input['status_id'],
             'phone_verified'        => 1,
             'customer_lead'         => (isset($input['customer_lead']))? $input['customer_lead']:0,
-            'relation'              => (isset($input['relation'])) ? $input['relation'] : null,
-            'parent_id'             => (isset($input['parent_id'])) ? $input['parent_id'] : null,
             'next_contact_date'     => date('Y-m-d', strtotime($input['next_contact_date'])),
             'patient_coordinator_id'=> $input['patient_coordinator_id'],
         ];

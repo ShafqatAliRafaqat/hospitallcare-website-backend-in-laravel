@@ -17,6 +17,7 @@
           <div class="card-body">
             <form class="form-horizontal" method="post" action="{{ route('dependents.update', $customer->id) }}" enctype="multipart/form-data">
                 @csrf @method('put')
+                <input type="hidden" name="parent_customer_id" value="{{$parent_customer_id}}">
                 @if($customer->card_id != NULL)
                 <div class="form-group row">
                 <label class="col-md-2 form-control-label">Card ID <span class="asterisk-blue">*</span></label>
@@ -70,7 +71,7 @@
                         <option value="Husband" {{ $customer->relation == "Husband" ? 'selected': '' }}>Husband</option>
                         <option value="Wife"    {{ $customer->relation == "Wife" ? 'selected': '' }}>Wife</option>
                         <option value="Child"   {{ $customer->relation == "Child" ? 'selected': '' }}>Child</option>
-                        <option value="Other"   {{ $customer->relation == "Other" ? 'selected': '' }}>Other</option>
+                        <option value="Friend/Other"   {{ $customer->relation == "Friend/Other" ? 'selected': '' }}>Friend/Other</option>
                       </select>
                   </div>
                 </div>
@@ -152,9 +153,6 @@
                         </li>
                         <li class="nav-item">
                           <a class="nav-link " href="#treatment-tab" role="tab" data-toggle="tab" >Treatments</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="#diagnostics-tab1" role="tab" data-toggle="tab">Diagnostics</a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link active" href="#moredetail-tab" role="tab" data-toggle="tab">More Detail</a>

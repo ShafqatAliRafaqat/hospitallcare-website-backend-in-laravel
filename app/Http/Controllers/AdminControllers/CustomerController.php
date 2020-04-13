@@ -5,8 +5,12 @@ use App\Helpers\NotificationHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\BloodGroup;
 use App\Models\Admin\Center;
+use App\Models\Admin\CoodinatorPerformance;
 use App\Models\Admin\Customer;
+use App\Models\Admin\CustomerAllergy;
 use App\Models\Admin\CustomerDoctorNotes;
+use App\Models\Admin\CustomerImages;
+use App\Models\Admin\CustomerRiskFactor;
 use App\Models\Admin\Diagnostics;
 use App\Models\Admin\Doctor;
 use App\Models\Admin\Lab;
@@ -15,16 +19,13 @@ use App\Models\Admin\TempCustomer;
 use App\Models\Admin\TempNotes;
 use App\Models\Admin\Treatment;
 use App\Organization;
+use App\Services\CustomerServices;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
-use App\Services\CustomerServices;
-use App\Models\Admin\CustomerAllergy;
-use App\Models\Admin\CustomerImages;
-use App\Models\Admin\CustomerRiskFactor;
-use App\User;
 
 class CustomerController extends Controller
 {
@@ -265,40 +266,41 @@ class CustomerController extends Controller
         }
     }
 
-    public function show($id) // User Can view all the details of Customer
+    public function show($id)           // User Can view all the details of Customer
     {
-        $customer       =  DB::table('customers as c')
+        $customer           =  DB::table('customers as c')
                             ->join('status as s','s.id','c.status_id')
                             ->leftjoin('customer_attachements as a','a.customer_id','c.id')
                             ->select('c.*','s.name as status','a.attachment')
                             ->where(['c.id' => $id])
                             ->first();
-        $centers        =   Center::where('is_active', 1)->get();
-        $treatments     =   Treatment::where('is_active', 1)->where('parent_id', null)->get();
-        $procedures     =   Treatment::where('is_active', 1)->whereNotNull('parent_id')->get();
-        $doctors        =   Doctor::all();
-        $blood_group    =   BloodGroup::find($customer->blood_group_id);
-        $doctor_notes   =   CustomerDoctorNotes::where('customer_id',$id)->first();
-        $risk_factor_notes= CustomerRiskFactor::where('customer_id',$id)->get();
-        $allergy_notes  =   CustomerAllergy::where('customer_id',$id)->get();
-        $employee       =   Customer::where('parent_id',$id)->withTrashed()->get();
+        $centers            =   Center::where('is_active', 1)->get();
+        $treatments         =   Treatment::where('is_active', 1)->where('parent_id', null)->get();
+        $procedures         =   Treatment::where('is_active', 1)->whereNotNull('parent_id')->get();
+        $doctors            =   Doctor::all();
+        $blood_group        =   BloodGroup::find($customer->blood_group_id);
+        $doctor_notes       =   CustomerDoctorNotes::where('customer_id',$id)->first();
+        $risk_factor_notes  =   CustomerRiskFactor::where('customer_id',$id)->get();
+        $allergy_notes      =   CustomerAllergy::where('customer_id',$id)->get();
+        // $employee       =   Customer::where('parent_id',$id)->withTrashed()->get();
+        $employee           =   DB::table('customer_dependents as cd')
+                            ->join('customers as c','c.id','cd.parent_customer_id')
+                            ->where('cd.assc_customer_id',$id)
+                            ->select('c.id','c.name','c.phone','c.dob','cd.relation','c.gender','c.weight','c.height','c.marital_status','c.address','cd.bundle_id','cd.status','c.email')
+                            ->get();
         $labs            =   Lab::all();
         $customers      =   Customer::where('id',$id)->with(['diagnostics','labs'])->withTrashed()->first();
         if (isset($customers->labs)) {
-
             foreach ($customers->labs as $lab) {
                 $array[]  =  $lab->id;
             }
-
             if (isset($array)) {
                 $lab      = array_values(array_unique($array)); //Reorder array after making it unique
-
             } else {
                 $lab = NULL;
             }
         }
         $display   =  null;
-
         if($customers->organization_id && $customers->employee_code){
           $display =  1;
         }
@@ -762,11 +764,16 @@ class CustomerController extends Controller
                 'appointment_from'  =>  0,
                 'discount_per'      =>  $discount,
                 'status'            =>  0,
-                'home_sampling'     =>  isset($home_sampling) ? $home_sampling : 0,
+                'home_sampling'     =>  isset($request->home_sampling) ? $request->home_sampling : 0,
                 'bundle_id'         =>  $bundle_id,
             ]);
         }
         if ($insert) {
+            $data['patient_coordinator_id'] = Auth::user()->id;
+            $created =  Carbon::now()->toDateTimeString();
+            $updated =  null;
+            $coordinator_performance = CoodinatorPerformance::create($this->service->getSecureInputCoodinatorPerformance($data,$customer_id,$created,$updated));
+            $update_customer        =   Customer::where('id',$customer_id)->update(['updated_at' => $updated]);
             $customer   =   Customer::where('id',$customer_id)->first();
             if(isset($customer->phone)){ // send message to customer
                 $date           =   Carbon::parse($diagnostic_appointment_date);     // Appointment date
@@ -780,6 +787,17 @@ class CustomerController extends Controller
                 $message        =   "Dear+$customer->name,".$n.$n."Your+appointment+has+been+booked+with+$with.".$n.$n."Date: $fdate".$n."Time:$time".$n.$n."Location:+$location".$n.$n."Note:+Appointment+is+subject+to+Queue+and+Emergencies. You+might+have+to+wait+in+such+situations.".$n.$n."The+Best+Healthcare+Facilitator,".$n."Hospitallcare.com.".$n."For+Queries:+0322-2555600,".$n."0322-2555400".$n.$n."Now you can download our CareALL App for booking appointments and managing your health records: https://bit.ly/2GBo2Nm";
                 $sms            =   CustomerAppointmentSms($message, $customer->phone);
             }
+            $check_customer_in_users = User::where('customer_id',$customer_id)->first();
+            if(isset($check_customer_in_users)){
+                $message        =   isset($request->home_sampling) ? "Your new appointment for Diagnostics is scheduled at $date by $with at your given address" : "Your new appointment for Diagnostics is scheduled at $date";
+                NotificationHelper::GENERATE([
+                    'title'     => 'New Appointment!',
+                    'body'      => $message,
+                    'payload'   => [
+                    'type'      => "New Appointment!"
+                    ]
+                ],$check_customer_in_users->id);
+            }
             session()->flash('success','Diagnostic added Successfully!');
             return redirect()->route('customers.show',$customer_id);
         } else {
@@ -791,8 +809,92 @@ class CustomerController extends Controller
     {
         $bundles        =   DB::table('customer_diagnostics')->where('bundle_id',$bundle_id)->get();
         $labs           =   Lab::where('is_active', 1)->orderBy('name','ASC')->get();
-        return view('adminpanel.customers.edit_diagnostics',compact('bundles','labs'));
-        dd($bundles);
+        $diagnostics    =   Diagnostics::where('is_active', 1)->get();
+
+        return view('adminpanel.customers.edit_diagnostics',compact('bundles','labs','diagnostics'));
+        // dd($bundles);
+    }
+    public function UpdateDiagnosticAppointment(Request $request, $bundle_id)
+    {
+        $validate   = $request->validate([
+            'diagnostic_id'                  => 'required',
+            'lab_id'                         => 'required',
+            'diagnostics_cost'               => 'required',
+            'diagnostic_appointment_date'    => 'sometimes',
+            'discount'                       => 'sometimes',
+        ]);
+        $bundles        =   DB::table('customer_diagnostics')->where('bundle_id',$bundle_id)->first();
+        $customer_id                    =   $bundles->customer_id;
+        $lab_id                         =   $request->lab_id;
+        $diagnostic_id                  =   $request->diagnostic_id;
+        $cost                           =   $request->diagnostics_cost;
+        $diagnostic_appointment_date    =   $request->diagnostic_appointment_date;
+        $time_parsed                    =   Carbon::parse($diagnostic_appointment_date);
+        $old_time                       =   Carbon::parse($bundles->appointment_date);
+        $discount                       =   $request->discount;
+        $arr_count                      =   count($diagnostic_id);
+        $bundle_id                      =   $bundles->bundle_id;
+        $delete_bundles        =   DB::table('customer_diagnostics')->where('bundle_id',$bundle_id)->delete();
+        if ($delete_bundles) {
+            for ($i=0; $i < $arr_count; $i++) {
+                if($discount != 0){
+                    $discounted_cost        = $cost[$i] - ($cost[$i] * ($discount/100));
+                } elseif ($discount == 0) {
+                    $discounted_cost        = $cost[$i];
+                }
+                $insert     =   DB::table('customer_diagnostics')->insertGetId([
+                    'customer_id'       =>  $customer_id,
+                    'diagnostic_id'     =>  $diagnostic_id[$i],
+                    'lab_id'            =>  $lab_id,
+                    'cost'              =>  $cost[$i],
+                    'discounted_cost'   =>  $discounted_cost,
+                    'appointment_date'  =>  $diagnostic_appointment_date,
+                    'appointment_from'  =>  0,
+                    'discount_per'      =>  $discount,
+                    'status'            =>  0,
+                    'home_sampling'     =>  isset($request->home_sampling) ? $request->home_sampling : 0,
+                    'bundle_id'         =>  $bundle_id,
+                ]);
+            }
+            if ($insert) {
+                $data['patient_coordinator_id'] = Auth::user()->id;
+                $updated =  Carbon::now()->toDateTimeString();
+                $created =  null;
+                $coordinator_performance = CoodinatorPerformance::create($this->service->getSecureInputCoodinatorPerformance($data,$customer_id,$created,$updated));
+                $update_customer        =   Customer::where('id',$customer_id)->update(['updated_at' => $updated]);
+            }
+            if (!$time_parsed->equalTo($bundles->appointment_date) ) {
+                $customer   =   Customer::where('id',$customer_id)->first();
+                if(isset($customer->phone)){ // send message to customer
+                    $date               =   Carbon::parse($diagnostic_appointment_date);     // Appointment date
+                    $diagnostic_date    =   $date->format('Y-m-d h:i A');
+                    $time               =   $date->format('h:i A');
+                    $fdate              =   $date->format('jS F Y');
+                    $lab                =   Lab::where('id',$lab_id)->withTrashed()->first();
+                    $with               =   $lab->name;
+                    $location           =   $lab->address;
+                    $n                  =   '\n';
+                    $message            =   "Dear+$customer->name,".$n.$n."Your+appointment+has+been+booked+with+$with.".$n.$n."Date: $fdate".$n."Time:$time".$n.$n."Location:+$location".$n.$n."Note:+Appointment+is+subject+to+Queue+and+Emergencies. You+might+have+to+wait+in+such+situations.".$n.$n."The+Best+Healthcare+Facilitator,".$n."Hospitallcare.com.".$n."For+Queries:+0322-2555600,".$n."0322-2555400".$n.$n."Now you can download our CareALL App for booking appointments and managing your health records: https://bit.ly/2GBo2Nm";
+                    $sms            =   CustomerAppointmentSms($message, $customer->phone);
+                }
+                $check_customer_in_users = User::where('customer_id',$customer_id)->first();
+                if(isset($check_customer_in_users)){
+                    $message        =   isset($request->home_sampling) ? "Your new appointment for Diagnostics is scheduled at $date by $with at your given address" : "Your new appointment for Diagnostics is scheduled at $date";
+                    NotificationHelper::GENERATE([
+                        'title' => 'Appointment Update!',
+                        'body' => $message,
+                        'payload' => [
+                            'type' => "Appointment Update!"
+                        ]
+                    ],$check_customer_in_users->id);
+                }
+            }
+            session()->flash('success','Diagnostic Updated Successfully!');
+            return redirect()->route('customers.show',$customer_id);
+        } else {
+            session()->flash('error','Could not Update the Diagnostic');
+            return redirect()->route('customers.show',$customer_id);
+        }
     }
     public function DiagnosticHistory($id) // User Can view all the History of Customer Diagnostic
     {

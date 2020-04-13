@@ -36,8 +36,10 @@ Route::group(['middleware'=>['auth','role:admin|coordinator|servaid|think|organi
 	Route::resource('employees', 'EmployeeController');
 	//Route of Dependents on Organizational Dashboard
 	Route::resource('dependent', 'DependentController');
+	Route::POST('dependent/{id}/edit', 'DependentController@edit');
 	//Route of Dependents on Admin Dashboard
-	Route::resource('dependents', 'DependentsController');
+    Route::resource('dependents', 'DependentsController');
+    Route::POST('dependents/{id}/edit', 'DependentsController@edit');
 	Route::resource('status', 'StatusController');
 	Route::resource('permissions',  'PermissionsController');
 	Route::resource('faqs', 'FaqController');
@@ -84,6 +86,7 @@ Route::group(['middleware'=>['auth','role:admin|coordinator|servaid|think|organi
     //Customer Diagnostic Routes
     Route::POST('/new_diagnostic_appointment/{id}', 'CustomerController@NewDiagnosticAppointment')->name('NewDiagnosticAppointment');
     Route::GET('/edit_diagnostic_appointment/{id}', 'CustomerController@EditDiagnosticAppointment')->name('EditDiagnosticAppointment');
+    Route::POST('/update_diagnostics/{id}', 'CustomerController@UpdateDiagnosticAppointment')->name('UpdateDiagnosticAppointment');
 
     //Doctor Profiling by Doctor Himself.
     Route::PUT('doctor_general_info/{id}', 'DoctorPanelProfileController@doctorGeneralInfo')->name('doctor_general_info');
@@ -284,9 +287,14 @@ Route::group(['middleware'=>['auth','role:admin|coordinator|servaid|think|organi
 	Route::POST('/importemp/employees', 'AjaxController@importEmployees')->name('employees-import');
     Route::GET('/importpending', 'AjaxController@importPendingIndex')->name('importPending');
     Route::POST('/importpending/leads', 'AjaxController@importPendingLeads')->name('pending-import');
+	Route::POST('/patient-coordinator-performance', 'AjaxController@patientCoordinatorPerformance')->name('patient-coordinator-performance');
+    // SEO-IMPORTS
     Route::GET('/seo-doctor', 'AjaxController@seoDoctor')->name('seo-doctor');
     Route::POST('/importDoctorSeo', 'AjaxController@importDoctorSeo')->name('import-doctor-seo');
-	Route::POST('/patient-coordinator-performance', 'AjaxController@patientCoordinatorPerformance')->name('patient-coordinator-performance');
+    Route::GET('/seo-treatment', 'AjaxController@seoTreatment')->name('seo-treatment');
+    Route::POST('/importtreatmentSeo', 'AjaxController@importTreatmentSeo')->name('import-treatment-seo');
+    Route::GET('/seo-center', 'AjaxController@seoCenter')->name('seo-center');
+    Route::POST('/importcenterSeo', 'AjaxController@importCenterSeo')->name('import-center-seo');
 	/* Servaid Routes Controller */
 	Route::GET('/servaid-orders', 'ServaidController@index')->name('servaid-orders');
 
@@ -385,5 +393,5 @@ Route::group(['middleware'=>['auth','role:admin|coordinator|servaid|think|organi
 	Route::group(['prefix' => 'docs'], function(){
 		Route::get('/', 'DocsController@index')->name('api-list');
 		Route::get('/{id}', 'DocsController@detail')->name('api-detail');
-		
+
 	});

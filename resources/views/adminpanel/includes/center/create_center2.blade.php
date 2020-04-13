@@ -29,6 +29,15 @@
     <div class="invalid-feedback ml-3">{{ $errors->first('phone') }}</div>
     @endif
   </div>
+  <label class="col-md-2 form-control-label">Area</label>
+  <div class="col-md-4">
+    <input type="text" name="area" placeholder="Area"
+    class="form-control {{ $errors->has('area') ? 'is-invalid' : '' }}" value="{{ old('area') }}">
+
+    @if($errors->has('area'))
+    <div class="invalid-feedback ml-3">{{ $errors->first('area') }}</div>
+    @endif
+  </div>
 </div>
 <div class="form-group row">
   <label class="col-md-2 form-control-label">Pictures</label>

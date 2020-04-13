@@ -77,7 +77,7 @@ class CustomerLoginApiController extends Controller
                 }
                 $customer_image = DB::table('customer_images')->where('customer_id',$customer_id)->first();
                 $customer->customer_id = $customer->id;
-                $customer->picture = isset($customer_image)?'http://test.hospitallcare.com/backend/uploads/customers/'.$customer_image->picture:'';
+                $customer->picture = isset($customer_image)?'https://support.hospitallcare.com/backend/uploads/customers/'.$customer_image->picture:'';
                 $token = auth()->user()->createToken('user')->accessToken;
                 return response()->json(['customer_phone'=>$customer_phone,'token' => $token,'data' => $customer], 200);
             } else {
@@ -119,7 +119,7 @@ class CustomerLoginApiController extends Controller
                     ]);
                 }
                 $customer_image = DB::table('customer_images')->where('customer_id',$customer_id)->first();
-                $customer->picture = isset($customer_image)?'http://test.hospitallcare.com/backend/uploads/customers/'.$customer_image->picture:'';
+                $customer->picture = isset($customer_image)?'https://support.hospitallcare.com/backend/uploads/customers/'.$customer_image->picture:'';
                 
                 $token = auth()->user()->createToken('user')->accessToken;
                 return response()->json(['data'=>$customer,'customer_phone'=>$customer_phone,'token' => $token,'user' => $user], 200);
@@ -161,7 +161,7 @@ class CustomerLoginApiController extends Controller
                     ]);
                 }
                 $customer_image = DB::table('customer_images')->where('customer_id',$customer_id)->first();
-                $customer->picture = isset($customer_image)?'http://test.hospitallcare.com/backend/uploads/customers/'.$customer_image->picture:'';
+                $customer->picture = isset($customer_image)?'https://support.hospitallcare.com/backend/uploads/customers/'.$customer_image->picture:'';
                 
                 $tokenResult = $user->createToken('Personal Access Token');
                 $token = $tokenResult->accessToken;
@@ -253,7 +253,7 @@ class CustomerLoginApiController extends Controller
                     ]);
                 }
                 $customer_image = DB::table('customer_images')->where('customer_id',$request->customer_id)->first();
-                $customer->picture = isset($customer_image)?'http://test.hospitallcare.com/backend/uploads/customers/'.$customer_image->picture:'';
+                $customer->picture = isset($customer_image)?'https://support.hospitallcare.com/backend/uploads/customers/'.$customer_image->picture:'';
                 
                 $tokenResult = $user->createToken('Personal Access Token');
                 $token = $tokenResult->accessToken;

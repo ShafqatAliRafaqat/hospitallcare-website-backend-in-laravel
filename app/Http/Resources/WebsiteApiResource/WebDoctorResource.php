@@ -53,7 +53,7 @@ class WebDoctorResource extends JsonResource
             'map'               =>  $map,
             'centers'           =>  (isset($d->doctor_schedules)) ? $d->doctor_schedules:"",
             'treatments'        =>  (isset($d->treatments)) ? WebTreatmentResource::collection($d->treatments->take(9)) : "",
-            'picture'           => (isset($doctor_image))? 'http://test.hospitallcare.com/backend/uploads/doctors/'.$doctor_image->picture:null,
+            'picture'           => (isset($doctor_image))? 'https://support.hospitallcare.com/backend/uploads/doctors/'.$doctor_image->picture:null,
             'doctor_qualification'   =>  (isset($doctor_qualification)) ? $doctor_qualification :"",
             'doctor_certification'   =>  (isset($doctor_certification)) ? $doctor_certification:"",
 

@@ -163,7 +163,7 @@
                               @if($file->type == "P" && $file->file_type != "image")
                               <tr>
                                 <th scope="row">{{$no++}}</th>
-                                <td> <a target="_blank" href="http://test.hospitallcare.com/backend/uploads/customer_documents/{{$file->slug}}">{{ $file->title }}</a></td>
+                                <td> <a target="_blank" href="https://support.hospitallcare.com/backend/uploads/customer_documents/{{$file->slug}}">{{ $file->title }}</a></td>
                                 <td>{{ $file->description }}</td>
                                 <td>{{ $file->file_type }}</td>
                                 @php
@@ -244,7 +244,7 @@
                               @if($file->type == "L" && $file->file_type != "image")
                               <tr>
                                 <th scope="row">{{$no++}}</th>
-                                <td> <a target="_blank" href="http://test.hospitallcare.com/backend/uploads/customer_documents/{{$file->slug}}">{{ $file->title }}</a></td>
+                                <td> <a target="_blank" href="https://support.hospitallcare.com/backend/uploads/customer_documents/{{$file->slug}}">{{ $file->title }}</a></td>
                                 <td>{{ $file->description }}</td>
                                 <td>{{ $file->file_type }}</td>
                                 @php
@@ -325,7 +325,7 @@
                               @if($file->type == "R" && $file->file_type != "image")
                               <tr>
                                 <th scope="row">{{$no++}}</th>
-                                <td> <a target="_blank" href="http://test.hospitallcare.com/backend/uploads/customer_documents/{{$file->slug}}">{{ $file->title }}</a></td>
+                                <td> <a target="_blank" href="https://support.hospitallcare.com/backend/uploads/customer_documents/{{$file->slug}}">{{ $file->title }}</a></td>
                                 <td>{{ $file->description }}</td>
                                 <td>{{ $file->file_type }}</td>
                                 @php
@@ -404,7 +404,7 @@
                               @if($file->type == "O" && $file->file_type != "image")
                               <tr>
                                 <th scope="row">{{$no++}}</th>
-                                <td> <a target="_blank" href="http://test.hospitallcare.com/backend/uploads/customer_documents/{{$file->slug}}">{{ $file->title }}</a></td>
+                                <td> <a target="_blank" href="https://support.hospitallcare.com/backend/uploads/customer_documents/{{$file->slug}}">{{ $file->title }}</a></td>
                                 <td>{{ $file->description }}</td>
                                 <td>{{ $file->file_type }}</td>
                                 @php

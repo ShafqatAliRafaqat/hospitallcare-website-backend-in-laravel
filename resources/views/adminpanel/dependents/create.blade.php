@@ -40,7 +40,7 @@
                         <input type="text" name="name" placeholder="Dependent name"
                         class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" value="{{ old('name') }}" required>
 
-                        <input type="text" name="parent_id" hidden value="{{$customer->id}}">
+                        <input type="text" name="parent_customer_id" hidden value="{{$customer->id}}">
 
                       @if($errors->has('name'))
                         <div class="invalid-feedback ml-3">{{ $errors->first('name') }}</div>

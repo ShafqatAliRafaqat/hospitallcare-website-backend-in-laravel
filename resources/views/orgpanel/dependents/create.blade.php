@@ -43,7 +43,7 @@
                       <option data-value="Spouse" value="Spouse">Spouse</option>
                       <option data-value="Husband" value="Husband">Husband</option>
                       <option data-value="Child" value="Child">Child</option>
-                      <option data-value="Other" value="Other">Other</option>
+                      <option data-value="Friend/Other" value="Friend/Other">Friend/Other</option>
                     </select>
                       @if($errors->has('relation'))
                         <div class="invalid-feedback ml-3">{{ $errors->first('relation') }}</div>

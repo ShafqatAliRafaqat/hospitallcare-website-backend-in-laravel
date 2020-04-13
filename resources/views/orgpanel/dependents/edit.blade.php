@@ -19,6 +19,7 @@
           <div class="card-body">
             <form class="form-horizontal" method="post" action="{{ route('dependent.update', $dependent->id)  }}" enctype="multipart/form-data">
                @method('put') @csrf
+               <input type="hidden" name="bundle_id" value="{{ $dependent->relation_bundle_id }}">
                 <div class="form-group row">
                   <label class="col-md-2 form-control-label">Dependent Name <span class="asterisk">*</span></label>
                   <div class="col-md-4">
@@ -38,7 +39,7 @@
                       <option data-value="Spouse" value="Spouse" {{ ($dependent->relation == 'Spouse') ? 'selected' : ''}}>Spouse</option>
                       <option data-value="Husband" value="Husband"{{ ($dependent->relation == 'Husband') ? 'selected' : ''}}>Husband</option>
                       <option data-value="Child" value="Child"{{ ($dependent->relation == 'Child') ? 'selected' : ''}}>Child</option>
-                      <option data-value="Other" value="Other"{{ ($dependent->relation == 'Other') ? 'selected' : ''}}>Other</option>
+                      <option data-value="Friend/Other" value="Friend/Other"{{ ($dependent->relation == 'Friend/Other') ? 'selected' : ''}}>Friend/Other</option>
                     </select>
                       @if($errors->has('relation'))
                         <div class="invalid-feedback ml-3">{{ $errors->first('relation') }}</div>

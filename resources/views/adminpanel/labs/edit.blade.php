@@ -87,12 +87,38 @@
                       @endif
                   </div>
                 </div>
+                <div class="form-group row">
+                  <label class="col-md-2 form-control-label">Picture</label>
+                  <div class="col-md-7 imageupload">
+                        <div class="file-tab panel-body">
+                                <label class="btn btn-success btn-file">
+                                    <span>File</span>
+                                    <!-- The file is stored here. -->
+                                    <input type="file" name="picture">
+                                </label>
+                                <button type="button" class="btn btn-danger">Remove</button>
+                            </div>
+                    </div>
+                        @php
+                        $picture = (isset($image))?$image->picture:"";
+                        @endphp
+                  <div class="col-md-3">
+                                    <div class="img-wrap">
+                                    <span class="close">×</span>
+                                    <input type="hidden" name="picture"  value="{{$picture}}">
+                        <img src="{{ asset('backend/uploads/labs/'.$picture) }}" class="img-fluid" alt="{{ $errors->first('picture') }}" height="100" width="100">
+                    </div>
+                  </div>
+                </div>
                   <ul class="nav nav-tabs customer-nav" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" href="#address-tab" role="tab" data-toggle="tab" >Address</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#notes-tab" role="tab" data-toggle="tab" >Notes</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#seo-tab" role="tab" data-toggle="tab" >SEO Details</a>
                     </li>
                   </ul>
 
@@ -156,6 +182,40 @@
                   </div>
                 </div>
               </div>
+              <div role="tabpanel" class="tab-pane pt-3 in fade" id="seo-tab">
+                <div class="form-group row">
+                  <label class="col-md-2 form-control-label">Meta Title</label>
+                  <div class="col-md-10">
+                      <input type="text" name="meta_title" placeholder="SEO Meta Title"
+                      class="form-control {{ $errors->has('meta_title') ? 'is-invalid' : '' }}" value="{{ $labs->meta_title }}">
+
+                    @if($errors->has('meta_title'))
+                      <div class="invalid-feedback ml-3">{{ $errors->first('meta_title') }}</div>
+                    @endif
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-md-2 form-control-label">Meta Description</label>
+                  <div class="col-md-10">
+                      <input type="text" name="meta_description" placeholder="SEO Meta Description"
+                      class="form-control {{ $errors->has('meta_description') ? 'is-invalid' : '' }}" value="{{ $labs->meta_description }}">
+
+                    @if($errors->has('meta_description'))
+                      <div class="invalid-feedback ml-3">{{ $errors->first('meta_description') }}</div>
+                    @endif
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-md-2 form-control-label">URL</label>
+                  <div class="col-md-10">
+                      <input type="text" name="url" placeholder="Enter URL"
+                      class="form-control {{ $errors->has('url') ? 'is-invalid' : '' }}" value="{{ $labs->url }}">
+                    @if($errors->has('url'))
+                      <div class="invalid-feedback ml-3">{{ $errors->first('url') }}</div>
+                    @endif
+                  </div>
+                </div>
+                </div>
            </div><!-- End of Tabs -->
                 <div class="form-group row">
                   <label class="col-md-2 form-control-label">Active</label>
@@ -200,7 +260,12 @@
 
 <!-- (Optional) Latest compiled and minified JavaScript translation files -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/i18n/defaults-*.min.js"></script>
+<script src="{{asset('backend/js/bootstrap-imageupload.js')}}"></script>
 <script src="{{ asset('backend/js/bootstrap-inputmask.min.js') }}"></script>
+<script>
+  var $imageupload = $('.imageupload');
+  $imageupload.imageupload();
+</script>
 <script>
 $(document).ready(function(){
   var i=1;

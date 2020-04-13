@@ -33,7 +33,7 @@ class DoctorCustomerResource extends JsonResource
             'name'          => $c->name,
             'email'         => (isset($c->email))?$c->email:'',
             // 'phone'      	=> (isset($c->phone))?$c->phone:'',
-            'picture'       =>  ((isset($image->picture))? 'http://test.hospitallcare.com/backend/uploads/customers/'.$image->picture:(($c->gender == 0)?'http://test.hospitallcare.com/backend/web_imgs/app-male.png':'http://test.hospitallcare.com/backend/web_imgs/app-female.png')),
+            'picture'       =>  ((isset($image->picture))? 'https://support.hospitallcare.com/backend/uploads/customers/'.$image->picture:(($c->gender == 0)?'https://support.hospitallcare.com/backend/web_imgs/app-male.png':'https://support.hospitallcare.com/backend/web_imgs/app-female.png')),
             'address'     	=> (isset($c->address))?$c->address:'',
             'gender'        => ($c->gender == 0)?'Male':'Female',
             'marital_status'=> ($c->marital_status == 0)?'Unmarried':'Married',

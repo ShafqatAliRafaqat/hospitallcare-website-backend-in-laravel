@@ -83,13 +83,29 @@
                       <label for="is_active" class="custom-control-label">Check to Active the Center</label>
                     </div>
                   </div>
-              	</div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-md-2 form-control-label">Pictures</label>
+                  <div class="col-md-10 imageupload">
+                    <div class="file-tab panel-body">
+                      <label class="btn btn-success btn-file">
+                        <span>File</span>
+                        <!-- The file is stored here. -->
+                        <input type="file" name="picture">
+                      </label>
+                      <button type="button" class="btn btn-danger">Remove</button>
+                    </div>
+                  </div>
+                </div>
                 <ul class="nav nav-tabs customer-nav" role="tablist">
                   <li class="nav-item">
                       <a class="nav-link active" href="#address-tab" role="tab" data-toggle="tab" >Address</a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link" href="#notes-tab" role="tab" data-toggle="tab" >Notes</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#seo-tab" role="tab" data-toggle="tab" >SEO Details</a>
                   </li>
                 </ul>
                 <!-- Tab panes -->
@@ -152,6 +168,42 @@
                   </div>
                 </div>
               </div>
+              <div role="tabpanel" class="tab-pane pt-3 in fade" id="seo-tab">
+                <div class="form-group row">
+                  <label class="col-md-2 form-control-label">Meta Title</label>
+                  <div class="col-md-10">
+                    <input type="text" name="meta_title" placeholder="SEO Meta Title"
+                    class="form-control {{ $errors->has('meta_title') ? 'is-invalid' : '' }}" value="{{ old('meta_title') }}">
+
+                    @if($errors->has('meta_title'))
+                    <div class="invalid-feedback ml-3">{{ $errors->first('meta_title') }}</div>
+                    @endif
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-md-2 form-control-label">Meta Description</label>
+                  <div class="col-md-10">
+                    <input type="text" name="meta_description" placeholder="SEO Meta Description"
+                    class="form-control {{ $errors->has('meta_description') ? 'is-invalid' : '' }}" value="{{ old('meta_description') }}">
+
+                    @if($errors->has('meta_description'))
+                    <div class="invalid-feedback ml-3">{{ $errors->first('meta_description') }}</div>
+                    @endif
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-md-2 form-control-label">URL</label>
+                  <div class="col-md-10">
+                    <input type="text" name="url" placeholder="Enter URL"
+                    class="form-control {{ $errors->has('url') ? 'is-invalid' : '' }}" value="{{ old('url') }}">
+                    @if($errors->has('url'))
+                    <div class="invalid-feedback ml-3">{{ $errors->first('url') }}</div>
+                    @endif
+                  </div>
+                </div>
+              </div>
            </div><!-- End of Tabs -->
 
 
@@ -172,6 +224,7 @@
 <script src="{{ asset('backend/js/select2-develop/dist/js/select2.min.js') }}"></script>
 <script src="{{ asset('backend/js/fileupload.js') }}" ></script>
 <script src="{{ asset('backend/js/tinymce/js/tinymce/tinymce.min.js') }}"></script>
+<script src="{{asset('backend/js/bootstrap-imageupload.js')}}"></script>
 <script src="{{ asset('backend/js/tinymce-config.js') }}" ></script>
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>
@@ -179,7 +232,10 @@
 
 <!-- (Optional) Latest compiled and minified JavaScript translation files -->
 <script src="{{ asset('backend/js/bootstrap-inputmask.min.js') }}"></script>
-
+<script>
+  var $imageupload = $('.imageupload');
+  $imageupload.imageupload();
+</script>
 <script>
 $(document).ready(function(){
   var i=1;

@@ -50,7 +50,7 @@ class DoctorLoginApiController extends Controller
                 }
 
                 $doctor_image = DB::table('doctor_images')->where('doctor_id',$doctor_id)->first();
-                $user['picture'] = isset($doctor_image)?'http://test.hospitallcare.com/backend/uploads/doctors/'.$doctor_image->picture:'';
+                $user['picture'] = isset($doctor_image)?'https://support.hospitallcare.com/backend/uploads/doctors/'.$doctor_image->picture:'';
 
                 $token = auth()->user()->createToken('user')->accessToken;
                 return response()->json(['doctor_phone'=>$doctor_phone,'token' => $token,'user' => $user], 200);
@@ -92,7 +92,7 @@ class DoctorLoginApiController extends Controller
                 }
 
                 $doctor_image = DB::table('doctor_images')->where('doctor_id',$doctor_id)->first();
-                $user['picture'] = isset($doctor_image)?'http://test.hospitallcare.com/backend/uploads/doctors/'.$doctor_image->picture:'';
+                $user['picture'] = isset($doctor_image)?'https://support.hospitallcare.com/backend/uploads/doctors/'.$doctor_image->picture:'';
 
                 $token = auth()->user()->createToken('user')->accessToken;
                 return response()->json(['doctor_phone'=>$doctor_phone,'token' => $token,'user' => $user], 200);
@@ -130,7 +130,7 @@ class DoctorLoginApiController extends Controller
                     ]);
                 }
                 $doctor_image = DB::table('doctor_images')->where('doctor_id',$doctor_id)->first();
-                $user['picture'] = isset($doctor_image)?'http://test.hospitallcare.com/backend/uploads/doctors/'.$doctor_image->picture:'';
+                $user['picture'] = isset($doctor_image)?'https://support.hospitallcare.com/backend/uploads/doctors/'.$doctor_image->picture:'';
 
                 $tokenResult = $user->createToken('Personal Access Token');
                 $token = $tokenResult->accessToken;

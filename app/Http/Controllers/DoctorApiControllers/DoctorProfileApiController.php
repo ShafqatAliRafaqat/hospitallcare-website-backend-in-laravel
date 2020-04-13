@@ -236,12 +236,12 @@ class DoctorProfileApiController extends Controller
                 'experience'          => $experience,
             ]);
             if ($doctor_updated) {
-                return response()->json(['message'=>'Data inserted Successfully'], 200);
+                return response()->json(['message'=>'Profile Updated Successfully!'], 200);
             } else {
                     return response()->json(['error'=>'Please Enter an ID that resides in Database'], 404);
             }
         }else{
-            return response()->json(['message'=>'Data inserted Successfully'], 200);
+            return response()->json(['message'=>'Profile Updated Successfully!'], 200);
         }
     }
 

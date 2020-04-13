@@ -35,7 +35,7 @@ class WebCenterResource extends JsonResource
             'map'               =>  $map,
             // 'doctors'           =>  ($c->doctor) ? WebDoctorResource::collection($c->whenLoaded('doctor')) : "",
             'treatments'        =>  ($c->center_treatment) ? WebTreatmentResource::collection($c->whenLoaded('center_treatment')) : "",
-            'picture'           => (isset($c->center_image))? 'http://test.hospitallcare.com/backend/uploads/centers/'.$c->center_image->picture:null,
+            'picture'           => (isset($c->center_image))? 'https://support.hospitallcare.com/backend/uploads/centers/'.$c->center_image->picture:null,
             'count_doctors'     =>  (isset($c->count_doctor))? $c->count_doctor : null,
         ];
 

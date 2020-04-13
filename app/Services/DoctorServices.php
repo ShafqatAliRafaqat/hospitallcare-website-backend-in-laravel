@@ -336,6 +336,7 @@ public function getSecureInput($input){
         'is_active'             => isset($input['is_active']) ? $input['is_active']:NULL,
         'on_web'                => isset($input['on_web']) ? $input['on_web']:NULL,
         'is_partner'            => isset($input['is_partner']) ? $input['is_partner']:0,
+        'online_consultation'   => isset($input['online_consultation']) ? $input['online_consultation']:0,
         'meta_title'            => $input['meta_title'],
         'meta_description'      => $input['meta_description'],
         'url'             => $input['url'],

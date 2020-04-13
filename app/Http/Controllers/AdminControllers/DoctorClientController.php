@@ -41,6 +41,7 @@ class DoctorClientController extends Controller
 
     public function store(Request $request)                                                         // Doctor can Store data of new Customer
     {
+        // dd($request->all());
           $validate = $request->validate([
               'name'                   => 'required|min:3',
               'email'                  => 'sometimes',
@@ -70,8 +71,8 @@ class DoctorClientController extends Controller
               'height'                => $request->height,
               'notes'                 => $request->notes,
               'status_id'             => 10,
-              'customer_lead'         => 4,                                                                     // customer created by doctor website
-              'blood_group_id'        => isset($request->blood_group_id)? $request->blood_group_id:'',
+              'customer_lead'         => 4,                      // customer created by doctor website
+              'blood_group_id'        => isset($request->blood_group_id)? $request->blood_group_id: null,
               'created_at'            => Carbon::now()->toDateTimeString(),
               'updated_at'            => Carbon::now()->toDateTimeString(),
           ]);
@@ -129,7 +130,6 @@ class DoctorClientController extends Controller
             $allergy_notes  =   CustomerAllergy::where('customer_id',$id)->get();
             $employee       =   Customer::where('parent_id',$id)->withTrashed()->get();
             $customers      =   Customer::where('id',$id)->with(['diagnostics','labs'])->withTrashed()->first();
-
             $doctor         =   Doctor:: where('id',$doctor_id)->with('centers')->first();
             if ($doctor->centers) {
                 foreach ($doctor->centers as $s) {
@@ -141,8 +141,10 @@ class DoctorClientController extends Controller
                     $center_id = null;
                 }
             }
-
-            return view('doctorpanel.clients.show', compact('customer','center_id','centers','treatments','procedures','doctors','employee','display','lab','blood_group','doctor_notes','risk_factor_notes','allergy_notes'));
+            // dd($doctor,$center_id);
+            $display = null;
+            $lab = null;
+            return view('doctorpanel.clients.show', compact('customer','doctor','center_id','centers','treatments','procedures','doctors','employee','display','lab','blood_group','doctor_notes','risk_factor_notes','allergy_notes'));
         } else {
             abort(403);
         }
@@ -191,7 +193,7 @@ class DoctorClientController extends Controller
                 'age'                   => $request->age,
                 'weight'                => $request->weight,
                 'height'                => $request->height,
-                'blood_group_id'        => isset($request->blood_group_id)? $request->blood_group_id:'',
+                'blood_group_id'        => isset($request->blood_group_id)? $request->blood_group_id:null,
                 'updated_at'            => Carbon::now()->toDateTimeString(),
               ]);
               if ($request->riskfactor_notes) {
@@ -237,7 +239,88 @@ class DoctorClientController extends Controller
             abort(403);
         }
     }
+    public function addCustomerAllergiesNotes(Request $request, $customer_id){
+        // dd($request->all());
+            $allergies_notes = $request->allergies_notes;
+            // $customer_allergy_delete =  CustomerAllergy::where('customer_id',$customer_id)->forcedelete();
+            if(count($allergies_notes)>0 ){
+                foreach($allergies_notes as $notes){
+                    if(is_array($notes)){
+                        $notes_data[] = implode(" ",$notes);
+                        // $notes_data[]  = isset($notes->value)? $notes['value'] : $notes;
+                        // foreach($notes as $note){
+                        //     $notes_data[] =$note;  
+                        // }
+                    }else{
+                        $notes_data[] =$notes;     
+                    }
+                }
+                if(isset($notes_data[0])){
+                    
+                    foreach($notes_data as $insert_notes){
+                        if(isset($insert_notes) && $insert_notes != null){
+                            $insert = CustomerAllergy::create([
+                                "customer_id"   => $customer_id,
+                                "notes"         =>$insert_notes
+                            ]);
+                        }
+                    }
+                    $customer_allergies = CustomerAllergy::where('customer_id',$customer_id)->select('notes')->get();
+                    return redirect()->back();    
 
+                }else{
+
+                    return response()->back();    
+                }
+            }
+    }
+    public function addCustomerRiskFactorNotes(Request $request,$customer_id){
+            $riskfactor_notes = $request->riskfactor_notes;
+            // $customer_riskfactor_delete =  CustomerRiskFactor::where('customer_id',$customer_id)->forcedelete();
+            if(count($riskfactor_notes)>0 ){
+                foreach($riskfactor_notes as $notes){
+                    if(is_array($notes)){
+                        $notes_data[] = implode(" ",$notes);
+                        // $notes_data[]  = isset($notes->value)? $notes['value'] : $notes;
+                        // foreach($notes as $note){
+                        //     $notes_data[] =$note;  
+                        // }
+                    }else{
+                        $notes_data[] =$notes;     
+                    }
+                }
+                if(isset($notes_data[0])){
+                    
+                    foreach($notes_data as $insert_notes){
+                        if(isset($insert_notes) && $insert_notes != null){
+                            $insert = CustomerRiskFactor::create([
+                                "customer_id"   => $customer_id,
+                                "notes"         =>$insert_notes
+                            ]);
+                        }
+                    }
+                    $Customer_riskfactor = CustomerRiskFactor::where('customer_id',$customer_id)->select('notes')->get();
+                    return redirect()->back();    
+
+                }else{
+                    return redirect()->back();    
+                }
+            }
+    }
+    public function addCustomerDoctorNotes(Request $request,$customer_id){
+        $date               =   Carbon::now()->format('m/d/Y');
+        $doctor_id          =   Auth::user()->doctor_id;
+        $doctor_name        =   Doctor::where('id',$doctor_id)->select('name')->first();
+        $doctor_notes       = $request->notes;
+        $notes              = $doctor_name->name.' On '.$date.' '.$doctor_notes;
+        $insert             = CustomerDoctorNotes::create(['notes' => $notes, 'customer_id' => $customer_id]);
+                
+        if($insert){
+            return redirect()->back();    
+        }else{
+                return redirect()->back();    
+        }
+    }
     public function destroy($id)                                                                // Doctor can Delete any customer from has list
     {
       $doctor_id  = Auth::user()->doctor_id;

@@ -22,7 +22,7 @@ class DoctorAppResource extends JsonResource
             'first_name'    => $c->name,
             'last_name'     => $c->last_name,
             'email'      	=> $c->email,
-            'picture'       =>  (isset($c->doctor_image))? 'http://test.hospitallcare.com/backend/uploads/doctors/'.$c->doctor_image->picture:null,
+            'picture'       =>  (isset($c->doctor_image))? 'https://support.hospitallcare.com/backend/uploads/doctors/'.$c->doctor_image->picture:null,
             'degree'     	=> $c->degree,
             'focus_area'    => (isset($c->focus_area))?$c->focus_area:null,
             'address'       => (isset($c->address))?$c->address:null,

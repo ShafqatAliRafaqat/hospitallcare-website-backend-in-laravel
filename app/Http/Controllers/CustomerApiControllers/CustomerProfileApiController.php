@@ -74,8 +74,7 @@ class CustomerProfileApiController extends Controller{
             return response()->json(['message' => 'Wrong Email or Password'], 401);
         }
     }
-    public function treatments(){
-        $customer_id = Auth::user()->customer_id;
+    public function treatments($customer_id){
         $cp_treatments  =   DB::table('customer_procedures as cp')
                         ->join('doctors as d','d.id','cp.doctor_id')
                         ->join('medical_centers as mc','mc.id','cp.hospital_id')
@@ -94,8 +93,7 @@ class CustomerProfileApiController extends Controller{
         $treatments        = Array_merge($cp_treatments, $cth_treatments);
         return response()->json(['data' => $treatments], 200);
     }
-    public function diagnostics(){
-        $customer_id = Auth::user()->customer_id;
+    public function diagnostics($customer_id){
         $cd_diagnostics  =   DB::table('customer_diagnostics as cd')
                         ->join('labs as l','l.id','cd.lab_id')
                         ->join('diagnostics as d','d.id','cd.diagnostic_id')
@@ -111,89 +109,81 @@ class CustomerProfileApiController extends Controller{
         $diagnostics        = Array_merge($cd_diagnostics, $cdh_diagnostics);
         return response()->json(['data' => $diagnostics], 200);
     }
-    public function doctorNotes(){
-        $customer_id    = Auth::user()->customer_id;
+    public function doctorNotes($customer_id){
         $doctor_notes   = DB::table('customer_doctor_notes')->where('customer_id',$customer_id)->select('notes')->get();
         return response()->json(['data' => $doctor_notes], 200);
     }
-    public function all_allergies(){
-        $customer_id = Auth::user()->customer_id;
-        $allergies = CustomerAllergy::where('customer_id',$customer_id)->select('notes','id')->get();
+    public function all_allergies($customer_id){
+        $allergies      = CustomerAllergy::where('customer_id',$customer_id)->select('notes','id')->get();
         return response()->json(['data' => $allergies], 200);
     }
-    public function create_allergy(Request $request){
-        $customer_id = Auth::user()->customer_id;
+    public function create_allergy(Request $request, $customer_id){
         if($request->notes != null){
             $allergies = CustomerAllergy::create([
                 'customer_id'   => $customer_id,
                 'notes'         => $request->notes,
             ]);
-            return response()->json(['message'=>"Data enter Successfully"],200);
+            return response()->json(['message'=>"Allergy saved Successfully"],200);
         }else{
             return response()->json(['message'=>'Enter Valid data'],404);
         }
     }
     public function update_allergy(Request $request , $id){
-        $customer_id = Auth::user()->customer_id;
-        $allergies = CustomerAllergy::where('id',$id)->where('customer_id',$customer_id)->first();
+        $customer_id    =   $request->customer_id;
+        $allergies      =   CustomerAllergy::where('id',$id)->where('customer_id',$customer_id)->first();
         if(isset($allergies) && $request->notes != null){
             $allergies = $allergies->update([
                 'notes' => $request->notes,
             ]);
-            return response()->json(['message'=>"Data updated Successfully"],200);
+            return response()->json(['message'=>"Allergy updated Successfully"],200);
         }else{
             return response()->json(['message'=>'Enter Valid data'],404);
         }
     }
     public function delete_allergy($id){
-        $customer_id = Auth::user()->customer_id;
-        $allergies = CustomerAllergy::where('id',$id)->where('customer_id',$customer_id)->first();
-        return response()->json(['message'=>'Data deleted successfully'],200);
+        $allergies      = CustomerAllergy::where('id',$id)->delete();
+        return response()->json(['message'=>'Allergy deleted successfully'],200);
     }
-    public function all_riskfactor(){
-        $customer_id = Auth::user()->customer_id;
+    public function all_riskfactor($customer_id){
         $riskfactors = CustomerRiskFactor::where('customer_id',$customer_id)->select('notes','id')->get();
         return response()->json(['data' => $riskfactors], 200);
     }
-    public function create_riskfactor(Request $request){
-        $customer_id = Auth::user()->customer_id;
+    public function create_riskfactor(Request $request, $customer_id){
         if($request->notes != null){
             $riskfactor = CustomerRiskFactor::create([
                 'customer_id'   => $customer_id,
                 'notes'         => $request->notes,
             ]);
-            return response()->json(['message'=>"Data enter Successfully"],200);
+            return response()->json(['message'=>"Risk Factor saved Successfully"],200);
 
         }else{
             return response()->json(['message'=>'Enter Valid data'],404);
         }
     }
     public function update_riskfactor(Request $request , $id){
-        $customer_id = Auth::user()->customer_id;
-        $riskfactor = CustomerRiskFactor::where('id',$id)->where('customer_id',$customer_id)->first();
+        $customer_id    =   $request->customer_id;
+        $riskfactor     =   CustomerRiskFactor::where('id',$id)->where('customer_id',$customer_id)->first();
         if(isset($riskfactor) && $request->notes != null){
             $riskfactor = $riskfactor->update([
                 'notes' => $request->notes,
             ]);
-            return response()->json(['message'=>"Data updated Successfully"],200);
+            return response()->json(['message'=>"Risk Factor updated Successfully"],200);
         }else{
             return response()->json(['message'=>'Enter Valid data'],404);
         }
     }
     public function delete_riskfactor($id){
-        $customer_id = Auth::user()->customer_id;
-        $riskfactor = CustomerRiskFactor::where('id',$id)->where('customer_id',$customer_id)->first();
-        return response()->json(['message'=>'Data deleted successfully'],200);
+        $riskfactor = CustomerRiskFactor::where('id',$id)->delete();
+        return response()->json(['message'=>'Risk Factor deleted successfully'],200);
     }
     public function getCustomerProfile(){
         $customer_id = Auth::user()->customer_id;
         $customer  = Customer::where('id',$customer_id)->first();
         $customer_image = DB::table('customer_images')->where('customer_id',$customer_id)->first();
-        $customer->picture = isset($customer_image)?'http://test.hospitallcare.com/backend/uploads/customers/'.$customer_image->picture:'';
+        $customer->picture = isset($customer_image)?'https://support.hospitallcare.com/backend/uploads/customers/'.$customer_image->picture:'';
         return CustomerProfileResource::make($customer);
     }
     public function updateCustomerProfile(Request $request){
-
         $id = Auth::user()->customer_id;
         $validate = $request->validate([
             'name'                  => 'required|min:3',
@@ -259,7 +249,7 @@ class CustomerProfileApiController extends Controller{
             foreach ($treatment_appointment as $ta) {
                 $ta->map            = "https://www.google.com/maps?saddr&daddr=$ta->lat,$ta->lng";
                 $doctor_image       =   doctorImage($ta->doctor_id);
-                $ta->doctor_image   =   (isset($doctor_image))? 'http://test.hospitallcare.com/backend/uploads/doctors/'.$doctor_image->picture:null;
+                $ta->doctor_image   =   (isset($doctor_image))? 'https://support.hospitallcare.com/backend/uploads/doctors/'.$doctor_image->picture:null;
             }
         }
         return response()->json(['data' => isset($treatment_appointment)?$treatment_appointment:[]]);
@@ -290,7 +280,7 @@ class CustomerProfileApiController extends Controller{
             foreach ($treatment_appointment as $ta) {
                 $ta->map            = "https://www.google.com/maps?saddr&daddr=$ta->lat,$ta->lng";
                 $doctor_image       =   doctorImage($ta->doctor_id);
-                $ta->doctor_image   =   (isset($doctor_image))? 'http://test.hospitallcare.com/backend/uploads/doctors/'.$doctor_image->picture:null;
+                $ta->doctor_image   =   (isset($doctor_image))? 'https://support.hospitallcare.com/backend/uploads/doctors/'.$doctor_image->picture:null;
             }
         }
         return response()->json(['data' => isset($treatment_appointment)?$treatment_appointment:[]]);
@@ -321,7 +311,7 @@ class CustomerProfileApiController extends Controller{
             foreach ($treatment_appointment as $ta) {
                 $ta->map            = "https://www.google.com/maps?saddr&daddr=$ta->lat,$ta->lng";
                 $doctor_image       =   doctorImage($ta->doctor_id);
-                $ta->doctor_image   =   (isset($doctor_image))? 'http://test.hospitallcare.com/backend/uploads/doctors/'.$doctor_image->picture:null;
+                $ta->doctor_image   =   (isset($doctor_image))? 'https://support.hospitallcare.com/backend/uploads/doctors/'.$doctor_image->picture:null;
             }
         }
         return response()->json(['data' => isset($treatment_appointment)?$treatment_appointment:[]]);
