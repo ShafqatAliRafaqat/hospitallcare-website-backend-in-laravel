@@ -2,6 +2,7 @@
 @section('title','Create Center | HospitALL')
 @section('styles')
 <link rel="stylesheet" href="{{ asset('backend/css/fileupload.css') }}">
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 @endsection
 @section('content')
 <div class="container-fluid px-xl-5">

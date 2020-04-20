@@ -27,9 +27,9 @@ use Illuminate\Support\Facades\DB;
 		            <table class="table table-striped table-lg card-text d" id="centers"  width="100%">
 		              <thead class="thead-light">
 		                <tr>
-		                  <th width= "4%">#</th>
+		                  <th>#</th>
 		                  <th>Center Name</th>
-		                  <th width= "33%">Treatment Name</th>
+		                  <th>Treatment Name</th>
 		                  <th>Focus Area</th>
                           <th>Address</th>
                           <th>Created By</th>
@@ -79,7 +79,8 @@ use Illuminate\Support\Facades\DB;
                                 @endif
 		                      </td>
 		                      <td>{{ $c->is_active == 1 ? 'Active' : 'Not Active' }}</td>
-		                      <td><a href="{{ route('medical.edit', $c->id) }}"><i class="fa fa-edit mr-2"></i></a>
+		                      <td>
+                            <a href="{{ route('medical.edit', $c->id) }}"><i class="fa fa-edit mr-2"></i></a>
                                 <a class="delete" data-id="{{ $c->id }}" href="#"><i class="fa fa-trash"></i></a>
                                 <form id="deleteForm{{$c->id}}" method="post" action="{{ route('medical.destroy', $c->id) }}">
                                     @csrf @method('delete')

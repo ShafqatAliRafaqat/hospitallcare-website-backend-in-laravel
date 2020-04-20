@@ -7,6 +7,10 @@
 <!-- (Optional) Latest compiled and minified JavaScript translation files -->
 <script src="{{ asset('backend/js/bootstrap-inputmask.min.js') }}"></script>
 <script src="{{asset('backend/js/bootstrap-imageupload.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>
+<!-- (Optional) Latest compiled and minified JavaScript translation files -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/i18n/defaults-*.min.js"></script>
+
 <script>
   $('#center-form').on('keyup keypress', function(e) {
     var keyCode = e.keyCode || e.which;

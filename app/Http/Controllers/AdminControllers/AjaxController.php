@@ -795,12 +795,12 @@ class AjaxController extends Controller
             if($row == 1){ $row++; continue; }
             $doctor_find        = null;
             $doctor_id          = $filesop[0];
-            $name               = $filesop[1];
-            $meta_title         = $filesop[2];
-            $meta_description   = $filesop[3];
-            $url                = $filesop[4];
             $doctor_find        = Doctor::where('id',$doctor_id)->first();
             if ($doctor_find) {
+              $name               = nullCheck($filesop[1],$doctor_find->name);
+              $meta_title         = nullCheck($filesop[2],$doctor_find->meta_title);
+              $meta_description   = nullCheck($filesop[3],$doctor_find->meta_description);
+              $url                = nullCheck($filesop[4],$doctor_find->url);
               $update = DB::table('doctors')->where('id',$doctor_id)->update([
                     'name'                =>  $name,
                     'meta_title'          =>  $meta_title,
@@ -853,12 +853,12 @@ class AjaxController extends Controller
             if($row == 1){ $row++; continue; }
             $treatment_find     = null;
             $treatment_id       = $filesop[0];
-            $name               = $filesop[1];
-            $meta_title         = $filesop[2];
-            $meta_description   = $filesop[3];
-            $url                = $filesop[4];
             $treatment_find     = Treatment::where('id',$treatment_id)->first();
             if ($treatment_find) {
+              $name               = nullCheck($filesop[1],$treatment_find->name);
+              $meta_title         = nullCheck($filesop[2],$treatment_find->meta_title);
+              $meta_description   = nullCheck($filesop[3],$treatment_find->meta_description);
+              $url                = nullCheck($filesop[4],$treatment_find->url);
               $update = DB::table('treatments')->where('id',$treatment_id)->update([
                     'name'                =>  $name,
                     'meta_title'          =>  $meta_title,
@@ -910,15 +910,15 @@ class AjaxController extends Controller
         while(($filesop = fgetcsv($handle, 1000, ",")) !== false) {
             if($row == 1){ $row++; continue; }
             $center_find        = null;
-            $center_id       = $filesop[0];
-            $name               = $filesop[1];
-            $meta_title         = $filesop[2];
-            $meta_description   = $filesop[3];
-            $url                = $filesop[4];
+            $center_id          = $filesop[0];
             $center_find        = Center::where('id',$center_id)->first();
             if ($center_find) {
+              $center_name        = nullCheck($filesop[1],$center_find->center_name);
+              $meta_title         = nullCheck($filesop[2],$center_find->meta_title);
+              $meta_description   = nullCheck($filesop[3],$center_find->meta_description);
+              $url                = nullCheck($filesop[4],$center_find->url);
               $update = DB::table('medical_centers')->where('id',$center_id)->update([
-                    'center_name'                =>  $name,
+                    'center_name'         =>  $center_name,
                     'meta_title'          =>  $meta_title,
                     'meta_description'    =>  $meta_description,
                     'url'                 =>  $url,

@@ -40,6 +40,25 @@
   </div>
 </div>
 <div class="form-group row">
+  <label class="col-md-2 form-control-label">City</label>
+  <div class="col-md-4">
+    <?php $cities = getAllCities();?>
+    <select class="form-control selectpicker" data-live-search="true" id="city_name" name="city_name">
+      <option value=""> Select City </option>
+      @if(isset($cities))
+        @foreach ($cities as $ci)
+          <option value="{{$ci->name}}">
+          {{$ci->name}}
+          </option>
+        @endforeach
+      @endif
+    </select>
+    @if($errors->has('city_name'))
+    <div class="invalid-feedback ml-3">{{ $errors->first('city_name') }}</div>
+    @endif
+  </div>
+</div>
+<div class="form-group row">
   <label class="col-md-2 form-control-label">Pictures</label>
   <div class="col-md-10 imageupload">
     <div class="file-tab panel-body">

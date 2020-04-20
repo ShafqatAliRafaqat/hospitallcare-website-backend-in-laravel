@@ -19,7 +19,6 @@
               @method('PUT')
                 <input type="hidden" name="lat" id="lat" value="{{ $center->lat}}">
                 <input type="hidden" name="lng" id="lng" value="{{ $center->lng}}">
-                <input type="hidden" name="city_name" id="city_name" value="{{ $center->city_name}}">
               <?php $i = 0 ;?>
               @foreach($center->center_treatment as $center_treatment)
               <div id="dynamic_field">
@@ -113,6 +112,25 @@
 
                     @if($errors->has('area'))
                     <div class="invalid-feedback ml-3">{{ $errors->first('area') }}</div>
+                    @endif
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-md-2 form-control-label">City</label>
+                  <div class="col-md-4">
+                    <?php $cities = getAllCities();?>
+                    <select class="form-control selectpicker" data-live-search="true" id="city_name" name="city_name">
+                      <option value=""> Select City </option>
+                      @if(isset($cities))
+                        @foreach ($cities as $ci)
+                          <option value="{{$ci->name}}" {{ ($ci->name == $center->city_name) ? "selected":''}}>
+                          {{$ci->name}}
+                          </option>
+                        @endforeach
+                      @endif
+                    </select>
+                    @if($errors->has('city_name'))
+                    <div class="invalid-feedback ml-3">{{ $errors->first('city_name') }}</div>
                     @endif
                   </div>
                 </div>

@@ -90,6 +90,7 @@ use Illuminate\Support\Facades\DB;
                           <td>{{ $d->is_partner == 1 ? 'Yes' : 'No' }}</td>
                           <td class="text-center" >
                             <div style="display: flex">
+                              <a title="FAQs" href="{{route('doctor_faqs', $d->id) }}"><i class="far fa-question-circle mr-2"></i></a>
                               <a href="{{ route('doctors.edit', $d->id) }}" title="Edit Doctor"><i class="fa fa-edit mr-2"></i></a>
                               <a href="{{ route('ViewSchedules', $d->id) }}" title="Edit Doctor Schedule"><i class="far fa-calendar-alt mr-2"></i></a>
                                 <!-- <td class="text-center"> -->

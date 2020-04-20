@@ -33,9 +33,9 @@ use Illuminate\Support\Facades\DB;
                             <tr>
                               <th scope="row">{{$no++}}</th>
                               <td>
-                                <a href="{{ route('medical.show',$c->id) }}">
+                                {{-- <a href="{{ route('medical.show',$c->id) }}"> --}}
                                     {{ $c->center_name }}
-                                </a>
+                                {{-- </a> --}}
                               </td>
 
                               <td>{{ $c->address }}</td>

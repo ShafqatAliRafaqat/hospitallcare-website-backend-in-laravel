@@ -715,4 +715,15 @@ function editOrShowClaim($patient,$id){
     }
     return $patient;
 }
+function nullCheck($variable, $query_variable)
+{
+    if($variable == NULL){
+      $variable = $query_variable;
+    }
+    return $variable;
+}
+function getAllCities(){
+    $cities = DB::table('cities_of_pak')->orderBy('name','ASC')->select('name')->get();
+    return $cities;
+}
 ?>

@@ -259,6 +259,13 @@ Route::group(['middleware'=>['auth','role:admin|coordinator|servaid|think|organi
 	Route::patch('/center/detail', 'CenterController@article')->name('center-detail');
 	Route::POST('/center/{id}/detail-edit', 'CenterController@edit_article')->name('edit-article');
 
+    //Doctor Faqs
+    Route::GET('doctor/{id}/faqs', 'DoctorFaqController@doctor_faqs')->name('doctor_faqs');
+    Route::POST('doctor/store_faqs', 'DoctorFaqController@store_faqs')->name('store_faqs');
+    Route::DELETE('delete_faqs/{id}', 'DoctorFaqController@delete_faqs')->name('delete_faqs');
+    Route::GET('faqs_edit/{id}', 'DoctorFaqController@edit')->name('faqs_edit');
+    Route::POST('update_edit/{id}', 'DoctorFaqController@update')->name('update_edit');
+
 	/* Ajax Controller Routes */
 	Route::POST('/procedures/fetch', 'AjaxController@fetchProcedures')->name('getProcedures');
 	Route::POST('/center_treatments/fetch', 'AjaxController@getCenterDoctorTreatments')->name('getCenterDoctorTreatments');

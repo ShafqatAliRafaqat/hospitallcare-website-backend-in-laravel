@@ -1,7 +1,6 @@
 
               <input type="hidden" name="lat" id="lat">
               <input type="hidden" name="lng" id="lng">
-              <input type="hidden" name="city_name" id="city_name">
               <div id="dynamic_field">
                 <div class="form-group row">
                   <div class="col-md-2 form-control-label">Select Treatment  <span class="asterisk">*</span></div>
