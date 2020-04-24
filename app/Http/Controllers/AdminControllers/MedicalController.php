@@ -86,6 +86,7 @@ class MedicalController extends Controller
                 'meta_title'            => 'string|nullable',
                 'meta_description'      => 'string|nullable',
                 'url'                   => 'string|nullable',
+                'meta_heading'          => 'string|nullable',
                 'is_active'             => 'nullable',
                 'on_web'                => 'nullable',
                 'is_approved'           => 'nullable',
@@ -110,7 +111,8 @@ class MedicalController extends Controller
             $center->additional_details = $request->input('additional_details');
             $center->meta_title         = $request->input('meta_title');
             $center->meta_description   = $request->input('meta_description');
-            $center->url          = $request->input('url');
+            $center->url                = $request->input('url');
+            $center->meta_heading       = $request->input('meta_heading');
             $center->created_by         = Auth::user()->id;
             $center->save();
             $center_id                  = $center->id;
@@ -217,7 +219,8 @@ class MedicalController extends Controller
                 'updated_by'            => 'sometimes',
                 'meta_title'            => 'string|nullable',
                 'meta_description'      => 'string|nullable',
-                'url'             => 'string|nullable',
+                'url'                   => 'string|nullable',
+                'meta_heading'          => 'string|nullable',
                 'city_name'             => 'required',
                 'address'               => 'sometimes',
                 'area'                  => 'nullable',
@@ -415,7 +418,8 @@ class MedicalController extends Controller
                     $center->is_approved        = 1;
                     $center->meta_title         = $request->input('meta_title');
                     $center->meta_description   = $request->input('meta_description');
-                    $center->url          = $request->input('url');
+                    $center->url                = $request->input('url');
+                    $center->meta_heading       = $request->input('meta_heading');
                     $center->updated_by         = Auth::user()->id;
                     $center->save();
 

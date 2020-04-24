@@ -57,6 +57,7 @@ class TreatmentController extends Controller
                 'meta_title'        => 'string|nullable',
                 'meta_description'  => 'string|nullable',
                 'url'               => 'string|nullable',
+                'meta_heading'      => 'string|nullable',
                 'is_active'         => 'string|nullable',
                 'show_in_menu'      => 'string|nullable',
                 'position'          => 'string|nullable',
@@ -74,6 +75,7 @@ class TreatmentController extends Controller
                 'meta_title'        => $request->input('meta_title'),
                 'meta_description'  => $request->input('meta_description'),
                 'url'               => $request->input('url'),
+                'meta_heading'      => $request->input('meta_heading'),
                 'is_active'         => $request->input('is_active'),
                 'show_in_menu'      => $request->input('show_in_menu'),
                 'position'          => $request->input('position'),
@@ -130,7 +132,8 @@ class TreatmentController extends Controller
                 'article_heading'   => 'string|nullable',
                 'meta_title'        => 'string|nullable',
                 'meta_description'  => 'string|nullable',
-                'url'         => 'string|nullable',
+                'url'               => 'string|nullable',
+                'meta_heading'      => 'string|nullable',
                 'is_active'         => 'string|nullable',
                 'show_in_menu'      => 'string|nullable',
                 'position'          => 'string|nullable',
@@ -150,6 +153,7 @@ class TreatmentController extends Controller
                 'meta_title'        => $request->input('meta_title'),
                 'meta_description'  => $request->input('meta_description'),
                 'url'               => $request->input('url'),
+                'meta_heading'      => $request->input('meta_heading'),
                 'is_active'         => $request->input('is_active'),
                 'show_in_menu'      => $request->input('show_in_menu'),
                 'position'          => $request->input('position'),
@@ -219,9 +223,9 @@ class TreatmentController extends Controller
         }
     }
     public function per_delete(Request $request)                                                                // Admin can delete permanently data
-    { 
+    {
         if (Auth::user()->can('delete_treatment')) {
-            $id = $request->id; 
+            $id = $request->id;
             $treatment = Treatment::where('id',$id)->with('treatment_image')->withTrashed()->first();
             if ($treatment) {
                 $procedures = Treatment::where('parent_id',$id)->withTrashed()->with('treatment_image')->get();

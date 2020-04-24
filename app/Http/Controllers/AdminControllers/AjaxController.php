@@ -801,11 +801,13 @@ class AjaxController extends Controller
               $meta_title         = nullCheck($filesop[2],$doctor_find->meta_title);
               $meta_description   = nullCheck($filesop[3],$doctor_find->meta_description);
               $url                = nullCheck($filesop[4],$doctor_find->url);
+              $meta_heading       = nullCheck($filesop[5],$doctor_find->meta_heading);
               $update = DB::table('doctors')->where('id',$doctor_id)->update([
                     'name'                =>  $name,
                     'meta_title'          =>  $meta_title,
                     'meta_description'    =>  $meta_description,
                     'url'                 =>  $url,
+                    'meta_heading'        =>  $meta_heading,
               ]);
               $entry++;
             } else {
@@ -859,11 +861,13 @@ class AjaxController extends Controller
               $meta_title         = nullCheck($filesop[2],$treatment_find->meta_title);
               $meta_description   = nullCheck($filesop[3],$treatment_find->meta_description);
               $url                = nullCheck($filesop[4],$treatment_find->url);
+              $meta_heading       = nullCheck($filesop[5],$treatment_find->meta_heading);
               $update = DB::table('treatments')->where('id',$treatment_id)->update([
                     'name'                =>  $name,
                     'meta_title'          =>  $meta_title,
                     'meta_description'    =>  $meta_description,
                     'url'                 =>  $url,
+                    'meta_heading'        =>  $meta_heading,
               ]);
               $entry++;
             } else {
@@ -917,11 +921,13 @@ class AjaxController extends Controller
               $meta_title         = nullCheck($filesop[2],$center_find->meta_title);
               $meta_description   = nullCheck($filesop[3],$center_find->meta_description);
               $url                = nullCheck($filesop[4],$center_find->url);
+              $meta_heading       = nullCheck($filesop[5],$center_find->meta_heading);
               $update = DB::table('medical_centers')->where('id',$center_id)->update([
                     'center_name'         =>  $center_name,
                     'meta_title'          =>  $meta_title,
                     'meta_description'    =>  $meta_description,
                     'url'                 =>  $url,
+                    'meta_heading'        =>  $meta_heading,
               ]);
               $entry++;
             } else {

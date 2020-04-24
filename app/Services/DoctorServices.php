@@ -86,7 +86,8 @@ class DoctorServices extends Service{
             'experience'                =>  'sometimes',
             'meta_title'                =>  'string|nullable',
             'meta_description'          =>  'string|nullable',
-            'url'                 =>  'string|nullable',
+            'url'                       =>  'string|nullable',
+            'meta_heading'              => 'string|nullable',
             'is_active'                 =>  'nullable',
             'on_web'                    =>  'nullable',
         ];
@@ -339,7 +340,8 @@ public function getSecureInput($input){
         'online_consultation'   => isset($input['online_consultation']) ? $input['online_consultation']:0,
         'meta_title'            => $input['meta_title'],
         'meta_description'      => $input['meta_description'],
-        'url'             => $input['url'],
+        'url'                   => $input['url'],
+        'meta_heading'          => $input['meta_heading'],
         'phone_verified'        => 1,
         'is_approved'           => 1,
     ];

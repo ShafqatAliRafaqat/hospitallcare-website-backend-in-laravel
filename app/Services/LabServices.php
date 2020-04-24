@@ -22,6 +22,7 @@ class LabServices extends Service {
             'meta_title'            => 'nullable',
             'meta_description'      => 'nullable',
             'url'                   => 'nullable',
+            'meta_heading'          => 'nullable',
         ];
         $this->validateOrAbort($input,$rules);
     }
@@ -57,6 +58,7 @@ class LabServices extends Service {
             'meta_title'        =>  $input['meta_title'],
             'meta_description'  =>  $input['meta_description'],
             'url'               =>  $input['url'],
+            'meta_heading'      => $input['meta_heading'],
             'is_active'         =>  isset($input['is_active']) ? $input['is_active'] : NULL,
             $by                 =>  Auth::user()->id, //Created or Updated By
         ];

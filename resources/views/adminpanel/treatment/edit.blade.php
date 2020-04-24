@@ -71,10 +71,20 @@
                                       <div class="form-group row">
                                         <label class="col-md-2 form-control-label">URL</label>
                                         <div class="col-md-10">
-                                            <input type="text" value="{{ $treatment->url }}" name="url" placeholder="SEO Meta Description"
+                                            <input type="text" value="{{ $treatment->url }}" name="url" placeholder="SEO Meta URL"
                                             class="form-control {{ $errors->has('url') ? 'is-invalid' : '' }}" value="{{ old('url') }}">
                                           @if($errors->has('url'))
                                             <div class="invalid-feedback ml-3">{{ $errors->first('url') }}</div>
+                                          @endif
+                                        </div>
+                                      </div>
+                                      <div class="form-group row">
+                                        <label class="col-md-2 form-control-label">Meta Heading</label>
+                                        <div class="col-md-10">
+                                            <input type="text" value="{{ $treatment->meta_heading }}" name="meta_heading" placeholder="SEO Meta Heading"
+                                            class="form-control {{ $errors->has('meta_heading') ? 'is-invalid' : '' }}" value="{{ old('meta_heading') }}">
+                                          @if($errors->has('meta_heading'))
+                                            <div class="invalid-feedback ml-3">{{ $errors->first('meta_heading') }}</div>
                                           @endif
                                         </div>
                                       </div>

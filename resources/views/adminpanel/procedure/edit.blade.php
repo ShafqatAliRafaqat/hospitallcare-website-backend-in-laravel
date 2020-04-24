@@ -93,6 +93,16 @@
                                           @endif
                                         </div>
                                       </div>
+                                      <div class="form-group row">
+                                        <label class="col-md-3 form-control-label">Meta Heading</label>
+                                        <div class="col-md-9">
+                                            <input type="text" value="{{ $procedure->meta_heading }}" name="meta_heading" placeholder="SEO Meta Heading"
+                                            class="form-control {{ $errors->has('meta_heading') ? 'is-invalid' : '' }}" value="{{ old('meta_heading') }}">
+                                          @if($errors->has('meta_heading'))
+                                            <div class="invalid-feedback ml-3">{{ $errors->first('meta_heading') }}</div>
+                                          @endif
+                                        </div>
+                                      </div>
                         </div>
                         <div role="tabpanel" class="tab-pane pt-3 in fade" id="ads-tab">
                                 <div class="form-group row">

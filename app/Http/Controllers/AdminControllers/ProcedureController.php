@@ -48,6 +48,7 @@ class ProcedureController extends Controller
             'meta_title'            => 'string|nullable',
             'meta_description'      => 'string|nullable',
             'url'                   => 'string|nullable',
+            'meta_heading'          => 'string|nullable',
             'is_active'             => 'string|nullable',
             'show_in_menu'          => 'string|nullable',
         ],[ 'treatment_id.required' => 'Select at least one treatment' ]);
@@ -64,7 +65,8 @@ class ProcedureController extends Controller
             'article_heading'   =>   $request->input('article_heading'),
             'meta_title'        =>   $request->input('meta_title'),
             'meta_description'  =>   $request->input('meta_description'),
-            'url'         =>   $request->input('url'),
+            'url'               =>   $request->input('url'),
+            'meta_heading'      =>   $request->input('meta_heading'),
             'is_active'         =>   $request->input('is_active'),
             'created_by'        =>   Auth::user()->id,
             'show_in_menu'      =>   $request->input('show_in_menu')
@@ -118,7 +120,8 @@ class ProcedureController extends Controller
                 'article_heading'   => 'string|nullable',
                 'meta_title'        => 'string|nullable',
                 'meta_description'  => 'string|nullable',
-                'url'         => 'string|nullable',
+                'url'               => 'string|nullable',
+                'meta_heading'      => 'string|nullable',
                 'is_active'         => 'nullable',
                 'show_in_menu'      => 'nullable',
             ],[ 'treatment_id.required' => 'Select at least one treatment' ]);
@@ -137,7 +140,8 @@ class ProcedureController extends Controller
                 'article_heading'   =>  $request->input('article_heading'),
                 'meta_title'        =>  $request->input('meta_title'),
                 'meta_description'  =>  $request->input('meta_description'),
-                'url'         =>  $request->input('url'),
+                'url'               =>  $request->input('url'),
+                'meta_heading'      =>  $request->input('meta_heading'),
                 'is_active'         =>  $request->input('is_active'),
                 'show_in_menu'      =>  $request->input('show_in_menu'),
                 'updated_by'        => Auth::user()->id,

@@ -284,6 +284,16 @@
                     @endif
                   </div>
                 </div>
+              <div class="form-group row">
+                <label class="col-md-2 form-control-label">Meta Heading</label>
+                <div class="col-md-10">
+                    <input type="text" name="meta_heading" placeholder="Enter Meta Heading"
+                    class="form-control {{ $errors->has('meta_heading') ? 'is-invalid' : '' }}" value="{{ old('meta_heading') }}">
+                  @if($errors->has('meta_heading'))
+                    <div class="invalid-feedback ml-3">{{ $errors->first('meta_heading') }}</div>
+                  @endif
+                </div>
+              </div>
               </div>
               {{-- Qualification Tab Pane --}}
               <div role="tabpanel" class="tab-pane pt-3 in fade" id="qualification-tab">
