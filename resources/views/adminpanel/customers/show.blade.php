@@ -45,6 +45,10 @@
                             @endif
                           </li>
                           </ul>
+                          {{-- <h5>CareALL Pass</h5>
+                          <ul>
+                            <li><b>Card ID:</b> {{ $customer->card_id }}</li>
+                          </ul> --}}
                             <div class="text-center">
                               <button class="btn btn-sm btn-success mr-2" data-toggle="modal" data-target="#AddTreatmentModal">Add Treatment</button>
                               <button class="btn btn-sm btn-success " data-toggle="modal" data-target="#AddDiagnosticModal">Add Diagnostic</button>

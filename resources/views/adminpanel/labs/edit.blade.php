@@ -225,6 +225,16 @@
                     @endif
                   </div>
                 </div>
+                <div class="form-group row">
+                  <label class="col-md-2 form-control-label">Image Alt</label>
+                  <div class="col-md-10">
+                      <input type="text" name="image_alt" placeholder="Enter Image Alt"
+                      class="form-control {{ $errors->has('image_alt') ? 'is-invalid' : '' }}" value="{{ $labs->image_alt }}">
+                    @if($errors->has('image_alt'))
+                      <div class="invalid-feedback ml-3">{{ $errors->first('image_alt') }}</div>
+                    @endif
+                  </div>
+                </div>
                 </div>
            </div><!-- End of Tabs -->
                 <div class="form-group row">

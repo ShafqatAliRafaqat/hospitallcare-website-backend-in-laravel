@@ -307,6 +307,19 @@ use Illuminate\Support\Facades\DB;
               </li>
             @endcan
 
+            {{-- @can('view_customers')
+            <li class="sidebar-list-item">
+                <a href="#" data-toggle="collapse" data-target="#view_passes" aria-expanded="false"
+                aria-controls="view_passes" class="sidebar-link sidebar-text-bright">
+                <i class="fas fa-exclamation-circle mr-3 text-gray"></i><span>CareALL Pass</span></a>
+                <div id="view_passes" class="collapse {{ ( Request::segment(2) == 'pass_categories' )  ? 'show' : ''}}">
+                  <ul class="sidebar-menu list-unstyled border-left border-sidebar border-thick">
+                    <li class="sidebar-list-item">
+                      <a href="{{ route('pass_categories.index') }}" class="sidebar-link sidebar-text-bright pl-lg-5 {{ Request::segment(2) == 'pass_categories' ? 'active' : ''}}"> <span>Categories</span></a></li>
+                  </ul>
+                </div>
+              </li>
+            @endcan --}}
 <!--               @can('view_customers')
                 <li class="sidebar-list-item">
                   <a href="{{ route('pendingappointments.index') }}" class="sidebar-link sidebar-text-bright {{ Request::segment(2) == 'pendingappointments' ? 'active' : ''}}"><i class="fas fa-hourglass-half   mr-3 text-gray"></i>
@@ -401,13 +414,14 @@ use Illuminate\Support\Facades\DB;
                 <a href="#" data-toggle="collapse" data-target="#delete" aria-expanded="false"
                 aria-controls="delete" class="sidebar-link sidebar-text-bright">
                 <i class="fa fa-trash-alt mr-3 text-gray"></i><span>Deleted Data</span></a>
-                <div id="delete" class="collapse {{ ( Request::segment(2) == 'show_status' OR Request::segment(2) == 'show_customer' OR Request::segment(2) == 'show_lab' OR Request::segment(2) == 'show_diagnostic'
+                <div id="delete" class="collapse {{ ( Request::segment(2) == 'show_status' OR Request::segment(2) == 'show_customer' OR Request::segment(2) == 'pass_categories_deleted' OR Request::segment(2) == 'show_lab' OR Request::segment(2) == 'show_diagnostic'
                                                    OR Request::segment(2) == 'show_user' OR Request::segment(2) == 'show_center' OR Request::segment(2) == 'show_treatment' OR Request::segment(2) == 'show_procedure'
                                                    OR Request::segment(2) == 'show_doctor' OR Request::segment(2) == 'show_organization' OR Request::segment(2) == 'blogcategory_show_deleted' OR Request::segment(2) == 'blog_show_deleted'
                                                    OR Request::segment(2) == 'media_show_deleted' OR Request::segment(2) == 'vlog_show_deleted' ) ? 'show' : ''}}">
                   <ul class="sidebar-menu list-unstyled border-left border-sidebar border-thick">
                     <li class="sidebar-list-item"><a href="{{ route('status_show_deleted') }}" class="sidebar-link sidebar-text-bright pl-lg-5 {{ Request::segment(2) == 'show_status' ? 'active' : ''}}">Status</a></li>
                     <li class="sidebar-list-item"><a href="{{ route('customer_show_deleted') }}" class="sidebar-link sidebar-text-bright pl-lg-5 {{ Request::segment(2) == 'show_customer' ? 'active' : ''}}">Customers</a></li>
+                    <li class="sidebar-list-item"><a href="{{ route('show_pass_deleted') }}" class="sidebar-link sidebar-text-bright pl-lg-5 {{ Request::segment(2) == 'pass_categories_deleted' ? 'active' : ''}}">Pass Category</a></li>
                     <li class="sidebar-list-item"><a href="{{ route('treatment_show_deleted') }}" class="sidebar-link sidebar-text-bright pl-lg-5 {{ Request::segment(2) == 'show_treatment' ? 'active' : ''}}">Treatments</a></li>
                     <li class="sidebar-list-item"><a href="{{ route('procedure_show_deleted') }}" class="sidebar-link sidebar-text-bright pl-lg-5 {{ Request::segment(2) == 'show_procedure' ? 'active' : ''}}">Procedures</a></li>
                     <li class="sidebar-list-item"><a href="{{ route('doctor_show_deleted') }}" class="sidebar-link sidebar-text-bright pl-lg-5 {{ Request::segment(2) == 'show_doctor' ? 'active' : ''}}">Doctors</a></li>

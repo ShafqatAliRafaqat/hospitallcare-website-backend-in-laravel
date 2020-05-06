@@ -40,7 +40,7 @@
 
                 <div class="form-group row">
                   <div class="col-md-10 ml-auto">
-                    <button type="submit" class="btn btn-primary">Save Customer Profile</button>
+                    <button type="submit" class="btn btn-primary">Save Status</button>
                   </div>
                 </div>
             </form>

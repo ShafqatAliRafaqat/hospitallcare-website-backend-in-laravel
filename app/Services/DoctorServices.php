@@ -88,6 +88,7 @@ class DoctorServices extends Service{
             'meta_description'          =>  'string|nullable',
             'url'                       =>  'string|nullable',
             'meta_heading'              => 'string|nullable',
+            'image_alt'                 => 'string|nullable',
             'is_active'                 =>  'nullable',
             'on_web'                    =>  'nullable',
         ];
@@ -342,6 +343,7 @@ public function getSecureInput($input){
         'meta_description'      => $input['meta_description'],
         'url'                   => $input['url'],
         'meta_heading'          => $input['meta_heading'],
+        'image_alt'             => $input['image_alt'],
         'phone_verified'        => 1,
         'is_approved'           => 1,
     ];

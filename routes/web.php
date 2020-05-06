@@ -58,6 +58,7 @@ Route::group(['middleware'=>['auth','role:admin|coordinator|servaid|think|organi
     Route::resource('blogs','BlogController');
     Route::resource('media','MediaController');
     Route::resource('vlogs','VlogsController');
+    Route::resource('pass_categories','careallpassCategoryController');
 
     Route::GET('clients/documents_upload/{id}','DoctorClientController@clientsDocumentsEdit')->name('documents_upload');
     Route::POST('clients/documents_upload/{id}','DoctorClientController@clientsDocumentsUpload')->name('Upload_Customer_files');
@@ -220,7 +221,8 @@ Route::group(['middleware'=>['auth','role:admin|coordinator|servaid|think|organi
 	Route::POST('/delete/blog_category/{id}',  'BlogCategoryController@per_delete')->name('blogcategory_per_delete');
 	Route::POST('/delete/blog/{id}',  'BlogController@per_delete')->name('blog_per_delete');
 	Route::POST('/delete/media/{id}',  'MediaController@per_delete')->name('media_per_delete');
-	Route::POST('/delete/vlog/{id}',  'VlogsController@per_delete')->name('vlog_per_delete');
+    Route::POST('/delete/vlog/{id}',  'VlogsController@per_delete')->name('vlog_per_delete');
+	Route::POST('/delete/pass_categories/{id}',  'careallpassCategoryController@per_delete')->name('pass_categories_per_delete');
 
 
     //Show Deleted Data
@@ -237,7 +239,8 @@ Route::group(['middleware'=>['auth','role:admin|coordinator|servaid|think|organi
 	Route::GET('/blogcategory_show_deleted',  'BlogCategoryController@show_deleted')->name('blogcategory_show_deleted');
 	Route::GET('/blog_show_deleted',  'BlogController@show_deleted')->name('blog_show_deleted');
 	Route::GET('/media_show_deleted',  'MediaController@show_deleted')->name('media_show_deleted');
-	Route::GET('/vlog_show_deleted',  'VlogsController@show_deleted')->name('vlog_show_deleted');
+    Route::GET('/vlog_show_deleted',  'VlogsController@show_deleted')->name('vlog_show_deleted');
+	Route::GET('/pass_categories_deleted',  'careallpassCategoryController@show_deleted')->name('show_pass_deleted');
 
     // Restore Data
     Route::POST('/restore/status/{id}',  'StatusController@restore')->name('status_restore');
@@ -253,7 +256,9 @@ Route::group(['middleware'=>['auth','role:admin|coordinator|servaid|think|organi
 	Route::POST('/restore/blog_category/{id}',  'BlogCategoryController@restore')->name('blogcategory_restore');
 	Route::POST('/restore/blog/{id}',  'BlogController@restore')->name('blog_restore');
 	Route::POST('/restore/media/{id}',  'MediaController@restore')->name('media_restore');
-	Route::POST('/restore/vlog/{id}',  'VlogsController@restore')->name('vlog_restore');
+    Route::POST('/restore/vlog/{id}',  'VlogsController@restore')->name('vlog_restore');
+	Route::POST('/restore/pass_categories/{id}',  'careallpassCategoryController@restore')->name('pass_categories_restore');
+
 
 	/* Center Article Route */
 	Route::patch('/center/detail', 'CenterController@article')->name('center-detail');

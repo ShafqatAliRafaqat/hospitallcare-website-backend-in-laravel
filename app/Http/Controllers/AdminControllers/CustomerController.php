@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AdminControllers;
 use App\Helpers\NotificationHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\BloodGroup;
+use App\Models\Admin\CareallPassCategory;
 use App\Models\Admin\Center;
 use App\Models\Admin\CoodinatorPerformance;
 use App\Models\Admin\Customer;
@@ -304,6 +305,7 @@ class CustomerController extends Controller
         if($customers->organization_id && $customers->employee_code){
           $display =  1;
         }
+        $careall_pass   =   DB::table('customer_careall')->where('customer_id',$id)->first();
         // dd($customers);
         return view('adminpanel.customers.show', compact('customer','centers','treatments','procedures','doctors','employee','display','lab','blood_group','doctor_notes','risk_factor_notes','allergy_notes','labs'));
     }

@@ -7,6 +7,7 @@
 .font-24px {
     font-size: 24px !important;
 }
+
 .views {
     /*position: absolute;*/
     /*right: 15px;*/
@@ -24,12 +25,15 @@
     font-size: 0.75rem;
     opacity: 1;
 }
+
 .row-red {
     background-color: #ffcece !important;
 }
+
 .text-color {
     color: #fff !important;
 }
+
 .row-green {
     background-color: #7cf29c !important;
 }
@@ -37,14 +41,15 @@
 .row-yellow {
     background-color: #ffed4ad9 !important;
 }
+
 table {
     border-collapse: collapse;
-  }
+}
 
-  table.d {
+table.d {
     table-layout: fixed;
     width: 100% !important;
-  }
+}
 
 .asterisk {
     color: red;
@@ -223,11 +228,13 @@ table {
     color: coral!important;
     text-decoration: none;
 }
+
 .sidebar-link:hover {
     text-decoration: none;
     background: coral;
     color: white !important;
 }
+
 .a-coral {
     color: coral !important;
 }
@@ -251,13 +258,16 @@ a:focus {
     color: red !important;
     padding-left: 10;
 }
+
 .header-font {
     font-family: 'Merienda', cursive;
 }
+
 .sidebar-font {
     font-family: 'Kalam', cursive;
 }
-body{
+
+body {
     font-family: 'Philosopher', sans-serif;
 }
 
@@ -267,49 +277,60 @@ body{
     border-color: lightgray !important;
     border-radius: 2rem !important;
 }
-.org-db-stats-text{
+
+.org-db-stats-text {
     font-size: 15px;
 }
-.org-db-stats-number{
+
+.org-db-stats-number {
     font-size: 17px;
     font-weight: 600;
 }
 
+
 /*GOOGLE MAP STYLES*/
 
-  /* Always set the map height explicitly to define the size of the div
+
+/* Always set the map height explicitly to define the size of the div
    * element that contains the map. */
-  #map {
+
+#map {
     height: 100%;
-  }
-  /* Optional: Makes the sample page fill the window. */
-  html, body {
+}
+
+
+/* Optional: Makes the sample page fill the window. */
+
+html,
+body {
     height: 100%;
     margin: 0;
     padding: 0;
-  }
-  .map-height{
+}
+
+.map-height {
     height: 400px;
-  }
-  #description {
+}
+
+#description {
     font-family: Roboto;
     font-size: 15px;
     font-weight: 300;
-  }
+}
 
-  #infowindow-content .title {
+#infowindow-content .title {
     font-weight: bold;
-  }
+}
 
-  #infowindow-content {
+#infowindow-content {
     display: none;
-  }
+}
 
-  #map #infowindow-content {
+#map #infowindow-content {
     display: inline;
-  }
+}
 
-  .pac-card {
+.pac-card {
     margin: 10px 10px 0 0;
     border-radius: 2px 0 0 2px;
     box-sizing: border-box;
@@ -318,25 +339,25 @@ body{
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
     background-color: #fff;
     font-family: Roboto;
-  }
+}
 
-  #pac-container {
+#pac-container {
     padding-bottom: 12px;
     margin-right: 12px;
-  }
+}
 
-  .pac-controls {
+.pac-controls {
     display: inline-block;
     padding: 5px 11px;
-  }
+}
 
-  .pac-controls label {
+.pac-controls label {
     font-family: Roboto;
     font-size: 13px;
     font-weight: 300;
-  }
+}
 
-  #pac-input {
+#pac-input {
     background-color: #fff;
     font-family: Roboto;
     font-size: 15px;
@@ -345,19 +366,21 @@ body{
     padding: 0 11px 0 13px;
     text-overflow: ellipsis;
     width: 400px;
-  }
+}
 
-  #pac-input:focus {
+#pac-input:focus {
     border-color: #4d90fe;
-  }
+}
 
-  #title {
+#title {
     color: #fff;
     background-color: #4d90fe;
     font-size: 25px;
     font-weight: 500;
     padding: 6px 12px;
-  }
+}
+
+
 /*END OF GOOGLE MAP STYLES*/
 
 .card-total-customers {
@@ -371,18 +394,20 @@ body{
     word-wrap: break-word;
     background-color: #fff;
     background-clip: border-box;
-    border: 1px solid rgba(0,0,0,.125);
+    border: 1px solid rgba(0, 0, 0, .125);
     border-radius: .25rem;
-
 }
-.text-meriende{
+
+.text-meriende {
     font-family: 'Merienda', cursive !important;
 }
+
 .card-body-total-customers .rotate {
     z-index: 8;
     float: right;
     height: 100%;
 }
+
 .card-body-total-customers .rotate i {
     color: rgba(20, 20, 20, 0.15);
     position: absolute;
@@ -397,26 +422,31 @@ body{
     -ms-transform: rotate(-44deg);
     transform: rotate(-44deg);
 }
-.span-primary{
+
+.span-primary {
     color: #bc3131;
     font-size: 15px;
     font-weight: 600;
     font-family: 'Merienda', cursive !important;
 }
-.approve-tick{
+
+.approve-tick {
     color: green;
 }
-.cancel-cross{
+
+.cancel-cross {
     color: red;
 }
-.font-18{
+
+.font-18 {
     font-size: 18px;
 }
 
-.image-documents{
+.image-documents {
     color: grey;
     font-size: 20px;
 }
+
 .thumbnail {
     display: block;
     padding: 6px;
@@ -429,81 +459,104 @@ body{
     -o-transition: border .2s ease-in-out;
     transition: border .2s ease-in-out;
 }
-.thumbnail a>img, .thumbnail>img {
-object-fit: cover !important;
+
+.thumbnail a>img,
+.thumbnail>img {
+    object-fit: cover !important;
     height: 220px !important;
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: 100%;
-
 }
-.h6-thumbnail{
+
+.h6-thumbnail {
     margin-top: 15px;
     color: #1f1f1f;
 }
-.span-thumbnail{
-    color:grey;
+
+.span-thumbnail {
+    color: grey;
 }
-.thumbnail a{
+
+.thumbnail a {
     text-decoration: none;
 }
-.mb-20{
+
+.mb-20 {
     margin-bottom: 20px;
 }
-.check-form{
+
+.check-form {
     display: flex;
 }
-.clr-green{
+
+.clr-green {
     color: green !important;
 }
-.clr-red{
+
+.clr-red {
     color: red !important;
 }
-.toggle-vis{
+
+.toggle-vis {
     font-size: 16px;
     margin: 6px;
 }
-.toggle-vis:hover{
+
+.toggle-vis:hover {
     cursor: pointer;
 }
-.columns_list{
-margin-bottom: 12px;
+
+.columns_list {
+    margin-bottom: 12px;
 }
-.cancel-icon{
+
+.cancel-icon {
     font-size: 25px;
     color: #bf0000;
 }
-.a-hover{
+
+.a-hover {
     cursor: pointer;
 }
 
-.claim-title-span{
+.claim-title-span {
     font-size: 16px;
     font-weight: 600;
 }
-.claim-text-span{
+
+.claim-text-span {
     font-size: 16px;
     color: #666777;
 }
-.claim-ul li{
+
+.claim-ul li {
     height: 5px;
 }
-.a-color{
+
+.a-color {
     color: #3971ab !important;
     font-weight: bold;
 }
+
+
 /*Tabs in Patient Profile*/
+
+
 /* Tabs*/
-#tabs{
+
+#tabs {
     background: #007b5e;
     color: #eee;
 }
-#tabs h6.section-title{
+
+#tabs h6.section-title {
     color: #eee;
 }
 
-#tabs .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+#tabs .nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
     color: #f3f3f3;
     background-color: transparent;
     border-color: transparent transparent #f3f3f3;
@@ -511,6 +564,7 @@ margin-bottom: 12px;
     font-size: 20px;
     font-weight: bold;
 }
+
 #tabs .nav-tabs .nav-link {
     border: 1px solid transparent;
     border-top-left-radius: .25rem;
@@ -518,31 +572,36 @@ margin-bottom: 12px;
     color: #eee;
     font-size: 20px;
 }
-.tab-profile{
+
+.tab-profile {
     background: white;
     border-radius: 3%;
     background-clip: border-box;
     box-shadow: 0 0.125rem 0.8rem rgba(0, 0, 0, 0.1);
     padding: 30px;
 }
-.tab-profile a{
+
+.tab-profile a {
     color: #006da0 !important;
     font-size: 13px !important;
 }
+
 .tab-pane.fade {
   transition: all 0.2s;
-  transform: translateY(2rem);
+  /*transform: translateY(2rem);*/
 }
 
 .tab-pane.fade.show {
-  transform: translateY(0rem);
+  /*transform: translateY(0rem);*/
 }
-.tab-design{
+
+.tab-design {
     background: #f7f7f7;
     padding: 20px !important;
     margin-top: 3px !important;
     border-radius: 10px;
 }
+
 .modal-backdrop {
     position: inherit !important;
     top: 0;

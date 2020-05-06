@@ -52,13 +52,9 @@ class StatusController extends Controller
                 'name' => 'required|min:3',
                 'active' => 'nullable',
             ]);
-
             $status = DB::table('status')->insert($validate);
-
             if ($status) {
-
                 session()->flash('success', 'Status Created Successfully');
-
                 return redirect()->route('status.index');
             }
         } else {

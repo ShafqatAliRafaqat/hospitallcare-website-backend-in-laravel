@@ -27,6 +27,7 @@ class DoctorLoginApiController extends Controller
             $emailorphone   => $request->email,
             'password'      => $request->password
         ];
+
         if (isset($user) && $user->doctor_id != null) {
             if (auth()->attempt($credentials)) {
                 $user_id        = Auth::user()->id;

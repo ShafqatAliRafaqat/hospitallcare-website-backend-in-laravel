@@ -47,7 +47,9 @@
               <li class="nav-item nav-at-profile">
                 <a class="nav-link" id="about-tab" data-toggle="tab" href="#about" role="tab" aria-controls="about" aria-selected="false">About</a>
               </li>
-
+              <li class="nav-item nav-at-profile">
+                <a class="nav-link" id="meta-tab" data-toggle="tab" href="#meta" role="tab" aria-controls="meta" aria-selected="false">SEO</a>
+              </li>
             </ul>
           </div>
         </div>
@@ -340,6 +342,48 @@
               <div class="row">
                 <div class="col-md-9 offset-2 text-justify">
                   <label>{!! $doctor->about !!}</label>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="meta" role="tabpanel" aria-labelledby="meta-tab">
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Meta Title:</label>
+                </div>
+                <div class="col-md-6">
+                  <p>{{ $doctor->meta_title }}</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Meta Description:</label>
+                </div>
+                <div class="col-md-6">
+                  <p>{{ $doctor->meta_description }}</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <label>URL:</label>
+                </div>
+                <div class="col-md-6">
+                  <p>{{ $doctor->url }}</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Meta Heading:</label>
+                </div>
+                <div class="col-md-6">
+                  <p>{{$doctor->meta_heading}}</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Image Alt:</label>
+                </div>
+                <div class="col-md-6">
+                  <p>{{$doctor->image_alt}}</p>
                 </div>
               </div>
             </div>

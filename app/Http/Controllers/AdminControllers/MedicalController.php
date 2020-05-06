@@ -87,6 +87,7 @@ class MedicalController extends Controller
                 'meta_description'      => 'string|nullable',
                 'url'                   => 'string|nullable',
                 'meta_heading'          => 'string|nullable',
+                'image_alt'             => 'string|nullable',
                 'is_active'             => 'nullable',
                 'on_web'                => 'nullable',
                 'is_approved'           => 'nullable',
@@ -113,6 +114,7 @@ class MedicalController extends Controller
             $center->meta_description   = $request->input('meta_description');
             $center->url                = $request->input('url');
             $center->meta_heading       = $request->input('meta_heading');
+            $center->image_alt          = $request->input('image_alt');
             $center->created_by         = Auth::user()->id;
             $center->save();
             $center_id                  = $center->id;
@@ -221,6 +223,7 @@ class MedicalController extends Controller
                 'meta_description'      => 'string|nullable',
                 'url'                   => 'string|nullable',
                 'meta_heading'          => 'string|nullable',
+                'image_alt'             => 'string|nullable',
                 'city_name'             => 'required',
                 'address'               => 'sometimes',
                 'area'                  => 'nullable',
@@ -420,6 +423,7 @@ class MedicalController extends Controller
                     $center->meta_description   = $request->input('meta_description');
                     $center->url                = $request->input('url');
                     $center->meta_heading       = $request->input('meta_heading');
+                    $center->image_alt          = $request->input('image_alt');
                     $center->updated_by         = Auth::user()->id;
                     $center->save();
 
