@@ -280,13 +280,13 @@ use Illuminate\Support\Facades\DB;
             <li class="sidebar-list-item">
                 <a href="#" data-toggle="collapse" data-target="#view_leads" aria-expanded="false"
                 aria-controls="view_leads" class="sidebar-link sidebar-text-bright">
-                <i class="fas fa-exclamation-circle mr-3 text-gray"></i><span>Pending Leads</span></a>
+                <i class="fas fa-exclamation-circle mr-3 text-gray"></i><span>Facebook Leads</span></a>
                 <div id="view_leads" class="collapse {{ ( Request::segment(2) == 'temporary_leads' OR Request::segment(2) == 'webleads' )  ? 'show' : ''}}">
                   <ul class="sidebar-menu list-unstyled border-left border-sidebar border-thick">
                     <li class="sidebar-list-item">
                       <a href="{{ route('temp_leads') }}" class="sidebar-link sidebar-text-bright pl-lg-5 {{ Request::segment(2) == 'temporary_leads' ? 'active' : ''}}"> <span>Facebook Leads</span></a></li>
-                    <li class="sidebar-list-item">
-                      <a href="{{ route('webleads.index') }}" class="sidebar-link sidebar-text-bright pl-lg-5 {{ Request::segment(2) == 'webleads' ? 'active' : ''}}">Website Leads</a></li>
+                    <!-- <li class="sidebar-list-item">
+                      <a href="{{ route('webleads.index') }}" class="sidebar-link sidebar-text-bright pl-lg-5 {{ Request::segment(2) == 'webleads' ? 'active' : ''}}">Website Leads</a></li> -->
                   </ul>
                 </div>
               </li>
@@ -295,7 +295,7 @@ use Illuminate\Support\Facades\DB;
             <li class="sidebar-list-item">
                 <a href="#" data-toggle="collapse" data-target="#view_pending_appointments" aria-expanded="false"
                 aria-controls="view_pending_appointments" class="sidebar-link sidebar-text-bright">
-                <i class="fas fa-hourglass-half   mr-3 text-gray"></i></i><span>Pending Appointments</span></a>
+                <i class="fas fa-hourglass-half   mr-3 text-gray"></i></i><span>Website Pending Leads</span></a>
                 <div id="view_pending_appointments" class="collapse {{ ( Request::segment(2) == 'pendingappointments' OR Request::segment(2) == 'pendingdiagnostics' )  ? 'show' : ''}}">
                   <ul class="sidebar-menu list-unstyled border-left border-sidebar border-thick">
                     <li class="sidebar-list-item">
@@ -374,6 +374,13 @@ use Illuminate\Support\Facades\DB;
             <li class="sidebar-list-item">
               <a href="{{ route('status.index') }}" class="sidebar-link sidebar-text-bright {{ Request::segment(2) == 'status' ? 'active' : ''}}"><i class="fas fa-toggle-off mr-3 text-gray"></i>
                 <span>Status</span>
+              </a>
+            </li>
+            @endcan
+          @can('view_status')
+            <li class="sidebar-list-item">
+              <a href="{{ route('city.index') }}" class="sidebar-link sidebar-text-bright {{ Request::segment(2) == 'status' ? 'active' : ''}}"><i class="fas fa-city mr-3 text-gray"></i>
+                <span>City</span>
               </a>
             </li>
             @endcan

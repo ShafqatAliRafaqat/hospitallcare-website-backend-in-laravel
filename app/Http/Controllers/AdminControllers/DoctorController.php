@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\AdminControllers;
 
 use App\FCMDevice;
+use App\Helpers\NotificationHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Center;
 use App\Models\Admin\CenterImage;
+use App\Models\Admin\City;
 use App\Models\Admin\Doctor;
 use App\Models\Admin\DoctorImage;
 use App\Models\Admin\DoctorPartnershipFiles;
@@ -13,13 +15,12 @@ use App\Models\Admin\DoctorPartnershipImages;
 use App\Models\Admin\Procedure;
 use App\Models\Admin\Treatment;
 use App\Services\DoctorServices;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
-use App\User;
 use Intervention\Image\Facades\Image;
-use App\Helpers\NotificationHelper;
 
 class DoctorController extends Controller
 {
@@ -66,7 +67,8 @@ class DoctorController extends Controller
             $countries      =   DB::table('countries')->orderBy('nicename','ASC')->get();
             $degrees        =   DB::table('degrees')->orderBy('name','ASC')->get();
             $universities   =   DB::table('universities')->orderBy('name','ASC')->get();
-            return view('adminpanel.doctors.create', compact('treatments','specialities','centers','countries','degrees','universities'));
+            $cities         =   City::where('is_active',1)->get();
+            return view('adminpanel.doctors.create', compact('treatments','specialities','centers','countries','degrees','universities','cities'));
         } else {
             abort(403);
         }

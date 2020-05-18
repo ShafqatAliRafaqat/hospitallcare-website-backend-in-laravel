@@ -100,6 +100,7 @@ class CustomerSignUpApiController extends Controller
                         'token' => $request->fcm_token,
                     ]);
                 }
+                $customer->user_id = $user_id;
                 $token = $user->createToken('user')->accessToken;
                 if(isset($customer) && $user ){
                     $code = random_int(100000, 999999);
@@ -198,6 +199,7 @@ class CustomerSignUpApiController extends Controller
                     'token' => $request->fcm_token,
                 ]);
             }
+            $customer->user_id = $user_id;
             $token = $user->createToken('user')->accessToken;
             if(isset($customer) && $user ){
                 $code = random_int(100000, 999999);
@@ -293,6 +295,7 @@ class CustomerSignUpApiController extends Controller
                     'token' => $request->fcm_token,
                 ]);
             }
+            $customer->user_id = $user_id;
             $token = $user->createToken('user')->accessToken;
             if(isset($customer) && $user ){
                 $code = random_int(100000, 999999);

@@ -45,8 +45,8 @@
                             @endif
                           </li>
                           </ul>
-                          {{-- <h5>CareALL Pass</h5>
-                          <ul>
+                          <h5>CareALL Pass</h5>
+{{--                           <ul>
                             <li><b>Card ID:</b> {{ $customer->card_id }}</li>
                           </ul> --}}
                             <div class="text-center">

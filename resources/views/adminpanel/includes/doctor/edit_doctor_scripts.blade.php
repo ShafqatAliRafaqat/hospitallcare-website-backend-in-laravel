@@ -1,6 +1,28 @@
 <?php $years = get_years();?>
 @section('scripts')
 <script type="text/javascript">
+$(document).on('change','#city', function(){
+    $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    // var city_id = $('#city option:selected');
+    var city_id = $(this).val();
+    console.log(city_id);
+    $.ajax({
+      type:'post',
+      url:"{{ route('getArea') }}",
+      data: { city_id : city_id},
+      success: function(response){
+          $('#area').html(response);
+          $('#area').selectpicker('refresh');
+
+      }
+    });
+  });
+</script>
+<script type="text/javascript">
   $(document).on('change','#specializationselect', function(){
     $.ajaxSetup({
       headers: {

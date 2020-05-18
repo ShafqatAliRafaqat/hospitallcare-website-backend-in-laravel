@@ -40,6 +40,14 @@ class AjaxController extends Controller
     //     ->get();
     //     return view('adminpanel.templates.options', compact('result','data'));
     // }
+  public function fetchArea(Request $request)
+  {
+      $data       = 'Area';
+      $city_id    = $request->city_id;
+      $result     = DB::table('city_areas')->where('city_id',$city_id)->where('is_active',1)->orderBy('name','ASC')->get();
+      // dd($result);
+      return view('adminpanel.templates.area_options', compact('result','data'));
+  }
     public function fetchCentersByLocation(Request $request)
     {
       $data       = 'Center';

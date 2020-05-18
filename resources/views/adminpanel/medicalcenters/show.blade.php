@@ -136,6 +136,22 @@
           </div>
         </div>
       </div>
+        @isset($center->article)
+        <div class="col-lg-6 mb-5">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="h6 text-uppercase mb-0">Article</h3>
+          </div>
+          <div class="card-body">
+            <div class="media row">
+              <div class="media-body col-md-6">
+                {!! $center->article !!}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      @endisset
     </div>
   </section>
 </div>

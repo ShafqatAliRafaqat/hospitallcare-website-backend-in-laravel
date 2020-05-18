@@ -98,10 +98,20 @@ class DashboardController extends Controller
                                 ->get();
                 $centers        =  Center::select('id','center_name')->orderBy('center_name','ASC')->get();
                 $treatments     = Treatment::select('id','name')->whereNotNull('parent_id')->orderBy('name','ASC')->get();
+                $website_leads  = DB::table('customer_procedures as cp')
+                                    ->join('customers as c','c.id','cp.customer_id')
+                                    ->Where('cp.status',4)
+                                    ->count();
+                $web_diagnostic =  DB::table('customer_diagnostics as cd')
+                                        ->join('customers as c','c.id','cd.customer_id')
+                                        ->Where('cd.status',4)
+                                        ->groupBy('cd.lab_id','c.id','cd.appointment_date')
+                                        ->count();
+                $facebook_leads     =   TempCustomer::count(); //Total Customers in Temp_Customers Table
+                $total_leads        =   $website_leads + $facebook_leads + $web_diagnostic; 
 
                 $total_customers    =   $customers->count(); //Total customers in Customers Table
-                $total_leads        =   TempCustomer::count(); //Total Customers in Temp_Customers Table
-                $sum_all_customers  =   $total_customers + $total_leads; //Sum of All Customers
+                $sum_all_customers  =   $total_customers + $facebook_leads; //Sum of All Customers
                 $total_centers      =   $centers->count(); //Total Centers
                 $total_doctors      =   Doctor::count();
 
@@ -178,10 +188,19 @@ class DashboardController extends Controller
                 $treatments         =   Treatment::select('id','name')->whereNotNull('parent_id')->orderBy('name','ASC')->get();
                 $specializations    =   Treatment::select('id','name')->whereNull('parent_id')->orderBy('name','ASC')->get();
                 $organizations      =   Organization::orderBy('name','ASC')->get();
-
+                $website_leads  = DB::table('customer_procedures as cp')
+                                    ->join('customers as c','c.id','cp.customer_id')
+                                    ->Where('cp.status',4)
+                                    ->count();
+                $web_diagnostic =  DB::table('customer_diagnostics as cd')
+                                        ->join('customers as c','c.id','cd.customer_id')
+                                        ->Where('cd.status',4)
+                                        ->groupBy('cd.lab_id','c.id','cd.appointment_date')
+                                        ->count();
+                $facebook_leads     =   TempCustomer::count(); //Total Customers in Temp_Customers Table
+                $total_leads        =   $website_leads + $facebook_leads + $web_diagnostic;
                 $total_customers    =   $customers->count(); //Total customers in Customers Table
-                $total_leads        =   TempCustomer::count(); //Total Customers in Temp_Customers Table
-                $sum_all_customers  =   $total_customers + $total_leads; //Sum of All Customers
+                $sum_all_customers  =   $total_customers + $facebook_leads; //Sum of All Customers
                 $total_centers      =   $centers->count(); //Total Centers
                 $total_doctors      =   Doctor::count();
                 $cities             =   DB::table('cities_of_pak')->select('id','name')->orderBy('name','ASC')->get();

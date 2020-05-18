@@ -18,7 +18,7 @@ class CustomerLoginApiController extends Controller
     public function login(Request $request)
     {
         $customer    = DB::table('customers')->where('email',$request->email)->first();
-        
+
         if(isset($customer)){
             $user     = DB::table('users')->where('email',$request->email)->whereNotNull('customer_id')->select('id','name','email','phone','is_approved','customer_id')->first();
             $emailorphone = 'email';
@@ -41,21 +41,21 @@ class CustomerLoginApiController extends Controller
                     'customer_id'   =>  $customer->id,
                     'phone'         =>  $customer->phone ,
                     'code'          =>  $code,
-                    ]);    
+                    ]);
                 }
             }
             return response()->json(['createpassword' => 'Code Sent Successfully!','customer_id'=>$customer->id], 401);
         }
-        
+
         $credentials = [
             $emailorphone   => $request->email,
             'password'      => $request->password,
             'customer_id'   => isset($user)?$user->customer_id:"",
         ];
-        
-        if (isset($user) && $user->customer_id != null) {          
+
+        if (isset($user) && $user->customer_id != null) {
             if (auth()->attempt($credentials)) {
-               
+
                 $user_id          = Auth::user()->id;
                 $customer_id      = Auth::user()->customer_id;
                 $customer         = DB::table('customers')->where('id',$customer_id)->select('id','name','email','gender','marital_status','phone','phone_verified','organization_id','employee_code','org_verified')->first();
@@ -77,6 +77,7 @@ class CustomerLoginApiController extends Controller
                 }
                 $customer_image = DB::table('customer_images')->where('customer_id',$customer_id)->first();
                 $customer->customer_id = $customer->id;
+                $customer->user_id = $user_id;
                 $customer->picture = isset($customer_image)?'https://support.hospitallcare.com/backend/uploads/customers/'.$customer_image->picture:'';
                 $token = auth()->user()->createToken('user')->accessToken;
                 return response()->json(['customer_phone'=>$customer_phone,'token' => $token,'data' => $customer], 200);
@@ -87,6 +88,29 @@ class CustomerLoginApiController extends Controller
             return response()->json(['message' => 'Please, Signup first to continue'], 401);
         }
     }
+    public function splash(Request $request){
+        if(isset($request->user_id)){
+            $user = User::where('id',$request->user_id)->where('customer_id','!=',null)->first();
+            if(isset($user)){
+                $customer_id = $user->customer_id;
+                $customer    = DB::table('customers')->where('id',$customer_id)->select('id','name','email','gender','marital_status','phone','phone_verified','organization_id','employee_code','org_verified')->first();
+                    if($customer->phone_verified == 1){
+                            $customer_phone = "approved";
+                        }else{
+                            $customer_phone = "not_approved";
+                        }
+                    $customer_image = DB::table('customer_images')->where('customer_id',$customer_id)->first();
+                    $customer->customer_id = $customer->id;
+                    $customer->user_id = $user->id;
+                    $customer->picture = isset($customer_image)?'https://support.hospitallcare.com/backend/uploads/customers/'.$customer_image->picture:'';
+                    $token = $user->createToken('user')->accessToken;
+                    return response()->json(['customer_phone'=>$customer_phone,'token' => $token,'data' => $customer], 200);
+            }
+            return response()->json(['message'=>'login to continue'], 401);
+        }else {
+            return response()->json(['data'=>'login to continue'], 401);
+        } 
+    }
     public function loginWithGoogle(Request $request)
     {
         $validate = $request->validate([
@@ -94,7 +118,7 @@ class CustomerLoginApiController extends Controller
             'google_id'      => 'required',
             'fcm_token'      => 'required',
         ]);
-        
+
         $user = User::where('email',$request->email)->where('google_id',$request->google_id)->whereNotNull('customer_id')->select('id','name','email','phone','is_approved','customer_id')->first();
         $credentials = [
             'email'         => $request->email,
@@ -120,7 +144,7 @@ class CustomerLoginApiController extends Controller
                 }
                 $customer_image = DB::table('customer_images')->where('customer_id',$customer_id)->first();
                 $customer->picture = isset($customer_image)?'https://support.hospitallcare.com/backend/uploads/customers/'.$customer_image->picture:'';
-                
+                $customer->user_id = $user_id;
                 $token = auth()->user()->createToken('user')->accessToken;
                 return response()->json(['data'=>$customer,'customer_phone'=>$customer_phone,'token' => $token,'user' => $user], 200);
             } else {
@@ -162,7 +186,11 @@ class CustomerLoginApiController extends Controller
                 }
                 $customer_image = DB::table('customer_images')->where('customer_id',$customer_id)->first();
                 $customer->picture = isset($customer_image)?'https://support.hospitallcare.com/backend/uploads/customers/'.$customer_image->picture:'';
-                
+<<<<<<< HEAD
+
+=======
+                $customer->user_id = $user_id;
+>>>>>>> 5bce2e9fdb9ea32d6536e4649abd05b8352a5856
                 $tokenResult = $user->createToken('Personal Access Token');
                 $token = $tokenResult->accessToken;
 
@@ -204,7 +232,7 @@ class CustomerLoginApiController extends Controller
         return response()->json(['message' => 'Enter valid data'], 401);
     }
     public function newPassword(Request $request){
-        
+
         $validate = $request->validate([
             'password'          => 'required|string|min:6',
         ]);
@@ -254,11 +282,15 @@ class CustomerLoginApiController extends Controller
                 }
                 $customer_image = DB::table('customer_images')->where('customer_id',$request->customer_id)->first();
                 $customer->picture = isset($customer_image)?'https://support.hospitallcare.com/backend/uploads/customers/'.$customer_image->picture:'';
-                
+<<<<<<< HEAD
+
+=======
+                $customer->user_id = $user_id;
+>>>>>>> 5bce2e9fdb9ea32d6536e4649abd05b8352a5856
                 $tokenResult = $user->createToken('Personal Access Token');
                 $token = $tokenResult->accessToken;
 
             return response()->json(['data'=>$customer,'customer_phone'=>$customer_phone,'token'=>$token,'user' => $user], 200);
-        
+
     }
 }

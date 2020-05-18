@@ -305,8 +305,9 @@ class CustomerController extends Controller
         if($customers->organization_id && $customers->employee_code){
           $display =  1;
         }
-        $careall_pass   =   DB::table('customer_careall')->where('customer_id',$id)->first();
-        // dd($customers);
+        // $careall_pass   =   DB::table('customer_careall as cc')->
+        //                     join('careallpass_category')->where('customer_id',$id)->first();
+        // dd($careall_pass);
         return view('adminpanel.customers.show', compact('customer','centers','treatments','procedures','doctors','employee','display','lab','blood_group','doctor_notes','risk_factor_notes','allergy_notes','labs'));
     }
 

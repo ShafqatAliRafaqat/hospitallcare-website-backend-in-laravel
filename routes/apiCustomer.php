@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::POST('customerapi/c1/login', 'CustomerApiControllers\CustomerLoginApiController@login');
+Route::POST('customerapi/c1/splash', 'CustomerApiControllers\CustomerLoginApiController@splash');
 Route::POST('customerapi/c1/create_new_Password/code_verification', 'CustomerApiControllers\CustomerLoginApiController@newPasswordCodeVerification');
 Route::POST('customerapi/c1/create_new_Password', 'CustomerApiControllers\CustomerLoginApiController@newPassword');
 Route::POST('customerapi/c1/login_with_google', 'CustomerApiControllers\CustomerLoginApiController@loginWithGoogle');

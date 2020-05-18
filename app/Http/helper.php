@@ -651,6 +651,9 @@ function doctor_filter($request, $d){
     if(($request->female == true) && ($request->male == false)) {
         $d  =  $d->Where('gender',$female);
     }
+    if(isset($request->online_consultation)){
+        $d = $d->where('online_consultation',$request->online_consultation);
+    }
     return $d;
 }
 function topDoctors(){

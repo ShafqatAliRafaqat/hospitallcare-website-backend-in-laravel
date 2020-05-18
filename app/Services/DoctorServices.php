@@ -2,6 +2,7 @@
 namespace App\Services;
 
 use App\Models\Admin\Center;
+use App\Models\Admin\City;
 use App\Models\Admin\Doctor;
 use App\Models\Admin\DoctorImage;
 use App\Models\Admin\DoctorPartnershipFiles;
@@ -72,6 +73,8 @@ class DoctorServices extends Service{
             'email'                     =>  'sometimes',
             'gender'                    =>  'required',
             'city_name'                 =>  'sometimes',
+            'city_id'                   =>  'sometimes',
+            'area_id'                   =>  'sometimes',
             'address'                   =>  'sometimes',
             'pmdc'                      =>  'sometimes',
             'about'                     =>  'sometimes',
@@ -321,6 +324,8 @@ public function getSecureInput($input){
         'focus_area'            => $input['focus_area'],
         'gender'                => $input['gender'],
         'city_name'             => $input['city_name'],
+        'city_id'               => $input['city_id'],
+        'area_id'               => $input['area_id'],
         'address'               => $input['address'],
         'pmdc'                  => $input['pmdc'],
         'lat'                   => $input['lat'],
@@ -364,6 +369,9 @@ public function edit_doctor($id)
     $countries              =   DB::table('countries')->get();
     $degrees                =   DB::table('degrees')->orderBy('name','ASC')->get();
     $universities           =   DB::table('universities')->orderBy('name','ASC')->get();
+    $cities                 =   City::where('is_active',1)->get();
+    $areas                  =   DB::table('city_areas')->where('city_id',$doctor->city_id)->get();
+
     if (count($doctor->centers) > 0) {
         foreach ($doctor->centers as $d) {
             $center[]       =  $d->id;
@@ -387,7 +395,7 @@ public function edit_doctor($id)
         $old_treatments     =   NULL;
     }
 
-    $d  = compact('doctor','old_speciality','old_treatment','ptnr_files','ptnr_images', 'image','doctor_certification', 'doctor_qualification', 'centers', 'old_centers','treatments','old_treatments','countries','degrees','universities','specialities');
+    $d  = compact('doctor','old_speciality','old_treatment','ptnr_files','ptnr_images', 'image','doctor_certification', 'doctor_qualification', 'centers', 'old_centers','treatments','old_treatments','countries','degrees','universities','specialities','cities','areas');
     return $d;
 }
 

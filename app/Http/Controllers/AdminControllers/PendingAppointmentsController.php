@@ -19,11 +19,11 @@ class PendingAppointmentsController extends Controller
     public function index()
     {
         $customers          =   DB::table('customer_procedures as cp')
-        ->join('customers as c','c.id','cp.customer_id')
-        ->orWhere('cp.status',4)
-        ->select('c.id','c.name','c.phone','c.phone','cp.treatments_id','cp.hospital_id','cp.doctor_id','cp.appointment_date','cp.appointment_from','cp.created_at','cp.id as cp_id')
-        ->orderBy('cp.created_at','Desc')
-        ->get();
+                                ->join('customers as c','c.id','cp.customer_id')
+                                ->orWhere('cp.status',4)
+                                ->select('c.id','c.name','c.phone','c.phone','cp.treatments_id','cp.hospital_id','cp.doctor_id','cp.appointment_date','cp.appointment_from','cp.created_at','cp.id as cp_id')
+                                ->orderBy('cp.created_at','Desc')
+                                ->get();
         // dd($customers);
         return view('adminpanel.pendingappointments.index',compact('customers'));
     }

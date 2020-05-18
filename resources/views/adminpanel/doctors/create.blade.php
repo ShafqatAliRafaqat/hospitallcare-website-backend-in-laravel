@@ -145,6 +145,29 @@
               <div class="tab-content">
                <div role="tabpanel" class="tab-pane pt-3 in active" id="address-tab">
                 <div class="form-group row">
+                  <div class="col-md-2 form-control-label">Select City <span class="asterisk">*</span></div>
+                  <div class="col-md-4">
+                    <select name="city_id" id="city" class="form-control selectpicker" data-live-search="true" required>
+                      <option value="">Select City</option>
+                      @foreach($cities as $c)
+                      <option value="{{ $c->id }}">{{ $c->name }}</option>
+                      @endforeach
+                    </select>
+                    @if($errors->has('city'))
+                    <div class="invalid-feedback ml-3">{{ $errors->first('city') }}</div>
+                    @endif
+                  </div>
+                  <div class="col-md-2 form-control-label">Select Area <span class="asterisk">*</span></div>
+                  <div class="col-md-4">
+                    <select name="area_id" id="area" class="form-control selectpicker"  data-live-search="true" required>
+                      <option value="">Select Area</option>
+                    </select>
+                    @if($errors->has('area'))
+                        <div class="invalid-feedback ml-3">{{ $errors->first('area') }}</div>
+                    @endif
+                  </div>
+                </div>
+                <div class="form-group row">
                   <label class="col-md-2 form-control-label">Address  <span class="asterisk">*</span></label>
                   <div class="col-md-10 mb-2">
                     <input type="text" name="address" id="address" placeholder="Address" class="form-control {{ $errors->has('address') ? 'is-invalid' : '' }}" value="{{ old('address') }}" required>
@@ -615,7 +638,29 @@
 <!-- (Optional) Latest compiled and minified JavaScript translation files -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/i18n/defaults-*.min.js"></script>
 <script src="{{asset('backend/js/bootstrap-imageupload.js')}}"></script>
-
+<script type="text/javascript">
+$(document).on('change','#city', function(){
+    $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    // var city_id = $('#city option:selected');
+    var city_id = $(this).val();
+    // console.log(city_id);
+    $.ajax({
+      type:'post',
+      url:"{{ route('getArea') }}",
+      data: { city_id : city_id},
+      success: function(response){
+          $('#area').html(response);
+          // $('#area').addClass('selectpicker');
+          // $('#area').attr('data-live-search', 'true');
+          $('#area').selectpicker('refresh');
+      }
+    });
+  });
+</script>
 <script type="text/javascript">
   $(document).on('change','#specializationselect', function(){
     $.ajaxSetup({

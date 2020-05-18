@@ -53,7 +53,16 @@
         <div class="invalid-feedback ml-3">{{ $errors->first('image_alt') }}</div>
       @endif
     </div>
-</div>
+  </div>
+  <div class="form-group row">
+    <label class="col-md-2 form-control-label">Article</label>
+    <div class="col-md-10">
+      <textarea placeholder="Enter Details" class="form-control tiny" name="article" id="" cols="30" rows="5">{{ old('article')}}</textarea>
+      @if($errors->has('article'))
+      <div class="invalid-feedback ml-3">{{ $errors->first('article') }}</div>
+      @endif
+    </div>
+  </div>
 </div>
 <div role="tabpanel" class="tab-pane pt-3 in fade" id="partnership-tab">
   <div class="row">

@@ -4,6 +4,10 @@ namespace App\Http\Controllers\AdminControllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Center;
+use App\Models\Admin\CenterImage;
+use App\Models\Admin\CenterPartnershipFiles;
+use App\Models\Admin\CenterPartnershipImages;
+use App\Models\Admin\City;
 use App\Models\Admin\Procedure;
 use App\Models\Admin\Treatment;
 use Illuminate\Http\Request;
@@ -11,9 +15,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
-use App\Models\Admin\CenterImage;
-use App\Models\Admin\CenterPartnershipImages;
-use App\Models\Admin\CenterPartnershipFiles;
 
 class MedicalController extends Controller
 {
@@ -56,8 +57,9 @@ class MedicalController extends Controller
     {
         if( Auth::user()->can('create_medical_center') ){
             $treatments =   Treatment::where('is_active',1)->get();
+            $cities     =   City::where('is_active',1)->get();
             $button     =   "Save Center";
-            return view('adminpanel.medicalcenters.create', compact('treatments','button'));
+            return view('adminpanel.medicalcenters.create', compact('treatments','button','cities'));
         } else {
             abort(403);
         }
@@ -82,6 +84,7 @@ class MedicalController extends Controller
                 'ad_spent'              =>  'sometimes',
                 'revenue_share'         =>  'sometimes',
                 'additional_details'    =>  'sometimes',
+                'article'               =>  'sometimes',
                 'created_by'            => 'sometimes',
                 'meta_title'            => 'string|nullable',
                 'meta_description'      => 'string|nullable',
@@ -110,6 +113,7 @@ class MedicalController extends Controller
             $center->ad_spent           = $request->input('ad_spent');
             $center->revenue_share      = $request->input('revenue_share');
             $center->additional_details = $request->input('additional_details');
+            $center->article            = $request->input('article');
             $center->meta_title         = $request->input('meta_title');
             $center->meta_description   = $request->input('meta_description');
             $center->url                = $request->input('url');
@@ -218,6 +222,7 @@ class MedicalController extends Controller
                 'ad_spent'              =>  'sometimes',
                 'revenue_share'         =>  'sometimes',
                 'additional_details'    =>  'sometimes',
+                'article'               =>  'sometimes',
                 'updated_by'            => 'sometimes',
                 'meta_title'            => 'string|nullable',
                 'meta_description'      => 'string|nullable',
@@ -416,6 +421,7 @@ class MedicalController extends Controller
                     $center->ad_spent           = $request->input('ad_spent');
                     $center->revenue_share      = $request->input('revenue_share');
                     $center->additional_details = $request->input('additional_details');
+                    $center->article            = $request->input('article');
                     $center->is_active          = $request->input('is_active');
                     $center->on_web             = $request->input('on_web');
                     $center->is_approved        = 1;

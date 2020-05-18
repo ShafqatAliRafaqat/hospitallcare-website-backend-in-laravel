@@ -137,6 +137,42 @@
               <div class="tab-content">
                <div role="tabpanel" class="tab-pane pt-3 in active" id="address-tab">
                 <div class="form-group row">
+                  <div class="col-md-2 form-control-label">Select City <span class="asterisk">*</span></div>
+                  <div class="col-md-4">
+                    <select name="city_id" id="city" class="form-control selectpicker" data-live-search="true" required>
+                      <option value="">Select City</option>
+                      @foreach($cities as $c)
+                      <option value="{{ $c->id }}"
+                        @if(isset($doctor->city_id))
+                        {{ ($c->id == $doctor->city_id) ? 'selected' : ''}}
+                        @endif>
+                        {{ $c->name }}
+                      </option>
+                      @endforeach
+                    </select>
+                    @if($errors->has('city'))
+                    <div class="invalid-feedback ml-3">{{ $errors->first('city') }}</div>
+                    @endif
+                  </div>
+                  <div class="col-md-2 form-control-label">Select Area <span class="asterisk">*</span></div>
+                  <div class="col-md-4">
+                    <select name="area_id" id="area" class="form-control selectpicker"  data-live-search="true" required>
+                      <option value="">Select Area</option>
+                      @foreach($areas as $a)
+                      <option value="{{ $a->id }}"
+                        @if(isset($doctor->area_id))
+                        {{ ($a->id == $doctor->area_id) ? 'selected' : ''}}
+                        @endif>
+                        {{ $a->name }}
+                      </option>
+                      @endforeach
+                    </select>
+                    @if($errors->has('area'))
+                        <div class="invalid-feedback ml-3">{{ $errors->first('area') }}</div>
+                    @endif
+                  </div>
+                </div>
+                <div class="form-group row">
                   <label class="col-md-2 form-control-label">Address  <span class="asterisk">*</span></label>
                   <div class="col-md-10 mb-2">
                     <input type="text" name="address" id="address" placeholder="Address" class="form-control {{ $errors->has('address') ? 'is-invalid' : '' }}" value="{{ $doctor->address }}" required>

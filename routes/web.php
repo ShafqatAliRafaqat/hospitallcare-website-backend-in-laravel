@@ -59,6 +59,7 @@ Route::group(['middleware'=>['auth','role:admin|coordinator|servaid|think|organi
     Route::resource('media','MediaController');
     Route::resource('vlogs','VlogsController');
     Route::resource('pass_categories','careallpassCategoryController');
+    Route::resource('city','CityController');
 
     Route::GET('clients/documents_upload/{id}','DoctorClientController@clientsDocumentsEdit')->name('documents_upload');
     Route::POST('clients/documents_upload/{id}','DoctorClientController@clientsDocumentsUpload')->name('Upload_Customer_files');
@@ -264,6 +265,9 @@ Route::group(['middleware'=>['auth','role:admin|coordinator|servaid|think|organi
 	Route::patch('/center/detail', 'CenterController@article')->name('center-detail');
 	Route::POST('/center/{id}/detail-edit', 'CenterController@edit_article')->name('edit-article');
 
+    //Areas
+    Route::POST('city/area/create', 'CityController@store_area')->name('store_area');
+
     //Doctor Faqs
     Route::GET('doctor/{id}/faqs', 'DoctorFaqController@doctor_faqs')->name('doctor_faqs');
     Route::POST('doctor/store_faqs', 'DoctorFaqController@store_faqs')->name('store_faqs');
@@ -272,6 +276,7 @@ Route::group(['middleware'=>['auth','role:admin|coordinator|servaid|think|organi
     Route::POST('update_edit/{id}', 'DoctorFaqController@update')->name('update_edit');
 
 	/* Ajax Controller Routes */
+    Route::POST('/area/fetch', 'AjaxController@fetchArea')->name('getArea');
 	Route::POST('/procedures/fetch', 'AjaxController@fetchProcedures')->name('getProcedures');
 	Route::POST('/center_treatments/fetch', 'AjaxController@getCenterDoctorTreatments')->name('getCenterDoctorTreatments');
     Route::POST('/centers/fetch', 'AjaxController@fetchCenters')->name('getCenters');
