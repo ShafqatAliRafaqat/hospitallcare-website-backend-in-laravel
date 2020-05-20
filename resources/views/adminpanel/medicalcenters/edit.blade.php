@@ -201,6 +201,42 @@
                 <div class="tab-content">
                 <div role="tabpanel" class="tab-pane pt-3 in active" id="address-tab">
                 <div class="form-group row">
+                  <div class="col-md-2 form-control-label">Select City <span class="asterisk">*</span></div>
+                  <div class="col-md-4">
+                    <select name="city_id" id="city" class="form-control selectpicker" data-live-search="true" required>
+                      <option value="">Select City</option>
+                      @foreach($cities_db as $cit)
+                      <option value="{{ $cit->id }}"
+                        @if(isset($center->city_id))
+                        {{ ($cit->id == $center->city_id) ? 'selected' : ''}}
+                        @endif>
+                        {{ $cit->name }}
+                      </option>
+                      @endforeach
+                    </select>
+                    @if($errors->has('city_id'))
+                    <div class="invalid-feedback ml-3">{{ $errors->first('city_id') }}</div>
+                    @endif
+                  </div>
+                  <div class="col-md-2 form-control-label">Select Area <span class="asterisk">*</span></div>
+                  <div class="col-md-4">
+                    <select name="area_id" id="area" class="form-control selectpicker"  data-live-search="true" required>
+                      <option value="">Select Area</option>
+                      @foreach($areas as $a)
+                      <option value="{{ $a->id }}"
+                        @if(isset($center->area_id))
+                        {{ ($a->id == $center->area_id) ? 'selected' : ''}}
+                        @endif>
+                        {{ $a->name }}
+                      </option>
+                      @endforeach
+                    </select>
+                    @if($errors->has('area_id'))
+                        <div class="invalid-feedback ml-3">{{ $errors->first('area_id') }}</div>
+                    @endif
+                  </div>
+                </div>
+                <div class="form-group row">
                   <label class="col-md-2 form-control-label">Address  <span class="asterisk">*</span></label>
                     <div class="col-md-10 mb-2">
                       <input type="text" name="address" id="address" placeholder="Address" class="form-control {{ $errors->has('address') ? 'is-invalid' : '' }}" value="{{ $center->address }}" required>
@@ -454,14 +490,35 @@
 <!-- (Optional) Latest compiled and minified JavaScript translation files -->
 <script src="{{ asset('backend/js/bootstrap-inputmask.min.js') }}"></script>
 <script src="{{asset('backend/js/bootstrap-imageupload.js')}}"></script>
+<script type="text/javascript">
+$(document).on('change','#city', function(){
+    $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    var city_id = $(this).val();
+    console.log(city_id);
+    $.ajax({
+      type:'post',
+      url:"{{ route('getArea') }}",
+      data: { city_id : city_id},
+      success: function(response){
+          $('#area').html(response);
+          $('#area').selectpicker('refresh');
+
+      }
+    });
+  });
+</script>
 <script>
-        $(function() {
-           $('.pop').on('click', function() {
-             $('.imagepreview').attr('src', $(this).find('img').attr('src'));
-             $('#imagemodal').modal('show');
-           });
-       });
-       </script>
+  $(function() {
+     $('.pop').on('click', function() {
+       $('.imagepreview').attr('src', $(this).find('img').attr('src'));
+       $('#imagemodal').modal('show');
+     });
+ });
+ </script>
 <script>
         $(function() {
            $('.pop_pdf').on('click', function() {

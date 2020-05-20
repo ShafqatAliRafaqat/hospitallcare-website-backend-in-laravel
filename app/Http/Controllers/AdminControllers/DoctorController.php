@@ -76,7 +76,6 @@ class DoctorController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->input());
         if( Auth::user()->can('create_medical_center') ){
             $doctor     = $this->service->createService($request);
             if (isset($doctor[0]) != null) {
@@ -94,7 +93,6 @@ class DoctorController extends Controller
 
     public function update(Request $request, $id)
     {
-        // dd($request->all());
         if( Auth::user()->can('edit_medical_center') ){
             $doctor     = $this->service->updateService($request,$id);
             if (isset($doctor[0]) != null) {

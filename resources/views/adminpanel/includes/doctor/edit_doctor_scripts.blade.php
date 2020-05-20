@@ -7,7 +7,6 @@ $(document).on('change','#city', function(){
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
     });
-    // var city_id = $('#city option:selected');
     var city_id = $(this).val();
     console.log(city_id);
     $.ajax({

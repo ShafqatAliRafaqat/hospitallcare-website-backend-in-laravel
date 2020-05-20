@@ -78,7 +78,7 @@
                   <label class="col-md-3 form-control-label">Meta Title</label>
                   <div class="col-md-9">
                       <input type="text" name="meta_title" placeholder="SEO Meta Title"
-                      class="form-control {{ $errors->has('meta_title') ? 'is-invalid' : '' }}" value="{{ $blog->meta_title }}">
+                      class="form-control {{ $errors->has('meta_title') ? 'is-invalid' : '' }}" value="{{ $blog->meta_title }}" required>
 
                     @if($errors->has('meta_title'))
                       <div class="invalid-feedback ml-3">{{ $errors->first('meta_title') }}</div>
@@ -89,7 +89,7 @@
                   <label class="col-md-3 form-control-label">Meta Description</label>
                   <div class="col-md-9">
                       <input type="text" name="meta_description" placeholder="SEO Meta Description"
-                      class="form-control {{ $errors->has('meta_description') ? 'is-invalid' : '' }}" value="{{ $blog->meta_description }}">
+                      class="form-control {{ $errors->has('meta_description') ? 'is-invalid' : '' }}" value="{{ $blog->meta_description }}" required>
 
                     @if($errors->has('meta_description'))
                       <div class="invalid-feedback ml-3">{{ $errors->first('meta_description') }}</div>
@@ -100,7 +100,7 @@
                   <label class="col-md-3 form-control-label">URL</label>
                   <div class="col-md-9">
                       <input type="text" name="url" placeholder="SEO URL" 
-                      class="form-control {{ $errors->has('url') ? 'is-invalid' : '' }}" value="{{ $blog->url }}">
+                      class="form-control {{ $errors->has('url') ? 'is-invalid' : '' }}" value="{{ $blog->url }}" required>
                     @if($errors->has('url'))
                       <div class="invalid-feedback ml-3">{{ $errors->first('url') }}</div>
                     @endif

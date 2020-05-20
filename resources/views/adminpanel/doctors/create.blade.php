@@ -300,8 +300,8 @@
                 <div class="form-group row">
                   <label class="col-md-2 form-control-label">URL</label>
                   <div class="col-md-10">
-                    <input type="text" name="url" placeholder="Enter URL"
-                    class="form-control {{ $errors->has('url') ? 'is-invalid' : '' }}" value="{{ old('url') }}">
+                    <input type="text" name="url" placeholder="Enter URL like City/Speciality/Doctor-Name"
+                    class="form-control {{ $errors->has('url') ? 'is-invalid' : '' }}" value="{{ old('url') }}" required>
                     @if($errors->has('url'))
                     <div class="invalid-feedback ml-3">{{ $errors->first('url') }}</div>
                     @endif
@@ -645,9 +645,7 @@ $(document).on('change','#city', function(){
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
     });
-    // var city_id = $('#city option:selected');
     var city_id = $(this).val();
-    // console.log(city_id);
     $.ajax({
       type:'post',
       url:"{{ route('getArea') }}",

@@ -36,13 +36,6 @@
       'FCMGroup' => 'LaravelFCM\\Facades\\FCMGroup',
     ),
   ),
-  'edbizarro/laravel-facebook-ads' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Edbizarro\\LaravelFacebookAds\\Providers\\LaravelFacebookServiceProvider',
-    ),
-  ),
   'fideloper/proxy' => 
   array (
     'providers' => 

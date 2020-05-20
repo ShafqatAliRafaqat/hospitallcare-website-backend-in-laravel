@@ -27,8 +27,8 @@
   <div class="form-group row">
     <label class="col-md-2 form-control-label">URL</label>
     <div class="col-md-10">
-      <input type="text" name="url" placeholder="Enter URL"
-      class="form-control {{ $errors->has('url') ? 'is-invalid' : '' }}" value="{{ old('url') }}">
+      <input type="text" name="url" placeholder="Enter URL like: City/hospital-name/area"
+      class="form-control {{ $errors->has('url') ? 'is-invalid' : '' }}" value="{{ old('url') }}" required>
       @if($errors->has('url'))
       <div class="invalid-feedback ml-3">{{ $errors->first('url') }}</div>
       @endif

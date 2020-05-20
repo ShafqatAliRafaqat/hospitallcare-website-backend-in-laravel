@@ -16,6 +16,27 @@
     }
   });
 </script>
+<script type="text/javascript">
+$(document).on('change','#city', function(){
+    $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    var city_id = $(this).val();
+    $.ajax({
+      type:'post',
+      url:"{{ route('getArea') }}",
+      data: { city_id : city_id},
+      success: function(response){
+          $('#area').html(response);
+          // $('#area').addClass('selectpicker');
+          // $('#area').attr('data-live-search', 'true');
+          $('#area').selectpicker('refresh');
+      }
+    });
+  });
+</script>
 <script>
   var $imageupload = $('.imageupload');
   $imageupload.imageupload();

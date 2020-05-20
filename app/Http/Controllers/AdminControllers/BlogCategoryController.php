@@ -45,6 +45,9 @@ class BlogCategoryController extends Controller
             $blog_category = BlogCategory::create([
                 'name'          => $request->name,
                 'description'   => $request->description,
+                'url'           => $request->url,
+                'meta_title'    => $request->meta_title,
+                'meta_description'   => $request->meta_description,
                 'created_by'    =>   Auth::user()->id,
             ]);
             Session::flash('success','Blog Category Created Successfully !');
@@ -73,6 +76,9 @@ class BlogCategoryController extends Controller
             $blog_category = BlogCategory::where('id',$id)->update([
                 'name'          => $request->name,
                 'description'   => $request->description,
+                'url'           => $request->url,
+                'meta_title'    => $request->meta_title,
+                'meta_description'   => $request->meta_description,
                 'updated_by'    =>   Auth::user()->id,
             ]);
             Session::flash('success','Blog Category Updated Successfully !');

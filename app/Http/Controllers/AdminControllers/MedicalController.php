@@ -79,6 +79,8 @@ class MedicalController extends Controller
                 'lat'                   => ['required', 'regex:/[0-9]([0-9]|-(?!-))+/'],
                 'address'               => 'required',
                 'city_name'             => 'sometimes',
+                'city_id'               => 'sometimes',
+                'area_id'               => 'sometimes',
                 'area'                  => 'nullable',
                 'picture'               => 'sometimes|image|max:2048',
                 'ad_spent'              =>  'sometimes',
@@ -102,6 +104,8 @@ class MedicalController extends Controller
             $center->assistant_phone    = $request->input('assistant_phone');
             $center->phone              = $request->input('phone');
             $center->city_name          = $request->input('city_name');
+            $center->city_id            = $request->input('city_id');
+            $center->area_id            = $request->input('area_id');
             $center->address            = $request->input('address');
             $center->area               = $request->input('area');
             $center->lat                = $request->input('lat');
@@ -196,13 +200,16 @@ class MedicalController extends Controller
     {
         if( Auth::user()->can('edit_medical_center') ){
 
-            $center     = Center::where('id',$id)->with('center_treatment')->withTrashed()->first();
-            $image      = CenterImage::where('center_id',$id)->withTrashed()->first();
-            $ptnr_images= CenterPartnershipImages::where('center_id',$id)->withTrashed()->get();
-            $ptnr_files = CenterPartnershipFiles::where('center_id',$id)->withTrashed()->get();
-            $treatments = Treatment::where('is_active', 1)->with('treatment_center')->withTrashed()->get();
-            $procedures = Procedure::where('is_active', 1)->withTrashed()->get();
-            return view('adminpanel.medicalcenters.edit', compact('center','ptnr_files','ptnr_images', 'image', 'treatments', 'procedures'));
+            $center         =   Center::where('id',$id)->with('center_treatment')->withTrashed()->first();
+            $image          =   CenterImage::where('center_id',$id)->withTrashed()->first();
+            $ptnr_images    =   CenterPartnershipImages::where('center_id',$id)->withTrashed()->get();
+            $ptnr_files     =   CenterPartnershipFiles::where('center_id',$id)->withTrashed()->get();
+            $treatments     =   Treatment::where('is_active', 1)->with('treatment_center')->withTrashed()->get();
+            $procedures     =   Procedure::where('is_active', 1)->withTrashed()->get();
+            $cities_db      =   City::where('is_active',1)->get();
+            $areas          =   DB::table('city_areas')->where('city_id',$center->city_id)->get();
+            // dd($cities , $areas);
+            return view('adminpanel.medicalcenters.edit', compact('center','ptnr_files','ptnr_images', 'image', 'treatments', 'procedures','cities_db','areas'));
         } else {
             abort(403);
         }
@@ -229,7 +236,9 @@ class MedicalController extends Controller
                 'url'                   => 'string|nullable',
                 'meta_heading'          => 'string|nullable',
                 'image_alt'             => 'string|nullable',
-                'city_name'             => 'required',
+                'city_name'             => 'sometimes',
+                'city_id'               => 'sometimes',
+                'area_id'               => 'sometimes',
                 'address'               => 'sometimes',
                 'area'                  => 'nullable',
                 'is_active'             => 'nullable',
@@ -415,6 +424,8 @@ class MedicalController extends Controller
                     $center->phone              = $request->input('phone');
                     $center->city_name          = $request->input('city_name');
                     $center->address            = $request->input('address');
+                    $center->city_id            = $request->input('city_id');
+                    $center->area_id            = $request->input('area_id');
                     $center->area               = $request->input('area');
                     $center->lat                = $request->input('lat');
                     $center->lng                = $request->input('lng');

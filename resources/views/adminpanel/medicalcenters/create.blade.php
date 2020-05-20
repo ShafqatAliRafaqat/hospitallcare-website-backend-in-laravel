@@ -39,7 +39,7 @@
               @include('adminpanel.includes.center.create_center2')
 
               <div role="tabpanel" class="tab-pane pt-3 in active" id="address-tab">
-{{--                 <div class="form-group row">
+                <div class="form-group row">
                   <div class="col-md-2 form-control-label">Select City <span class="asterisk">*</span></div>
                   <div class="col-md-4">
                     <select name="city_id" id="city" class="form-control selectpicker" data-live-search="true" required>
@@ -61,7 +61,7 @@
                         <div class="invalid-feedback ml-3">{{ $errors->first('area') }}</div>
                     @endif
                   </div>
-                </div> --}}
+                </div>
                 <div class="form-group row">
                   <label class="col-md-2 form-control-label">Address  <span class="asterisk">*</span></label>
                   <div class="col-md-10 mb-2">

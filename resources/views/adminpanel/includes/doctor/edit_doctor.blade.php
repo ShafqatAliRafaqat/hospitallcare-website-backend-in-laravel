@@ -150,8 +150,8 @@
                       </option>
                       @endforeach
                     </select>
-                    @if($errors->has('city'))
-                    <div class="invalid-feedback ml-3">{{ $errors->first('city') }}</div>
+                    @if($errors->has('city_id'))
+                    <div class="invalid-feedback ml-3">{{ $errors->first('city_id') }}</div>
                     @endif
                   </div>
                   <div class="col-md-2 form-control-label">Select Area <span class="asterisk">*</span></div>
@@ -167,8 +167,8 @@
                       </option>
                       @endforeach
                     </select>
-                    @if($errors->has('area'))
-                        <div class="invalid-feedback ml-3">{{ $errors->first('area') }}</div>
+                    @if($errors->has('area_id'))
+                        <div class="invalid-feedback ml-3">{{ $errors->first('area_id') }}</div>
                     @endif
                   </div>
                 </div>
