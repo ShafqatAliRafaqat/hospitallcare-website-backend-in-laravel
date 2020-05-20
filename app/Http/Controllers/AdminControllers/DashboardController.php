@@ -460,8 +460,7 @@ class DashboardController extends Controller
                 $status           = DB::table('status')->limit(4)->get();
                 $centers          = Center::select('id','center_name')->get();
 
-        return view('centerpanel.home',
-        compact('thisYearDontCall','thisYearNoContact','thisYearCustomer','thisYearHot','thisYearWarm','thisYearCold','total_this_year',
+        return view('centerpanel.home',compact('thisYearDontCall','thisYearNoContact','thisYearCustomer','thisYearHot','thisYearWarm','thisYearCold','total_this_year',
                 'thisMonthDontCall','thisMonthNoContact','thisMonthCustomer','thisMonthHot','thisMonthWarm','thisMonthCold','total_this_month',
                 'thisWeekDontCall','thisWeekNoContact','thisWeekCustomer','thisWeekHot','thisWeekWarm','thisWeekCold','total_this_week',
                 'previousWeekDontCall','previousWeekNoContact','previousWeekCustomer','previousWeekHot','previousWeekWarm','previousWeekCold','total_previous_week',
@@ -545,8 +544,7 @@ class DashboardController extends Controller
             $status           = DB::table('status')->limit(4)->get();
             $doctors          = Center::select('id','center_name')->get();
 
-        return view('doctorpanel.home',
-        compact('thisYearDontCall','thisYearNoContact','thisYearCustomer','thisYearHot','thisYearWarm','thisYearCold','total_this_year',
+        return view('doctorpanel.home',compact('thisYearDontCall','thisYearNoContact','thisYearCustomer','thisYearHot','thisYearWarm','thisYearCold','total_this_year',
                 'thisMonthDontCall','thisMonthNoContact','thisMonthCustomer','thisMonthHot','thisMonthWarm','thisMonthCold','total_this_month',
                 'thisWeekDontCall','thisWeekNoContact','thisWeekCustomer','thisWeekHot','thisWeekWarm','thisWeekCold','total_this_week',
                 'previousWeekDontCall','previousWeekNoContact','previousWeekCustomer','previousWeekHot','previousWeekWarm','previousWeekCold','total_previous_week',
