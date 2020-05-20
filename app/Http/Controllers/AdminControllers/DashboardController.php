@@ -548,7 +548,7 @@ class DashboardController extends Controller
                 'thisMonthDontCall','thisMonthNoContact','thisMonthCustomer','thisMonthHot','thisMonthWarm','thisMonthCold','total_this_month',
                 'thisWeekDontCall','thisWeekNoContact','thisWeekCustomer','thisWeekHot','thisWeekWarm','thisWeekCold','total_this_week',
                 'previousWeekDontCall','previousWeekNoContact','previousWeekCustomer','previousWeekHot','previousWeekWarm','previousWeekCold','total_previous_week',
-                'todayDontCall','todayNoContact','todayCustomer','todayHot','todayWarm','todayCold','total_today','status','previous_count','today_count','upcoming_count'));
+                'todayDontCall','todayNoContact','todayCustomer','todayHot','todayWarm','todayCold','total_today','status','today_count','upcoming_count'));
         } else if (Auth::user()->hasRole('doctor_profile')) {
             $doctor_id      =   Auth::user()->doctor_id;
             $doctor         =   Doctor::where('id',$doctor_id)->first();
