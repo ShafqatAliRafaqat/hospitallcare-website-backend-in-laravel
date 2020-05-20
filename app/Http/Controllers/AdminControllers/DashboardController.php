@@ -379,8 +379,7 @@ class DashboardController extends Controller
                                     ->where('cc.status',3)
                                     ->whereNull('cc.deleted_at')
                                     ->count();
-        return view('orgpanel.home',
-        compact('thisYearDontCall','thisYearNoContact','thisYearCustomer','thisYearHot','thisYearWarm','thisYearCold','total_this_year',
+        return view('orgpanel.home',compact('thisYearDontCall','thisYearNoContact','thisYearCustomer','thisYearHot','thisYearWarm','thisYearCold','total_this_year',
                 'thisMonthDontCall','thisMonthNoContact','thisMonthCustomer','thisMonthHot','thisMonthWarm','thisMonthCold','total_this_month',
                 'thisWeekDontCall','thisWeekNoContact','thisWeekCustomer','thisWeekHot','thisWeekWarm','thisWeekCold','total_this_week',
                 'previousWeekDontCall','previousWeekNoContact','previousWeekCustomer','previousWeekHot','previousWeekWarm','previousWeekCold','total_previous_week',
